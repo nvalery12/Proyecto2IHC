@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'card_reminder.dart';
+import 'package:proyectoihc2/reminder.dart';
+import 'card_reminder_list.dart';
+import 'reminder.dart';
+
+List<Reminder> litems = [];
 
 void main() {
   runApp(MyApp());
@@ -30,8 +34,15 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: CardReminder(),
-
+      body: CardReminderList(litems),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (){
+          litems.add(Reminder());
+          print("Si se metio");
+          setState((){});
+        },
+      ),
     );
   }
 }
