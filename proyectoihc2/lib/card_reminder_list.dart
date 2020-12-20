@@ -17,7 +17,7 @@ class _CardReminderListState extends State<CardReminderList> {
     return ListView.builder(
       itemCount: this.widget.litems.length,
       itemBuilder: (BuildContext ctxt, int Index) {
-        return CardReminder();
+        return CardReminder(this.widget.litems[Index]);
       },
     );
   }

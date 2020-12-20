@@ -38,7 +38,10 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: (){
-          litems.add(Reminder());
+          litems.add(Reminder(
+            title: 'Titulo',
+            subTitle: 'subTitulo'
+          ));
           print("Si se metio");
           setState((){});
         },
