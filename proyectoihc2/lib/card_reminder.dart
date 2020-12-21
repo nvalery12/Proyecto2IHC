@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'reminder.dart';
 
 class CardReminder extends StatelessWidget {
-
-
+  Reminder reminder;
+  CardReminder(this.reminder);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return RaisedButton(onPressed: null,
+    return Container(
       child:Container(
         width: (MediaQuery.of(context).size.width)/1.25,
         height: (MediaQuery.of(context).size.height)/13,
@@ -19,8 +20,8 @@ class CardReminder extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Column(
                   children: [
-                    Text("Titulo", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,)),
-                    Text("Subtitulo", style: TextStyle(fontSize: 13), )
+                    Text(reminder.title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,)),
+                    Text(reminder.subTitle, style: TextStyle(fontSize: 13), )
                   ],
                 ),
               )
@@ -34,7 +35,7 @@ class CardReminder extends StatelessWidget {
                 child: Column(
                   children: [
                     Text("-50", style: TextStyle(fontSize: 20)),
-                    Text("Fecha y Hora", style: TextStyle(fontSize: 5))
+                    Text("ASs", style: TextStyle(fontSize: 5))
                   ],
                 ),
 
