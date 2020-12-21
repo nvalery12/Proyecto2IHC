@@ -39,12 +39,12 @@ class CardReminder extends StatelessWidget {
                   ],
                 ),
 
+                )
               )
-            )
 
-          ],
-        ),
-
+            ],
+          ),
+        )
       )
     );
   }
