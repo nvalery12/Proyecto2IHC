@@ -9,7 +9,6 @@ class CardReminder extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      child:Container(
         width: (MediaQuery.of(context).size.width)/1.25,
         height: (MediaQuery.of(context).size.height)/13,
         child: Row(
@@ -38,14 +37,10 @@ class CardReminder extends StatelessWidget {
                     Text("ASs", style: TextStyle(fontSize: 5))
                   ],
                 ),
-
                 )
               )
-
             ],
           ),
-        )
-      )
-    );
+        );
   }
 }

@@ -31,8 +31,10 @@ class _CardReminderListState extends State<CardReminderList> {
       performsFirstActionWithFullSwipe: true,
       trailingActions: [ //Opciones de derecha a izquierda
         SwipeAction(
-            title: "delete",
-            nestedAction: SwipeNestedAction(title: "confirm"),
+            icon: Icon(
+              Icons.watch_later
+            ),
+            nestedAction: SwipeNestedAction(title: "Confirmar"),
             onTap: (handler) async {
               await handler(true);
               this.widget.litems.removeAt(index);
@@ -40,13 +42,14 @@ class _CardReminderListState extends State<CardReminderList> {
             }),
       ],
       leadingActions: [ //Opciones de izquierda a derecha
-        /*SwipeAction(
-            title: "delete",
+        SwipeAction(
+            title: "Completar",
+            color: Colors.green,
             onTap: (handler) async {
               await handler(true);
               this.widget.litems.removeAt(index);
               setState(() {});
-            }),*/
+            }),
       ],
       child: CardReminder(this.widget.litems[index]),
     );
