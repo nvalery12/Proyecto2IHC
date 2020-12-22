@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'card_reminder_list.dart';
 import 'reminder.dart';
+import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 
 class MainPage extends StatefulWidget{
   List<Reminder> litems;
@@ -25,6 +26,18 @@ class _MainPageState extends State<MainPage> {
                   title: 'Parcial',
                   subTitle: 'IHC 5%'
               ));
+              var date = DateTime.now();
+              showMaterialDatePicker(
+                context: context,
+                selectedDate: date,
+                onChanged: (value) => setState(() => date = value),
+              );
+              var time = TimeOfDay.now();
+              showMaterialTimePicker(
+                context: context,
+                selectedTime: time,
+                onChanged: (value) => setState(() => time = value),
+              );
               setState((){});
             },
             backgroundColor: Color(0xff686d76),
