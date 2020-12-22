@@ -11,7 +11,7 @@ class Basedatos{
     _db = await openDatabase(path,
       version: 1,
       onCreate: (Database db, int version){
-        db.execute("CREATE TABLE task (id INTEGER PRIMERY KEY, title TEXT NOT NULL, subtitle TEXT, finish INTEGER DEFAULT 0, time TEXT NOT NULL ");
+        db.execute("CREATE TABLE task (id INTEGER PRIMERY KEY, title TEXT NOT NULL, subtitle TEXT, finish INTEGER DEFAULT 0, time TEXT NOT NULL");
       }
     );
     print("--- Base de datos inicializada ---");
