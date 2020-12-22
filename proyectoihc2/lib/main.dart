@@ -39,13 +39,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
         onPressed: (){
           litems.add(Reminder(
-            title: 'Titulo',
-            subTitle: 'subTitulo'
+            title: 'Parcial',
+            subTitle: 'IHC 5%'
           ));
           print("Si se metio");
           setState((){});
         },
       ),
+      backgroundColor: Color(0xff373a40),
     );
   }
 }

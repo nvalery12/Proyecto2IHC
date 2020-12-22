@@ -3,8 +3,21 @@ class Reminder{
   String title;
   String subTitle;
   bool isFinish;
-  DateTime deadLine = DateTime.now();
+  DateTime deadLine = DateTime.utc(2020,12,24);
   Reminder({this.title,this.subTitle,this.id});
+
+  String remainigTime(){
+    Duration difference = deadLine.difference(DateTime.now());
+    var day = difference.inDays;
+    return "$day";
+  }
+
+  String deadLineDate(){
+    var day = this.deadLine.day;
+    var month = this.deadLine.month;
+    var year = this.deadLine.year;
+    return "$day/$month/$year";
+  }
 
   Map<String, dynamic> toMap(){
     return {

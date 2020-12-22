@@ -9,33 +9,57 @@ class CardReminder extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-        width: (MediaQuery.of(context).size.width)/1.25,
-        height: (MediaQuery.of(context).size.height)/13,
+        height: (MediaQuery.of(context).size.height)/7,
+        color: Color(0xff686d76),
         child: Row(
           children: [
             Expanded(
               flex: 1,
               child: Container(
                 alignment: Alignment.centerLeft,
-                child: Column(
-                  children: [
-                    Text(reminder.title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,)),
-                    Text(reminder.subTitle, style: TextStyle(fontSize: 13), )
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      Text(reminder.title,
+                            style: TextStyle(
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                            )
+                        ),
+                      Text(reminder.subTitle,
+                            style: TextStyle(
+                              fontSize: 20,
+                            )
+                        ),
+                    ],
+                  ),
                 ),
               )
             ),
-
             Expanded(
               flex: -1,
               child: Container(
+                color: Color(0xff30475e),
                 alignment: Alignment.center,
-                width: (MediaQuery.of(context).size.width)/8,
-                child: Column(
-                  children: [
-                    Text("-50", style: TextStyle(fontSize: 20)),
-                    Text("ASs", style: TextStyle(fontSize: 5))
-                  ],
+                width: (MediaQuery.of(context).size.width)/4,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      Text(reminder.remainigTime(),
+                          style: TextStyle(
+                              fontSize: 35
+                          )
+                      ),
+                      Text(reminder.deadLineDate(),
+                          style:
+                          TextStyle(
+                              fontSize: 15
+                          )
+                      )
+                    ],
+                  ),
                 ),
                 )
               )
