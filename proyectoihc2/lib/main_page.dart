@@ -25,10 +25,9 @@ class _MainPageState extends State<MainPage> {
                   title: 'Parcial',
                   subTitle: 'IHC 5%'
               ));
-              print("Si se metio");
               setState((){});
             },
-            backgroundColor: Colors.blueGrey,
+            backgroundColor: Color(0xff686d76),
           ),
         )
       ],

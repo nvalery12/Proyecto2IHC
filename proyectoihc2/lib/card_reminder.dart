@@ -24,12 +24,13 @@ class CardReminder extends StatelessWidget {
                       Text(reminder.title,
                             style: TextStyle(
                               fontSize: 40,
-                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             )
                         ),
                       Text(reminder.subTitle,
                             style: TextStyle(
                               fontSize: 20,
+                              color: Colors.white
                             )
                         ),
                     ],
@@ -48,16 +49,26 @@ class CardReminder extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(reminder.remainigTime(),
-                          style: TextStyle(
-                              fontSize: 35
+                          style:
+                          TextStyle(
+                            fontSize: 35,
+                            color: Colors.white,
                           )
                       ),
                       Text(reminder.deadLineDate(),
                           style:
                           TextStyle(
-                              fontSize: 15
+                              fontSize: 15,
+                              color: Colors.white,
                           )
-                      )
+                      ),
+                      Text(reminder.deadLineTime(),
+                          style:
+                          TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                          )
+                      ),
                     ],
                   ),
                 ),
