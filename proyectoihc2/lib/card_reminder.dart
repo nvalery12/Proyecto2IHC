@@ -8,13 +8,15 @@ class CardReminder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-        width: (MediaQuery.of(context).size.width)/1.25,
-        height: (MediaQuery.of(context).size.height)/13,
+    return Expanded(
+      flex: 1,
+      child:Container(
+        //width: (MediaQuery.of(context).size.width)/1.25,
+        //height: (MediaQuery.of(context).size.height)/13,
         child: Row(
           children: [
             Expanded(
-              flex: 1,
+              flex: 3,
               child: Container(
                 alignment: Alignment.centerLeft,
                 child: Column(
@@ -27,7 +29,7 @@ class CardReminder extends StatelessWidget {
             ),
 
             Expanded(
-              flex: -1,
+              flex: 1,
               child: Container(
                 alignment: Alignment.center,
                 width: (MediaQuery.of(context).size.width)/8,
@@ -37,10 +39,14 @@ class CardReminder extends StatelessWidget {
                     Text("ASs", style: TextStyle(fontSize: 5))
                   ],
                 ),
+
                 )
               )
+
             ],
           ),
-        );
+        )
+      );
+
   }
 }

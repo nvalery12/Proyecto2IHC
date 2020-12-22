@@ -20,28 +20,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ab1080e-91c2-490b-9f83-89f46841ce11" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Proyecto2IHC.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/markdown-navigator-enh.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/markdown-navigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyectoihc2/ios/Podfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyectoihc2/lib/calendar.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/proyectoihc2/lib/calendar_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyectoihc2/ios/Flutter/Debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/ios/Flutter/Debug.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyectoihc2/ios/Flutter/Release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/ios/Flutter/Release.xcconfig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/card_reminder.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/card_reminder.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyectoihc2/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyectoihc2/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1lyp6ItBa9F5sjUuZGQbTpg23aF" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -87,31 +102,35 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="184" y="109" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1608581625307">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="184" y="109" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1608581625307" />
-    <state x="133" y="77" width="1240" height="700" key="AVDManager" timestamp="1608581602582">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="133" y="77" width="1240" height="700" key="AVDManager" timestamp="1608658342334">
+      <screen x="0" y="25" width="1440" height="799" />
     </state>
     <state x="133" y="77" width="1240" height="700" key="AVDManager/0.0.1440.900@0.0.1440.900" timestamp="1608581602582" />
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1608582910368">
+    <state x="133" y="77" width="1240" height="700" key="AVDManager/0.25.1440.799@0.25.1440.799" timestamp="1608658342334" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1608660652672">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1608582910368" />
-    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1608582910367">
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1608660652672" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1608660652671">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1608582910367" />
-    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1608582910366">
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1608660652671" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1608660652671">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1608582910366" />
-    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1608582910367">
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1608660652671" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1608660652672">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1608582910367" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1608660652672" />
     <state x="238" y="103" key="SettingsEditor" timestamp="1608581602053">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
