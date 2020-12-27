@@ -18,7 +18,12 @@ class MyApp extends StatelessWidget {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp(
         title: 'FiTime',
-        home: MyHomePage()
+        home: MyHomePage(),
+        theme: ThemeData(
+          primaryColor: Color(0xff30475e),
+          accentColor:  Color(0xff30475e),
+          cardColor:  Color(0xff30475e)
+    ),
     );
   }
 }
@@ -32,20 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: MainPage(litems),
-     /* floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: (){
-          litems.add(Reminder(
-            title: 'Parcial',
-            subTitle: 'IHC 5%'
-          ));
-          print("Si se metio");
-          setState((){});
-        },
-      ),*/
       backgroundColor: Color(0xff373a40),
     );
   }
