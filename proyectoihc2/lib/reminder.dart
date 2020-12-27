@@ -3,8 +3,8 @@ class Reminder{
   String title;
   String subTitle;
   bool isFinish;
-  DateTime deadLine = DateTime.utc(2020,12,24,7,0);
-  Reminder({this.title,this.subTitle,this.id});
+  DateTime deadLine = DateTime.now();
+  Reminder({this.title,this.subTitle,this.id,this.isFinish});
 
   String remainigTime(){
     Duration difference = deadLine.difference(DateTime.now());
@@ -43,7 +43,6 @@ class Reminder{
       "subtitle": subTitle,
       "finish": isFinish ? 1 : 0,
       "time": deadLine.toString(),
-      "id": id,
     };
   }
 

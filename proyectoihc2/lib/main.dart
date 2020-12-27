@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:proyectoihc2/main_page.dart';
+import 'package:proyectoihc2/BaseDatos.dart';
 import 'package:proyectoihc2/reminder.dart';
 import 'reminder.dart';
 
-List<Reminder> litems = [];
+
 
 void main() {
   runApp(MyApp());
@@ -34,6 +35,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Basedatos db= Basedatos();
+  List<Reminder> litems = [];
+
+  @override
+  void initState(){
+    db.initDB();
+    super.initState();
+    loadList();
+  }
+
+  void loadList() async{
+    litems= await db.getReminders();
+  }
+
 
   @override
   Widget build(BuildContext context) {
