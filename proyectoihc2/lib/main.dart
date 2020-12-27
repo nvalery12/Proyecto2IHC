@@ -37,10 +37,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState(){
     db.initDB();
     super.initState();
+    loadList();
   }
 
-  Future<List<Reminder>> loadList() async{
-    return await db.getReminders();
+  void loadList() async{
+    litems= await db.getReminders();
   }
 
 
@@ -48,8 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: //CardReminderList(litems),
-      Text("Hola"),
+      body: CardReminderList(litems),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: (){
@@ -62,7 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           );
           print("Si se metio");
-          setState((){});
+          setState((){
+            loadList();
+          });
         },
       ),
     );

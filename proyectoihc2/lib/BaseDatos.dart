@@ -10,7 +10,7 @@ class Basedatos{
     _db = await openDatabase(join(await getDatabasesPath(), 'tasks.db'),
       version: 1,
       onCreate: (db, version){
-        db.execute("CREATE TABLE task(id INTEGER PRIMERY KEY, title TEXT NOT NULL, subtitle TEXT, finish INTEGER DEFAULT 0, time TEXT NOT NULL)");
+        db.execute("CREATE TABLE task(id INTEGER PRIMARY KEY, title TEXT NOT NULL, subtitle TEXT, finish INTEGER DEFAULT 0, time TEXT NOT NULL)");
       }
     );
     print("--- Base de datos inicializada ---");
@@ -27,11 +27,16 @@ class Basedatos{
     print("--- Base de datos recuperada ---");
     return results.map((e) => Reminder.fromMap(e)).toList();*/
 
+    if(_db==null){
+      initDB();
+    }
+
     List<Reminder> lista= [];
     var resultado= await _db.query("task");
     resultado.forEach((element) {
       var objeto= Reminder.fromMap(element);
-      print("Imprimiendo: "+objeto.id.toString());
+      var num = objeto.id;
+      print("Imprimiendo: $num");
       lista.add(objeto);
     });
     return lista;
