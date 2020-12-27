@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:proyectoihc2/BaseDatos.dart';
 import 'card_reminder_list.dart';
 import 'reminder.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 
 class MainPage extends StatefulWidget{
-  List<Reminder> litems;
-  MainPage(this.litems);
+  Basedatos db;
+  MainPage(this.db);
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -27,7 +28,6 @@ class _MainPageState extends State<MainPage> {
         selectedDate = picked;
       });
   }
-
   Future<Null> _selectTime(BuildContext context) async {
     final TimeOfDay picked = await showTimePicker(
       context: context,
@@ -45,20 +45,23 @@ class _MainPageState extends State<MainPage> {
             [hh, ':', nn, " ", am]).toString();*/
       });
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Stack(
       children: [
-        CardReminderList(this.widget.litems),
+        CardReminderList(this.widget.db),
         Align(
           alignment: Alignment.bottomRight,
           child: new FloatingActionButton(
             child: new Icon(Icons.add),
             onPressed: () {
-              this.widget.litems.add(Reminder(
+              this.widget.db.insert(Reminder(
                   title: 'Parcial',
-                  subTitle: 'IHC 5%'
+                  subTitle: 'IHC 5%',
+                  id: -1,
+                  isFinish: false
               ));
               _selectDate(context);
               _selectTime(context);

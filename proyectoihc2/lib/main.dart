@@ -36,24 +36,19 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Basedatos db= Basedatos();
-  List<Reminder> litems = [];
 
   @override
   void initState(){
     db.initDB();
     super.initState();
-    loadList();
   }
 
-  void loadList() async{
-    litems= await db.getReminders();
-  }
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MainPage(litems),
+      body: MainPage(db),
       backgroundColor: Color(0xff373a40),
     );
   }

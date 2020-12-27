@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:proyectoihc2/BaseDatos.dart';
 import 'card_reminder.dart';
 import 'reminder.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 
 
 class CardReminderList extends StatefulWidget{
-  List<Reminder> litems;
-  CardReminderList(this.litems);
+  Basedatos db;
+  CardReminderList(this.db);
   @override
   _CardReminderListState createState() => _CardReminderListState();
 }
@@ -16,18 +17,28 @@ class _CardReminderListState extends State<CardReminderList> {
   Widget build(BuildContext context) {
 
     // TODO: implement build
-    return ListView.builder(
-      physics: BouncingScrollPhysics(),
-      itemCount: this.widget.litems.length,
-      itemBuilder: (BuildContext ctxt, int Index) {
-        return _item(Index);
+    return FutureBuilder<List>(
+      future: this.widget.db.getReminders(),
+      initialData: List(),
+      builder: (context, snapshot){
+        return snapshot.hasData ?
+        ListView.builder(
+          physics: BouncingScrollPhysics(),
+          itemCount: snapshot.data.length,
+          itemBuilder: (BuildContext ctxt, int Index) {
+            return _item(Index,snapshot);
+          },
+        ) :
+        Center(
+          child: Text("Ingrese una tarea"),
+        );
       },
     );
   }
-  Widget _item(int index) {
+  Widget _item(int index, AsyncSnapshot<dynamic> snapshot) {
     return SwipeActionCell(
       index: index,
-      key: ValueKey(this.widget.litems[index]),
+      key: ValueKey(snapshot.data[index]),
       performsFirstActionWithFullSwipe: true,
       trailingActions: [ //Opciones de derecha a izquierda
         SwipeAction(
@@ -37,7 +48,8 @@ class _CardReminderListState extends State<CardReminderList> {
             nestedAction: SwipeNestedAction(title: "Confirmar"),
             onTap: (handler) async {
               await handler(true);
-              this.widget.litems.removeAt(index);
+              this.widget.db.delete(snapshot.data[index].id); // Snapshot.data = List<Reminder>
+              snapshot.data.removeAt(index);
               setState(() {});
             }),
       ],
@@ -47,11 +59,11 @@ class _CardReminderListState extends State<CardReminderList> {
             color: Colors.green,
             onTap: (handler) async {
               await handler(true);
-              this.widget.litems.removeAt(index);
+              this.widget.db.delete(snapshot.data[index].id);
               setState(() {});
             }),
       ],
-      child: CardReminder(this.widget.litems[index]),
+      child: CardReminder(snapshot.data[index]),
     );
   }
 }
