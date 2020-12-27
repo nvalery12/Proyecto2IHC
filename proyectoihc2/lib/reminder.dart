@@ -4,7 +4,7 @@ class Reminder{
   String subTitle;
   bool isFinish;
   DateTime deadLine = DateTime.now();
-  Reminder({this.title,this.subTitle,this.id});
+  Reminder({this.title,this.subTitle,this.id,this.isFinish});
 
   Map<String, dynamic> toMap(){
     return {
@@ -12,7 +12,6 @@ class Reminder{
       "subtitle": subTitle,
       "finish": isFinish ? 1 : 0,
       "time": deadLine.toString(),
-      "id": id,
     };
   }
 

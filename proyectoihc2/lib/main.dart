@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:proyectoihc2/BaseDatos.dart';
 import 'package:proyectoihc2/reminder.dart';
 import 'card_reminder_list.dart';
 import 'reminder.dart';
 
-List<Reminder> litems = [];
+
 
 void main() {
   runApp(MyApp());
@@ -29,19 +30,37 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Basedatos db= Basedatos();
+  List<Reminder> litems = [];
+
+  @override
+  void initState(){
+    db.initDB();
+    super.initState();
+  }
+
+  Future<List<Reminder>> loadList() async{
+    return await db.getReminders();
+  }
+
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: CardReminderList(litems),
+      body: //CardReminderList(litems),
+      Text("Hola"),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: (){
-          litems.add(Reminder(
-            title: 'Titulo',
-            subTitle: 'subTitulo'
-          ));
+          db.insert(
+            Reminder(
+              title: "Titulo",
+              subTitle: "Subtitulo",
+              isFinish: false,
+              id: -1,
+            )
+          );
           print("Si se metio");
           setState((){});
         },
