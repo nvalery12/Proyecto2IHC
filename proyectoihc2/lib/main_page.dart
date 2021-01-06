@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:proyectoihc2/BaseDatos.dart';
 import 'card_reminder_list.dart';
 import 'reminder.dart';
-import 'package:flutter_picker/flutter_picker.dart';
 
 class MainPage extends StatefulWidget{
   Basedatos db;
@@ -56,15 +55,15 @@ class _MainPageState extends State<MainPage> {
           alignment: Alignment.bottomRight,
           child: new FloatingActionButton(
             child: new Icon(Icons.add),
-            onPressed: () {
+            onPressed: () async {
+              await _selectDate(context);
+              await _selectTime(context);
               this.widget.db.insert(Reminder(
                   title: 'Parcial',
                   subTitle: 'IHC 5%',
                   id: -1,
                   isFinish: false
               ));
-              _selectDate(context);
-              _selectTime(context);
               setState((){});
             },
             backgroundColor: Color(0xff686d76),
