@@ -12,8 +12,49 @@ class MainPage extends StatefulWidget{
 
 
 class _MainPageState extends State<MainPage> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Stack(
+      children: [
+        CardReminderList(this.widget.db),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: new FloatingActionButton(
+            child: new Icon(Icons.add),
+            onPressed: () async {
+              Reminder reminder;
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SecondRoute(reminder)),);
+             /* await _selectDate(context);
+              await _selectTime(context);
+              this.widget.db.insert(Reminder(
+                  title: 'Parcial',
+                  subTitle: 'IHC 5%',
+                  id: -1,
+                  isFinish: false
+              ));*/
+              setState((){});
+            },
+            backgroundColor: Color(0xff686d76),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class SecondRoute extends StatefulWidget {
+  Reminder reminder;
+  SecondRoute(reminder);
+  @override
+  _SecondRouteState createState() => _SecondRouteState();
+}
+
+class _SecondRouteState extends State<SecondRoute> {
   DateTime selectedDate;
   TimeOfDay selectedTime;
+
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
@@ -27,6 +68,7 @@ class _MainPageState extends State<MainPage> {
         selectedDate = picked;
       });
   }
+
   Future<Null> _selectTime(BuildContext context) async {
     final TimeOfDay picked = await showTimePicker(
       context: context,
@@ -45,32 +87,50 @@ class _MainPageState extends State<MainPage> {
       });
   }
 
+  String title;
+  String subtitle;
+  final controllerTitleText = TextEditingController();
+  final controllerSubTitleText = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Stack(
-      children: [
-        CardReminderList(this.widget.db),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: new FloatingActionButton(
-            child: new Icon(Icons.add),
-            onPressed: () async {
-              await _selectDate(context);
-              await _selectTime(context);
-              this.widget.db.insert(Reminder(
-                  title: 'Parcial',
-                  subTitle: 'IHC 5%',
-                  id: -1,
-                  isFinish: false
-              ));
-              setState((){});
-            },
-            backgroundColor: Color(0xff686d76),
-          ),
-        )
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Second Route"),
+      ),
+      body: Container(
+        child:  Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Titulo',
+              ),
+              controller: controllerTitleText,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Descripción',
+              ),
+              controller: controllerSubTitleText,
+            ),
+            ElevatedButton(
+              onPressed: () async{
+                print(controllerTitleText.text);
+                print(controllerSubTitleText.text);
+                await _selectDate(context);
+                await _selectTime(context);
+
+                Navigator.pop(context);
+              },
+              child: Text('Go back!'),
+            ),
+          ],
+
+        ),
+      ),
     );
   }
-
 }
+
+
