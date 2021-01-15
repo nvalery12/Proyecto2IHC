@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'card_reminder_list.dart';
 import 'reminder.dart';
-import 'package:flutter_picker/flutter_picker.dart';
 
 class MainPage extends StatefulWidget{
   List<Reminder> litems;
@@ -10,10 +9,48 @@ class MainPage extends StatefulWidget{
   _MainPageState createState() => _MainPageState();
 }
 
-
 class _MainPageState extends State<MainPage> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Stack(
+      children: [
+        CardReminderList(this.widget.litems),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: new FloatingActionButton(
+            child: new Icon(Icons.add),
+            onPressed: () async {
+              Reminder reminder;
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SecondRoute(reminder)
+                  ),
+              );
+              this.widget.litems.add(Reminder(
+                  title: 'Parcial',
+                  subTitle: 'IHC 5%'
+              ));
+              setState((){});
+            },
+            backgroundColor: Color(0xff686d76),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class SecondRoute extends StatefulWidget {
+  Reminder reminder;
+  SecondRoute(reminder);
+  @override
+  _SecondRouteState createState() => _SecondRouteState();
+}
+
+class _SecondRouteState extends State<SecondRoute> {
   DateTime selectedDate;
   TimeOfDay selectedTime;
+
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
@@ -45,30 +82,50 @@ class _MainPageState extends State<MainPage> {
             [hh, ':', nn, " ", am]).toString();*/
       });
   }
+
+  String title;
+  String subtitle;
+  final controllerTitleText = TextEditingController();
+  final controllerSubTitleText = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Stack(
-      children: [
-        CardReminderList(this.widget.litems),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: new FloatingActionButton(
-            child: new Icon(Icons.add),
-            onPressed: () {
-              this.widget.litems.add(Reminder(
-                  title: 'Parcial',
-                  subTitle: 'IHC 5%'
-              ));
-              _selectDate(context);
-              _selectTime(context);
-              setState((){});
-            },
-            backgroundColor: Color(0xff686d76),
-          ),
-        )
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Second Route"),
+      ),
+      body: Container(
+        child:  Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Titulo',
+              ),
+              controller: controllerTitleText,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Descripción',
+              ),
+              controller: controllerSubTitleText,
+            ),
+            ElevatedButton(
+              onPressed: () async{
+                print(controllerTitleText.text);
+                print(controllerSubTitleText.text);
+                await _selectDate(context);
+                await _selectTime(context);
+
+                Navigator.pop(context);
+              },
+              child: Text('Go back!'),
+            ),
+          ],
+
+        ),
+      ),
     );
   }
-
 }
+
