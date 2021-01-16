@@ -5,7 +5,7 @@ import 'package:proyectoihc2/main_page.dart';
 import 'package:proyectoihc2/reminder.dart';
 import 'reminder.dart';
 
-List<Reminder> litems = [];
+List<Reminder> litems = List<Reminder>();
 
 void main() {
   runApp(MyApp());

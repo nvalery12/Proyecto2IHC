@@ -10,6 +10,9 @@ class MainPage extends StatefulWidget{
 }
 
 class _MainPageState extends State<MainPage> {
+  void updateState(){
+    setState((){});
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -20,16 +23,13 @@ class _MainPageState extends State<MainPage> {
           alignment: Alignment.bottomRight,
           child: new FloatingActionButton(
             child: new Icon(Icons.add),
-            onPressed: () async {
+            onPressed: (){
               Reminder reminder;
               Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SecondRoute(reminder)
+                MaterialPageRoute(builder: (context) => SecondRoute(this.widget.litems,updateState)
                   ),
               );
-              this.widget.litems.add(Reminder(
-                  title: 'Parcial',
-                  subTitle: 'IHC 5%'
-              ));
+              print("Dentro de main " + this.widget.litems.first.title);
               setState((){});
             },
             backgroundColor: Color(0xff686d76),
@@ -41,8 +41,9 @@ class _MainPageState extends State<MainPage> {
 }
 
 class SecondRoute extends StatefulWidget {
-  Reminder reminder;
-  SecondRoute(reminder);
+  final updateState;
+  List<Reminder> litems;
+  SecondRoute(this.litems, this.updateState);
   @override
   _SecondRouteState createState() => _SecondRouteState();
 }
@@ -73,18 +74,9 @@ class _SecondRouteState extends State<SecondRoute> {
     if (picked != null)
       setState(() {
         selectedTime = picked;
-        /*_hour = selectedTime.hour.toString();
-        _minute = selectedTime.minute.toString();
-        _time = _hour + ' : ' + _minute;
-        _timeController.text = _time;
-        _timeController.text = formatDate(
-            DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
-            [hh, ':', nn, " ", am]).toString();*/
       });
   }
 
-  String title;
-  String subtitle;
   final controllerTitleText = TextEditingController();
   final controllerSubTitleText = TextEditingController();
   @override
@@ -112,11 +104,19 @@ class _SecondRouteState extends State<SecondRoute> {
             ),
             ElevatedButton(
               onPressed: () async{
-                print(controllerTitleText.text);
-                print(controllerSubTitleText.text);
                 await _selectDate(context);
                 await _selectTime(context);
-
+                Reminder reminder;
+                reminder = Reminder(
+                  title: controllerTitleText.text,
+                  subTitle: controllerSubTitleText.text,
+                );
+                reminder.updateDeadline(selectedDate, selectedTime);
+                this.widget.litems.add(
+                  reminder
+                );
+                setState(() {});
+                this.widget.updateState();
                 Navigator.pop(context);
               },
               child: Text('Go back!'),

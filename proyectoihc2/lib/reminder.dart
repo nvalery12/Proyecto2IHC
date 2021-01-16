@@ -1,10 +1,17 @@
-class Reminder{
+import 'package:flutter/material.dart';
+//= DateTime.utc(2020, 12, 24, 7, 0)
+class Reminder {
   int id;
   String title;
   String subTitle;
   bool isFinish;
-  DateTime deadLine = DateTime.utc(2020,12,24,7,0);
-  Reminder({this.title,this.subTitle,this.id});
+  DateTime deadLine;
+
+  Reminder({this.title, this.subTitle});
+
+  void updateDeadline(DateTime newDate, TimeOfDay newTime){
+    this.deadLine = DateTime.utc(newDate.year,newDate.month,newDate.day,newTime.hour,newTime.minute);
+  }
 
   String remainigTime(){
     Duration difference = deadLine.difference(DateTime.now());
