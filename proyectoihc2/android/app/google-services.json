@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1073962089443",
+    "project_id": "finals-countdown",
+    "storage_bucket": "finals-countdown.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073962089443:android:d717d964a675473602fed6",
+        "android_client_info": {
+          "package_name": "com.example.proyectoihc2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073962089443-u8tqjuopvn3kl4cjkm1dlpqt9q3gdm3e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQTgh6UMi0k1MOFjR9KfXkFPsLs_oeM5A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073962089443-u8tqjuopvn3kl4cjkm1dlpqt9q3gdm3e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

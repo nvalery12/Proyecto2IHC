@@ -29,7 +29,6 @@ class _MainPageState extends State<MainPage> {
                 MaterialPageRoute(builder: (context) => SecondRoute(this.widget.litems,updateState)
                   ),
               );
-              print("Dentro de main " + this.widget.litems.first.title);
               setState((){});
             },
             backgroundColor: Color(0xff686d76),
