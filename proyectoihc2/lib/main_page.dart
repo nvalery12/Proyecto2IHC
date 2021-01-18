@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'card_reminder_list.dart';
 import 'reminder.dart';
+import 'authServices.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget{
   List<Reminder> litems;
@@ -33,7 +35,17 @@ class _MainPageState extends State<MainPage> {
             },
             backgroundColor: Color(0xff686d76),
           ),
-        )
+        ),
+        Align(
+          alignment: Alignment.bottomLeft,
+          child: new FloatingActionButton(
+            child: new Icon(Icons.add),
+            onPressed: (){
+              context.read<AuthenticationService>().signOut();
+            },
+            backgroundColor: Color(0xff686d76),
+          ),
+        ),
       ],
     );
   }
