@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:proyectoihc2/main_page.dart';
 import 'package:proyectoihc2/reminder.dart';
+import 'package:proyectoihc2/users.dart';
 import 'reminder.dart';
 import 'package:provider/provider.dart';
 import 'authServices.dart';
@@ -51,6 +52,8 @@ class AuthenticationWrapper extends StatelessWidget {
     final firebaseUser = context.watch<User>();
 
     if (firebaseUser != null) {
+      AddUser user = AddUser(firebaseUser.uid);
+      user.addUser();
       return MyHomePage();
     }
     return SignInPage();

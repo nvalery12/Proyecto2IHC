@@ -4,7 +4,7 @@ import 'card_reminder.dart';
 import 'reminder.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'users.dart';
 
 class CardReminderList extends StatefulWidget{
   List<Reminder> litems;
@@ -71,7 +71,7 @@ class _CardReminderListState extends State<CardReminderList> {
         .get()
         .then((QuerySnapshot querySnapshot) => {
       querySnapshot.docs.forEach((doc) {
-        print("este es el doc " + doc["asd"]);
+        print("este es el doc " + doc["uid"]);
         int string = doc["Hola"];
         print("$string");
       })
