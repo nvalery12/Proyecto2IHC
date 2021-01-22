@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:proyectoihc2/database.dart';
 import 'card_reminder_list.dart';
 import 'reminder.dart';
 import 'authServices.dart';
@@ -6,7 +8,8 @@ import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget{
   List<Reminder> litems;
-  MainPage(this.litems);
+  String uid;
+  MainPage(this.litems,this.uid);
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -29,7 +32,7 @@ class _MainPageState extends State<MainPage> {
             onPressed: (){
               Reminder reminder;
               Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SecondRoute(this.widget.litems,updateState)
+                MaterialPageRoute(builder: (context) => SecondRoute(this.widget.litems,this.widget.uid,updateState)
                   ),
               );
               setState((){});
@@ -55,8 +58,9 @@ class _MainPageState extends State<MainPage> {
 
 class SecondRoute extends StatefulWidget {
   final updateState;
+  String uid;
   List<Reminder> litems;
-  SecondRoute(this.litems, this.updateState);
+  SecondRoute(this.litems,this.uid, this.updateState);
   @override
   _SecondRouteState createState() => _SecondRouteState();
 }
@@ -129,6 +133,8 @@ class _SecondRouteState extends State<SecondRoute> {
                   reminder
                 );
                 //setState(() {});
+                Database user = Database(this.widget.uid,reminder);
+                user.addReminder();
                 this.widget.updateState();
                 Navigator.pop(context);
               },

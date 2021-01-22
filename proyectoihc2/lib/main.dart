@@ -5,14 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:proyectoihc2/main_page.dart';
 import 'package:proyectoihc2/reminder.dart';
-import 'package:proyectoihc2/users.dart';
 import 'reminder.dart';
 import 'package:provider/provider.dart';
 import 'authServices.dart';
 import 'sing_in_page.dart';
 
 List<Reminder> litems = List<Reminder>();
-
+String uid;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,8 +51,7 @@ class AuthenticationWrapper extends StatelessWidget {
     final firebaseUser = context.watch<User>();
 
     if (firebaseUser != null) {
-      AddUser user = AddUser(firebaseUser.uid);
-      user.addUser();
+      uid = firebaseUser.uid;
       return MyHomePage();
     }
     return SignInPage();
@@ -70,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MainPage(litems),
+      body: MainPage(litems,uid),
       backgroundColor: Color(0xff373a40),
     );
   }
