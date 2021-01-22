@@ -25,6 +25,7 @@ class _MainPageState extends State<MainPage> {
           alignment: Alignment.bottomRight,
           child: new FloatingActionButton(
             child: new Icon(Icons.add),
+            heroTag: "btn2",
             onPressed: (){
               Reminder reminder;
               Navigator.push(context,
@@ -39,7 +40,8 @@ class _MainPageState extends State<MainPage> {
         Align(
           alignment: Alignment.bottomLeft,
           child: new FloatingActionButton(
-            child: new Icon(Icons.add),
+            child: new Icon(Icons.email),
+            heroTag: "btn1",
             onPressed: (){
               context.read<AuthenticationService>().signOut();
             },
@@ -126,7 +128,7 @@ class _SecondRouteState extends State<SecondRoute> {
                 this.widget.litems.add(
                   reminder
                 );
-                setState(() {});
+                //setState(() {});
                 this.widget.updateState();
                 Navigator.pop(context);
               },
