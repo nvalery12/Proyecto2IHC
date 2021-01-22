@@ -67,11 +67,13 @@ class _CardReminderListState extends State<CardReminderList> {
     print(auth);
     FirebaseFirestore.instance.collection('users')
         .doc(auth)
-        .collection('RecordatoriosPersonales')
+        .collection('RecordatoriosPersonales') //RecordatoriosPersonales
         .get()
         .then((QuerySnapshot querySnapshot) => {
-      querySnapshot.docs.forEach((element) {
-        print(element.id);
+      querySnapshot.docs.forEach((doc) {
+        print("este es el doc " + doc["asd"]);
+        int string = doc["Hola"];
+        print("$string");
       })
     });
   }
