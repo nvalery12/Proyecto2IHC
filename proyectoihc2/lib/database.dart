@@ -16,6 +16,7 @@ class Database{
         .add({
           'Titulo': reminder.title,
           'subTitulo': reminder.subTitle,
+          'Date': reminder.deadLine,
        })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
