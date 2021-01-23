@@ -14,14 +14,9 @@ class CardReminderList extends StatefulWidget{
 }
 
 class _CardReminderListState extends State<CardReminderList> {
-  @override
-  void initState() {
-    getList();
-    super.initState();
-  }
+
   @override
   Widget build(BuildContext context) {
-
     // TODO: implement build
     return ListView.builder(
       physics: BouncingScrollPhysics(),
@@ -31,6 +26,7 @@ class _CardReminderListState extends State<CardReminderList> {
       },
     );
   }
+
   Widget _item(int index) {
     return SwipeActionCell(
       index: index,
@@ -39,7 +35,7 @@ class _CardReminderListState extends State<CardReminderList> {
       trailingActions: [ //Opciones de derecha a izquierda
         SwipeAction(
             icon: Icon(
-              Icons.watch_later
+                Icons.watch_later
             ),
             nestedAction: SwipeNestedAction(title: "Confirmar"),
             onTap: (handler) async {
@@ -60,21 +56,5 @@ class _CardReminderListState extends State<CardReminderList> {
       ],
       child: CardReminder(this.widget.litems[index]),
     );
-  }
-  void getList( ){
-    List<Reminder> lista;
-    var auth = FirebaseAuth.instance.currentUser.uid;
-    print(auth);
-    FirebaseFirestore.instance.collection('users')
-        .doc(auth)
-        .collection('RecordatoriosPersonales') //RecordatoriosPersonales
-        .get()
-        .then((QuerySnapshot querySnapshot) => {
-      querySnapshot.docs.forEach((doc) {
-        print("este es el doc " + doc["uid"]);
-        int string = doc["Hola"];
-        print("$string");
-      })
-    });
   }
 }
