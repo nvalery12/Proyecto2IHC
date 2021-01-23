@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 void getList(){
   List<Reminder> lista = List<Reminder>();
-  var auth = FirebaseAuth.instance.currentUser.uid;
+  var auth = uid;
   print(auth);
   FirebaseFirestore.instance.collection('users')
       .doc(auth)
@@ -99,6 +99,7 @@ void getList(){
         subTitle: subtitulo
       );
       reminder.updateDeadline(date, time);
+      reminder.id=doc.id;
       litems.add(reminder);
       print("Este es el titulo: " + titulo + " Este es el subTitulo: " + subtitulo);
       print("Esta es la fecha: " + date.toString());

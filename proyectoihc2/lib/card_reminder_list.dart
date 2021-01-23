@@ -8,7 +8,8 @@ import 'database.dart';
 
 class CardReminderList extends StatefulWidget{
   List<Reminder> litems;
-  CardReminderList(this.litems);
+  String uid;
+  CardReminderList(this.litems,this.uid);
   @override
   _CardReminderListState createState() => _CardReminderListState();
 }
@@ -40,13 +41,18 @@ class _CardReminderListState extends State<CardReminderList> {
             nestedAction: SwipeNestedAction(title: "Confirmar"),
             onTap: (handler) async {
               await handler(true);
+              FirebaseFirestore.instance.collection('users')
+                  .doc(widget.uid)
+                  .collection('RecordatoriosPersonales')
+                  .doc(widget.litems[index].id)
+                  .delete();
               this.widget.litems.removeAt(index);
               setState(() {});
             }),
       ],
       leadingActions: [ //Opciones de izquierda a derecha
         SwipeAction(
-            title: "Completar",
+            title: "Editar",
             color: Colors.green,
             onTap: (handler) async {
               await handler(true);

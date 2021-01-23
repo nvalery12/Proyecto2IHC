@@ -23,7 +23,7 @@ class _MainPageState extends State<MainPage> {
     // TODO: implement build
     return Stack(
       children: [
-        CardReminderList(this.widget.litems),
+        CardReminderList(this.widget.litems,this.widget.uid),
         Align(
           alignment: Alignment.bottomRight,
           child: new FloatingActionButton(

@@ -5,6 +5,7 @@ class Reminder {
   String subTitle;
   bool isFinish;
   DateTime deadLine;
+  String id;
 
   Reminder({this.title, this.subTitle});
 
