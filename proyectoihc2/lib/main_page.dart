@@ -105,20 +105,31 @@ class _SecondRouteState extends State<SecondRoute> {
       body: Container(
         child:  Column(
           children: [
+            SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio top y primer widget
             TextField(
+              cursorColor: Colors.white,            //Color del cursor
+              style: TextStyle(color: Colors.white),//Color de texto
               decoration: InputDecoration(
+                fillColor: Color(0xff686d76),       //Color de relleno
+                filled: true,                       //Relleno activado
                 border: OutlineInputBorder(),
                 labelText: 'Titulo',
               ),
               controller: controllerTitleText,
             ),
+            SizedBox(height: MediaQuery.of(context).size.height/50,), //Espacio entre widgets
             TextField(
+              cursorColor: Colors.white,            //Color del cursor
+              style: TextStyle(color: Colors.white),//Color de texto
               decoration: InputDecoration(
+                fillColor: Color(0xff686d76),       //Color de relleno
+                filled: true,                       //Relleno activado
                 border: OutlineInputBorder(),
                 labelText: 'Descripción',
               ),
               controller: controllerSubTitleText,
             ),
+            SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio entre segundo widget y boton
             ElevatedButton(
               onPressed: () async{
                 await _selectDate(context);
@@ -138,12 +149,16 @@ class _SecondRouteState extends State<SecondRoute> {
                 this.widget.updateState();
                 Navigator.pop(context);
               },
-              child: Text('Go back!'),
+              child: Text('Next'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Color(0xff30475e)), //Color de boton
+              ),
             ),
           ],
 
         ),
       ),
+      backgroundColor: Color(0xff373a40), //color de fondo
     );
   }
 }
