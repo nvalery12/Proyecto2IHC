@@ -12,7 +12,7 @@ import 'authServices.dart';
 import 'sing_in_page.dart';
 
 List<Reminder> litems = List<Reminder>();
-String uid;
+String uid = "";
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
 class AuthenticationWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User>();
+    var firebaseUser = context.watch<User>();
 
     if (firebaseUser != null) {
       uid = firebaseUser.uid;
@@ -66,7 +66,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    setState(() {});
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,11 +81,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-void getList(){
+Future<void> getList() async{
   List<Reminder> lista = List<Reminder>();
   var auth = uid;
   print(auth);
-  FirebaseFirestore.instance.collection('users')
+  await FirebaseFirestore.instance.collection('users')
       .doc(auth)
       .collection('RecordatoriosPersonales') //RecordatoriosPersonales
       .get()
@@ -106,3 +111,4 @@ void getList(){
     })
   });
 }
+

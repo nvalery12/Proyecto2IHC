@@ -7,7 +7,7 @@ class Reminder {
   DateTime deadLine;
   String id;
 
-  Reminder({this.title, this.subTitle});
+  Reminder({this.title, this.subTitle,this.deadLine});
 
   void updateDeadline(DateTime newDate, TimeOfDay newTime) {
     this.deadLine = DateTime.utc(

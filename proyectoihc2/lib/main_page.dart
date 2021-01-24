@@ -15,12 +15,14 @@ class MainPage extends StatefulWidget{
 }
 
 class _MainPageState extends State<MainPage> {
+
   void updateState(){
     setState((){});
   }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    setState((){});
     return Stack(
       children: [
         CardReminderList(this.widget.litems,this.widget.uid),
@@ -46,6 +48,7 @@ class _MainPageState extends State<MainPage> {
             child: new Icon(Icons.email),
             heroTag: "btn1",
             onPressed: (){
+              this.widget.litems.removeRange(0,this.widget.litems.length);
               context.read<AuthenticationService>().signOut();
             },
             backgroundColor: Color(0xff686d76),
@@ -144,8 +147,8 @@ class _SecondRouteState extends State<SecondRoute> {
                   reminder
                 );
                 //setState(() {});
-                Database user = Database(this.widget.uid,reminder);
-                user.addReminder();
+                Database user = Database(this.widget.uid);
+                user.addReminder(reminder);
                 this.widget.updateState();
                 Navigator.pop(context);
               },
