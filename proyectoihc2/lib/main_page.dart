@@ -110,24 +110,34 @@ class _SecondRouteState extends State<SecondRoute> {
           children: [
             SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio top y primer widget
             TextField(
+              //maxLength: 12,
               cursorColor: Colors.white,            //Color del cursor
               style: TextStyle(color: Colors.white),//Color de texto
               decoration: InputDecoration(
+                border: new OutlineInputBorder(         //Bordes redondos
+                  borderRadius: const BorderRadius.all(
+                    const Radius.circular(25.0),
+                  ),
+                ),
                 fillColor: Color(0xff686d76),       //Color de relleno
                 filled: true,                       //Relleno activado
-                border: OutlineInputBorder(),
                 labelText: 'Titulo',
               ),
               controller: controllerTitleText,
             ),
             SizedBox(height: MediaQuery.of(context).size.height/50,), //Espacio entre widgets
             TextField(
+              //maxLength: 20,
               cursorColor: Colors.white,            //Color del cursor
               style: TextStyle(color: Colors.white),//Color de texto
               decoration: InputDecoration(
+                border: new OutlineInputBorder(     //Bordes redondos
+                  borderRadius: const BorderRadius.all(
+                    const Radius.circular(25.0),
+                  ),
+                ),
                 fillColor: Color(0xff686d76),       //Color de relleno
                 filled: true,                       //Relleno activado
-                border: OutlineInputBorder(),
                 labelText: 'Descripción',
               ),
               controller: controllerSubTitleText,

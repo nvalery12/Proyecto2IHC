@@ -21,6 +21,11 @@ class SignInPage extends StatelessWidget {
             controller: emailController,
             style: TextStyle(color: Colors.white),//Color de texto
             decoration: InputDecoration(
+              border: new OutlineInputBorder(     //Bordes redondos
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(25.0),
+                ),
+              ),
               fillColor: Color(0xff686d76),       //Color de relleno
               filled: true,                       //Relleno activado
               labelText: "Email",
@@ -28,10 +33,16 @@ class SignInPage extends StatelessWidget {
           ),
           SizedBox(height: MediaQuery.of(context).size.height/50,), //Espacio entre widgets
           TextField(
+            obscureText: true,                      //Contrasenia no visible
             cursorColor: Colors.white,          //color del cursor
             controller: passwordController,
             style: TextStyle(color: Colors.white),//Color de texto
             decoration: InputDecoration(
+              border: new OutlineInputBorder(
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(25.0),
+                ),
+              ),
               fillColor: Color(0xff686d76),       //Color de relleno
               filled: true,                       //Relleno activado
               labelText: "Password",
