@@ -24,14 +24,10 @@ class _GroupPageState extends State<GroupPage> {
           child: new FloatingActionButton(
             child: new Icon(Icons.add),
             onPressed:(){
-              setState(() {
-                this.widget.liGroups.add(
-                  Group(
-                   groupName: "AAA",
-                   uidOwner: "123456"
-                  )
-                );
-              });
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SecondRoute(this.widget.liGroups,updateState)),
+              );
+
             },
             backgroundColor: Color(0xff686d76),
           ),
@@ -42,10 +38,10 @@ class _GroupPageState extends State<GroupPage> {
 }
 
 class SecondRoute extends StatefulWidget {
-  /*final updateState;
-  String uid;
-  List<Reminder> litems;
-  SecondRoute(this.litems,this.uid, this.updateState);*/
+  final updateState;
+  List<Group> liGroups;
+
+  SecondRoute(this.liGroups,this.updateState);
   @override
   _SecondRouteState createState() => _SecondRouteState();
 }
@@ -83,7 +79,13 @@ class _SecondRouteState extends State<SecondRoute> {
             SizedBox(height: MediaQuery.of(context).size.height/50,), //Espacio entre widgets
             ElevatedButton(
               onPressed: () async{
-                
+                this.widget.liGroups.add(
+                  Group(
+                    groupName: controllerGroupTitleText.text,
+                    uidOwner: "123456"
+                  )
+                );
+                this.widget.updateState();
                 Navigator.pop(context);
               },
               child: Text('Next'),

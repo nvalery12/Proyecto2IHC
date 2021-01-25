@@ -10,7 +10,7 @@ class Database {
   final CollectionReference newReminder = FirebaseFirestore.instance.collection(
       'users');
 
-  //CollectionReference users = FirebaseFirestore.instance.collection('users');
+
 
   Future<void> addReminder(Reminder reminder) {
     return newReminder
@@ -58,19 +58,19 @@ class Database {
     });
   }
 
-  Future<void> getGroupName() async {
+  Future<void> getGroupName(String groupID) async {
     await FirebaseFirestore.instance
         .collection('Groups')
-        .doc('8w0TE4D04xyeGgL3xAyk')
+        .doc(groupID)
         .get()
         .then((doc){
             return doc.data()["NombreSala"];
         });
   }
-  Future<void> getGroupOwnerID() async {
+  Future<void> getGroupOwnerID(String groupID) async {
     await FirebaseFirestore.instance
         .collection('Groups')
-        .doc('8w0TE4D04xyeGgL3xAyk')
+        .doc(groupID)
         .get()
         .then((doc){
       return doc.data()["uidPropietaro"];

@@ -20,13 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ab1080e-91c2-490b-9f83-89f46841ce11" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/proyectoihc2/lib/groupModel.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/card_group.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/card_group.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/card_group_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/card_group_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/database.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/database.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/groups_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/groups_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/reminder.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/reminder.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/main_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/main_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

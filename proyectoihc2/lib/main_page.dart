@@ -36,7 +36,6 @@ class _MainPageState extends State<MainPage> {
                 MaterialPageRoute(builder: (context) => SecondRoute(this.widget.litems,this.widget.uid,updateState)
                   ),
               );
-              setState((){});
             },
             backgroundColor: Color(0xff686d76),
           ),

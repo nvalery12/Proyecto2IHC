@@ -56,7 +56,6 @@ class AuthenticationWrapper extends StatelessWidget {
       uid = firebaseUser.uid;
       Database db = new Database(uid);
       db.getListPersonalReminder(litems);
-      db.getGroupName();
       return MyHomePage();
     }
     return SignInPage();
@@ -69,12 +68,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    setState(() {});
-    super.initState();
-  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
