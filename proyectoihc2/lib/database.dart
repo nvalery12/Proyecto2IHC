@@ -58,13 +58,22 @@ class Database {
     });
   }
 
-  Future<void> getListReminderGroup() async {
-    FirebaseFirestore.instance
+  Future<void> getGroupName() async {
+    await FirebaseFirestore.instance
         .collection('Groups')
         .doc('8w0TE4D04xyeGgL3xAyk')
         .get()
         .then((doc){
-            print(doc.data()["NombreSala"]);
+            return doc.data()["NombreSala"];
         });
+  }
+  Future<void> getGroupOwnerID() async {
+    await FirebaseFirestore.instance
+        .collection('Groups')
+        .doc('8w0TE4D04xyeGgL3xAyk')
+        .get()
+        .then((doc){
+      return doc.data()["uidPropietaro"];
+    });
   }
 }

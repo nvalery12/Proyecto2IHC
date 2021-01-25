@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,7 +55,7 @@ class AuthenticationWrapper extends StatelessWidget {
       uid = firebaseUser.uid;
       Database db = new Database(uid);
       db.getListPersonalReminder(litems);
-      db.getListReminderGroup();
+      db.getGroupName();
       return MyHomePage();
     }
     return SignInPage();
@@ -83,35 +82,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-Future<void> getList() async{
-  List<Reminder> lista = List<Reminder>();
-  var auth = uid;
-  print(auth);
-  await FirebaseFirestore.instance.collection('users')
-      .doc(auth)
-      .collection('RecordatoriosPersonales') //RecordatoriosPersonales
-      .get()
-      .then((QuerySnapshot querySnapshot) => {
-    querySnapshot.docs.forEach((doc) {
-      String titulo,subtitulo;
-      Timestamp aux;
-      DateTime date;
-      titulo = doc.data()["Titulo"];
-      subtitulo = doc.data()["subTitulo"];
-      aux = doc.data()["Date"];
-      date = aux.toDate();
-      TimeOfDay time = TimeOfDay(hour: date.hour, minute: date.minute);
-      var reminder = new Reminder(
-        title: titulo,
-        subTitle: subtitulo
-      );
-      reminder.updateDeadline(date, time);
-      reminder.id=doc.id;
-      litems.add(reminder);
-      print("Este es el titulo: " + titulo + " Este es el subTitulo: " + subtitulo);
-      print("Esta es la fecha: " + date.toString());
-    })
-  });
-}
-
