@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:proyectoihc2/card_group_list.dart';
+import 'package:proyectoihc2/groupModel.dart';
 
 class GroupPage extends StatefulWidget{
-
+  List<Group> liGroups = List<Group>();
   @override
   _GroupPageState createState() => _GroupPageState();
 }
@@ -16,16 +18,84 @@ class _GroupPageState extends State<GroupPage> {
     // TODO: implement build
     return Stack(
       children: [
-        //CardReminderList(this.widget.litems,this.widget.uid), //CardGroupList
+        CardGroupList(this.widget.liGroups), //CardGroupList
         Align(
           alignment: Alignment.bottomRight,
           child: new FloatingActionButton(
             child: new Icon(Icons.add),
-            onPressed:(){},
+            onPressed:(){
+              setState(() {
+                this.widget.liGroups.add(
+                  Group(
+                   groupName: "AAA",
+                   uidOwner: "123456"
+                  )
+                );
+              });
+            },
             backgroundColor: Color(0xff686d76),
           ),
         ),
       ],
+    );
+  }
+}
+
+class SecondRoute extends StatefulWidget {
+  /*final updateState;
+  String uid;
+  List<Reminder> litems;
+  SecondRoute(this.litems,this.uid, this.updateState);*/
+  @override
+  _SecondRouteState createState() => _SecondRouteState();
+}
+
+class _SecondRouteState extends State<SecondRoute> {
+
+  final controllerGroupTitleText = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Second Route"),
+      ),
+      body: Container(
+        child:  Column(
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio top y primer widget
+            TextField(
+              //maxLength: 12,
+              cursorColor: Colors.white,            //Color del cursor
+              style: TextStyle(color: Colors.white),//Color de texto
+              decoration: InputDecoration(
+                border: new OutlineInputBorder(         //Bordes redondos
+                  borderRadius: const BorderRadius.all(
+                    const Radius.circular(25.0),
+                  ),
+                ),
+                fillColor: Color(0xff686d76),       //Color de relleno
+                filled: true,                       //Relleno activado
+                labelText: 'Titulo',
+              ),
+              controller: controllerGroupTitleText,
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height/50,), //Espacio entre widgets
+            ElevatedButton(
+              onPressed: () async{
+                
+                Navigator.pop(context);
+              },
+              child: Text('Next'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Color(0xff30475e)), //Color de boton
+              ),
+            ),
+          ],
+
+        ),
+      ),
+      backgroundColor: Color(0xff373a40), //color de fondo
     );
   }
 }

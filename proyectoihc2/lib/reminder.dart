@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//= DateTime.utc(2020, 12, 24, 7, 0)
+
 class Reminder {
   String title;
   String subTitle;

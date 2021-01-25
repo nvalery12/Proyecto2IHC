@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:proyectoihc2/database.dart';
+import 'package:proyectoihc2/groups_page.dart';
 import 'package:proyectoihc2/main_page.dart';
 import 'package:proyectoihc2/reminder.dart';
 import 'reminder.dart';
@@ -77,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MainPage(litems,uid),
+      body: GroupPage(), //MainPage(litems,uid),
       backgroundColor: Color(0xff373a40),
     );
   }
