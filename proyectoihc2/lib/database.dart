@@ -1,23 +1,70 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:proyectoihc2/reminder.dart';
 
-class Database{
+class Database {
   final String uid;
 
   Database(this.uid);
-  final CollectionReference newReminder = FirebaseFirestore.instance.collection('users');
-    //CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+  final CollectionReference newReminder = FirebaseFirestore.instance.collection(
+      'users');
+
+  //CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   Future<void> addReminder(Reminder reminder) {
     return newReminder
         .doc(uid)
         .collection('RecordatoriosPersonales')
         .add({
-          'Titulo': reminder.title,
-          'subTitulo': reminder.subTitle,
-          'Date': reminder.deadLine,
-       })
+      'Titulo': reminder.title,
+      'subTitulo': reminder.subTitle,
+      'Date': reminder.deadLine,
+    })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
-    }
+  }
+
+  Future<void> getListPersonalReminder(List<Reminder> litems) async {
+    List<Reminder> lista = List<Reminder>();
+    var auth = uid;
+    print(auth);
+    await FirebaseFirestore.instance.collection('users')
+        .doc(auth)
+        .collection('RecordatoriosPersonales') //RecordatoriosPersonales
+        .get()
+        .then((QuerySnapshot querySnapshot) =>
+    {
+      querySnapshot.docs.forEach((doc) {
+        String titulo, subtitulo;
+        Timestamp aux;
+        DateTime date;
+        titulo = doc.data()["Titulo"];
+        subtitulo = doc.data()["subTitulo"];
+        aux = doc.data()["Date"];
+        date = aux.toDate();
+        TimeOfDay time = TimeOfDay(hour: date.hour, minute: date.minute);
+        var reminder = new Reminder(
+            title: titulo,
+            subTitle: subtitulo
+        );
+        reminder.updateDeadline(date, time);
+        reminder.id = doc.id;
+        litems.add(reminder);
+        print("Este es el titulo: " + titulo + " Este es el subTitulo: " +
+            subtitulo);
+        print("Esta es la fecha: " + date.toString());
+      })
+    });
+  }
+
+  Future<void> getListReminderGroup() async {
+    FirebaseFirestore.instance
+        .collection('Groups')
+        .doc('8w0TE4D04xyeGgL3xAyk')
+        .get()
+        .then((doc){
+            print(doc.data()["NombreSala"]);
+        });
+  }
 }

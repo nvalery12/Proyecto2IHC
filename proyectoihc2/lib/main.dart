@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:proyectoihc2/database.dart';
 import 'package:proyectoihc2/main_page.dart';
 import 'package:proyectoihc2/reminder.dart';
 import 'reminder.dart';
@@ -53,7 +54,9 @@ class AuthenticationWrapper extends StatelessWidget {
 
     if (firebaseUser != null) {
       uid = firebaseUser.uid;
-      getList();
+      Database db = new Database(uid);
+      db.getListPersonalReminder(litems);
+      db.getListReminderGroup();
       return MyHomePage();
     }
     return SignInPage();
