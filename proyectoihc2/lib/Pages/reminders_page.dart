@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:proyectoihc2/database.dart';
-import 'card_reminder_list.dart';
-import 'groupModel.dart';
+import 'package:proyectoihc2/Models/groupModel.dart';
+import 'package:proyectoihc2/Models/reminder.dart';
+import 'package:proyectoihc2/Services/authServices.dart';
+import 'package:proyectoihc2/Widgets/card_reminder_list.dart';
 import 'inputReminderData.dart';
-import 'reminder.dart';
-import 'authServices.dart';
 import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget{

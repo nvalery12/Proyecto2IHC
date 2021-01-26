@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:proyectoihc2/reminder.dart';
-import 'package:proyectoihc2/reminders_page.dart';
-import 'groupModel.dart';
+import 'package:proyectoihc2/Models/groupModel.dart';
+import 'package:proyectoihc2/Models/reminder.dart';
+import 'package:proyectoihc2/pages/reminders_page.dart';
 
 class MainPageWrapper extends StatelessWidget{
   List<Reminder> litems;

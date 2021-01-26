@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:proyectoihc2/reminder.dart';
-import 'database.dart';
-import 'groupModel.dart';
+import 'package:proyectoihc2/Models/reminder.dart';
+import 'package:proyectoihc2/Services/database.dart';
+import 'package:proyectoihc2/Models/groupModel.dart';
+
 
 class InputReminderData extends StatefulWidget {
   final updateState;

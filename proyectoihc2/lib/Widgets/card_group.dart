@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:proyectoihc2/groupModel.dart';
-import 'package:proyectoihc2/reminders_page_wrapper.dart';
+import 'package:proyectoihc2/Models/groupModel.dart';
+import 'package:proyectoihc2/pages/reminders_page_wrapper.dart';
 
 class CardGroup extends StatelessWidget{
 

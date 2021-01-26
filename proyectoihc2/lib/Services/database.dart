@@ -1,24 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:proyectoihc2/groupModel.dart';
-import 'package:proyectoihc2/reminder.dart';
+import 'package:proyectoihc2/Models/groupModel.dart';
+import 'package:proyectoihc2/Models/reminder.dart';
+
 
 class Database {
   final String uid;
 
   Database(this.uid);
 
-  final CollectionReference newPersonalReminder = FirebaseFirestore.instance.collection('users');
+  final CollectionReference newPersonalReminder = FirebaseFirestore.instance.collection('Users');
   final CollectionReference newGroupReminder = FirebaseFirestore.instance.collection('Groups');
 
 
   Future<void> addPersonalReminder(Reminder reminder) {
     return newPersonalReminder
         .doc(uid)
-        .collection('RecordatoriosPersonales')
+        .collection('Personal Reminder')
         .add({
-      'Titulo': reminder.title,
-      'subTitulo': reminder.subTitle,
+      'Title': reminder.title,
+      'subTitle': reminder.subTitle,
       'Date': reminder.deadLine,
     })
         .then((value) => print("User Added"))
@@ -30,7 +31,7 @@ class Database {
     //print(auth);
     await FirebaseFirestore.instance.collection('users')
         .doc(auth)
-        .collection('RecordatoriosPersonales') //RecordatoriosPersonales
+        .collection('Personal Reminder') //RecordatoriosPersonales
         .get()
         .then((QuerySnapshot querySnapshot) =>
     {
@@ -38,8 +39,8 @@ class Database {
         String titulo, subtitulo;
         Timestamp aux;
         DateTime date;
-        titulo = doc.data()["Titulo"];
-        subtitulo = doc.data()["subTitulo"];
+        titulo = doc.data()["Title"];
+        subtitulo = doc.data()["subTitle"];
         aux = doc.data()["Date"];
         date = aux.toDate();
         TimeOfDay time = TimeOfDay(hour: date.hour, minute: date.minute);
@@ -63,7 +64,7 @@ class Database {
         .doc(groupID)
         .get()
         .then((doc){
-            return doc.data()["NombreSala"];
+            return doc.data()["groupName"];
         });
   }
 
@@ -73,7 +74,7 @@ class Database {
         .doc(groupID)
         .get()
         .then((doc){
-      return doc.data()["uidPropietaro"];
+      return doc.data()["ownerUID"];
     });
   }
 
@@ -94,8 +95,8 @@ class Database {
         .doc(group.id)
         .collection('Reminders')
         .add({
-      'Titulo': reminder.title,
-      'subTitulo': reminder.subTitle,
+      'Title': reminder.title,
+      'subTitle': reminder.subTitle,
       'Date': reminder.deadLine,
     })
         .then((value) => print("Group Added"))

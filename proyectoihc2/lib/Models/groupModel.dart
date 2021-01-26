@@ -1,4 +1,4 @@
-import 'package:proyectoihc2/reminder.dart';
+import 'package:proyectoihc2/Models/reminder.dart';
 
 class Group{
   String groupName;

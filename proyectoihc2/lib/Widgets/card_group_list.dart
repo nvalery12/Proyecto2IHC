@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:proyectoihc2/card_group.dart';
-import 'package:proyectoihc2/groupModel.dart';
+import 'package:proyectoihc2/Models/groupModel.dart';
+
+import 'card_group.dart';
+
 
 class CardGroupList extends StatelessWidget {
   List<Group> liGroups = List<Group>();

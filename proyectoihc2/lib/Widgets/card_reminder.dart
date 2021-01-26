@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'reminder.dart';
+import 'package:proyectoihc2/Models/reminder.dart';
 
 class CardReminder extends StatelessWidget {
   Reminder reminder;

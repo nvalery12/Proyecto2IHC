@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:proyectoihc2/Models/reminder.dart';
 import 'card_reminder.dart';
-import 'reminder.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
