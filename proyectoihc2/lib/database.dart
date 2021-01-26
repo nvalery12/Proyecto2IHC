@@ -8,10 +8,12 @@ class Database {
 
   Database(this.uid);
 
-  final CollectionReference newReminder = FirebaseFirestore.instance.collection('users');
+  final CollectionReference newPersonalReminder = FirebaseFirestore.instance.collection('users');
+  final CollectionReference newGroupReminder = FirebaseFirestore.instance.collection('Groups');
 
-  Future<void> addReminder(Reminder reminder) {
-    return newReminder
+
+  Future<void> addPersonalReminder(Reminder reminder) {
+    return newPersonalReminder
         .doc(uid)
         .collection('RecordatoriosPersonales')
         .add({
@@ -77,6 +79,7 @@ class Database {
 
   Future<void> createGroup(Group group) async{
     DocumentReference docRef = FirebaseFirestore.instance.collection('Groups').doc();
+    group.id = docRef.id;
     print(docRef.id);
     docRef.set(
       {
@@ -85,4 +88,18 @@ class Database {
       }
     );
   }
+
+  Future<void> addGroupReminder(Reminder reminder,Group group) async{
+    return newGroupReminder
+        .doc(group.id)
+        .collection('Reminders')
+        .add({
+      'Titulo': reminder.title,
+      'subTitulo': reminder.subTitle,
+      'Date': reminder.deadLine,
+    })
+        .then((value) => print("Group Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
+
 }

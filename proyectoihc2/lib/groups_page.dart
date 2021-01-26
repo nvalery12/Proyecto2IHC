@@ -3,6 +3,8 @@ import 'package:proyectoihc2/card_group_list.dart';
 import 'package:proyectoihc2/database.dart';
 import 'package:proyectoihc2/groupModel.dart';
 
+import 'inputReminderData.dart';
+
 class GroupPage extends StatefulWidget{
   String uid;
   List<Group> liGroups = List<Group>();
@@ -30,6 +32,7 @@ class _GroupPageState extends State<GroupPage> {
               Navigator.push(context,
                 MaterialPageRoute(builder: (context) => SecondRoute(this.widget.liGroups,this.widget.uid,updateState)),
               );
+
               Database db = Database(this.widget.uid);
             },
             backgroundColor: Color(0xff686d76),

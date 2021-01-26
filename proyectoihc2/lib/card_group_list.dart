@@ -12,7 +12,7 @@ class CardGroupList extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         itemCount: liGroups.length,
         itemBuilder: (BuildContext ctxt, int Index) {
-          return CardGroup(liGroups[Index].groupName);
+          return CardGroup(liGroups[Index]);
         }
     );
   }

@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:proyectoihc2/groupModel.dart';
+import 'package:proyectoihc2/main_page.dart';
 
 class CardGroup extends StatelessWidget{
 
-  String groupName;
-  CardGroup(this.groupName);
+  Group group;
+  CardGroup(this.group);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return RaisedButton(
         onPressed:() {
+          Navigator.push(context,
+            MaterialPageRoute(builder: (context) => MainPage(this.group.reminderList,group.id,this.group)),
+          );
           print("Si le dio");
         },
         child: Container(
@@ -19,7 +24,7 @@ class CardGroup extends StatelessWidget{
               children: <Widget>[
                 Container(
                   child: Text(
-                      groupName,
+                      group.groupName,
                       style: TextStyle(
                         fontSize: 40,
                         color: Colors.white,
