@@ -32,8 +32,6 @@ class _GroupPageState extends State<GroupPage> {
               Navigator.push(context,
                 MaterialPageRoute(builder: (context) => SecondRoute(this.widget.liGroups,this.widget.uid,updateState)),
               );
-
-              Database db = Database(this.widget.uid);
             },
             backgroundColor: Color(0xff686d76),
           ),

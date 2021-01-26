@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:proyectoihc2/database.dart';
 import 'package:proyectoihc2/groups_page.dart';
-import 'package:proyectoihc2/main_page.dart';
 import 'package:proyectoihc2/reminder.dart';
+import 'package:proyectoihc2/reminders_page_wrapper.dart';
 import 'reminder.dart';
 import 'package:provider/provider.dart';
 import 'authServices.dart';
@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GroupPage(uid), //,MainPage(litems,uid)
+      body: MainPageWrapper(litems,uid), //,MainPage(litems,uid)GroupPage(uid)
       backgroundColor: Color(0xff373a40),
     );
   }

@@ -11,7 +11,7 @@ class MainPage extends StatefulWidget{
   List<Reminder> litems;
   String uid;
   Group group;
-  MainPage(this.litems,this.uid,[this.group]);
+  MainPage(this.litems,this.uid,[this.group]); //Tiene el parametro opcional group, ya que es una pagina que tambien se utiliza para las paginas de los grupos
   @override
   _MainPageState createState() => _MainPageState();
 }

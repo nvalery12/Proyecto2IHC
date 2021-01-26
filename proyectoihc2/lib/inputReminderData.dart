@@ -101,7 +101,6 @@ class _InputReminderData extends State<InputReminderData> {
                 this.widget.litems.add(
                     reminder
                 );
-                //setState(() {});
                 Database db = Database(this.widget.uid);
                 if (this.widget.group == null) {
                   db.addPersonalReminder(reminder);
@@ -109,12 +108,6 @@ class _InputReminderData extends State<InputReminderData> {
                 if (this.widget.group != null) {
                   db.addGroupReminder(reminder, this.widget.group);
                 }
-
-                /*if(this.widget.group.){
-                  db.addPersonalReminder(reminder);
-                }else{
-                  db.addGroupReminder(reminder, this.widget.group);
-                }*/
                 this.widget.updateState();
                 Navigator.pop(context);
               },

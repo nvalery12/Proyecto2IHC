@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyectoihc2/groupModel.dart';
-import 'package:proyectoihc2/main_page.dart';
+import 'package:proyectoihc2/reminders_page_wrapper.dart';
 
 class CardGroup extends StatelessWidget{
 
@@ -13,9 +13,8 @@ class CardGroup extends StatelessWidget{
     return RaisedButton(
         onPressed:() {
           Navigator.push(context,
-            MaterialPageRoute(builder: (context) => MainPage(this.group.reminderList,group.id,this.group)),
+            MaterialPageRoute(builder: (context) => MainPageWrapper(this.group.reminderList,group.id,this.group)),
           );
-          print("Si le dio");
         },
         child: Container(
           height: (MediaQuery.of(context).size.height)/7,
