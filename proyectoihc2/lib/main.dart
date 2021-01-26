@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:proyectoihc2/database.dart';
 import 'package:proyectoihc2/groups_page.dart';
 import 'package:proyectoihc2/reminder.dart';
+import 'package:proyectoihc2/reminders_page.dart';
 import 'package:proyectoihc2/reminders_page_wrapper.dart';
 import 'reminder.dart';
 import 'package:provider/provider.dart';
@@ -74,12 +75,37 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
 
+  static  List<Widget> _widgetOptions = <Widget>[
+    MainPage(litems, uid),
+    GroupPage(uid)
+    ];
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MainPageWrapper(litems,uid), //,MainPage(litems,uid)GroupPage(uid)
+      body:  _widgetOptions.elementAt(_selectedIndex),
       backgroundColor: Color(0xff373a40),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Business',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),
     );
   }
 }

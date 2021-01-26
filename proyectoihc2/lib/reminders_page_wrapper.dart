@@ -16,6 +16,9 @@ class MainPageWrapper extends StatelessWidget{
     // TODO: implement build
     if (group != null) {
       return Scaffold(
+        appBar: AppBar(
+          title: Text(group.groupName),
+        ),
         body:MainPage(litems,uid,group),
         backgroundColor: Color(0xff373a40),
       );

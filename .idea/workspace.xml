@@ -20,14 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ab1080e-91c2-490b-9f83-89f46841ce11" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/proyectoihc2/lib/reminders_page_wrapper.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/card_group.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/card_group.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/groups_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/groups_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/inputReminderData.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/inputReminderData.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/main_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/reminders_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/sing_in_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/sing_in_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/reminders_page_wrapper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/reminders_page_wrapper.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,29 +135,29 @@
     </state>
     <state x="667" y="195" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1611554823943" />
     <state x="593" y="191" width="424" height="491" key="FileChooserDialogImpl/0.27.1366.691@0.27.1366.691" timestamp="1611419488284" />
-    <state width="1491" height="160" key="GridCell.Tab.0.bottom" timestamp="1611648586812">
+    <state width="1491" height="160" key="GridCell.Tab.0.bottom" timestamp="1611649239879">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1398" height="244" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1611516632315" />
-    <state width="1491" height="160" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1611648586812" />
+    <state width="1491" height="160" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1611649239879" />
     <state width="1320" height="294" key="GridCell.Tab.0.bottom/0.27.1366.691@0.27.1366.691" timestamp="1611434974360" />
-    <state width="1491" height="160" key="GridCell.Tab.0.center" timestamp="1611648586812">
+    <state width="1491" height="160" key="GridCell.Tab.0.center" timestamp="1611649239879">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1398" height="244" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1611516632314" />
-    <state width="1491" height="160" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1611648586812" />
+    <state width="1491" height="160" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1611649239879" />
     <state width="1320" height="294" key="GridCell.Tab.0.center/0.27.1366.691@0.27.1366.691" timestamp="1611434974359" />
-    <state width="1491" height="160" key="GridCell.Tab.0.left" timestamp="1611648586811">
+    <state width="1491" height="160" key="GridCell.Tab.0.left" timestamp="1611649239879">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1398" height="244" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1611516632314" />
-    <state width="1491" height="160" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1611648586811" />
+    <state width="1491" height="160" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1611649239879" />
     <state width="1320" height="294" key="GridCell.Tab.0.left/0.27.1366.691@0.27.1366.691" timestamp="1611434974359" />
-    <state width="1491" height="160" key="GridCell.Tab.0.right" timestamp="1611648586812">
+    <state width="1491" height="160" key="GridCell.Tab.0.right" timestamp="1611649239879">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1398" height="244" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1611516632314" />
-    <state width="1491" height="160" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1611648586812" />
+    <state width="1491" height="160" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1611649239879" />
     <state width="1320" height="294" key="GridCell.Tab.0.right/0.27.1366.691@0.27.1366.691" timestamp="1611434974360" />
     <state x="308" y="197" key="IDE.errors.dialog" timestamp="1611515913851">
       <screen x="0" y="0" width="1440" height="900" />
@@ -177,16 +172,5 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="407" y="27" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.824@0.0.1536.824" timestamp="1611640624666" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/proyectoihc2/lib/reminders_page.dart</url>
-          <line>57</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
