@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:proyectoihc2/card_group_list.dart';
+import 'package:proyectoihc2/database.dart';
 import 'package:proyectoihc2/groupModel.dart';
 
 class GroupPage extends StatefulWidget{
+  String uid;
   List<Group> liGroups = List<Group>();
+  GroupPage(this.uid);
   @override
   _GroupPageState createState() => _GroupPageState();
 }
@@ -25,9 +28,9 @@ class _GroupPageState extends State<GroupPage> {
             child: new Icon(Icons.add),
             onPressed:(){
               Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SecondRoute(this.widget.liGroups,updateState)),
+                MaterialPageRoute(builder: (context) => SecondRoute(this.widget.liGroups,this.widget.uid,updateState)),
               );
-
+              Database db = Database(this.widget.uid);
             },
             backgroundColor: Color(0xff686d76),
           ),
@@ -40,8 +43,9 @@ class _GroupPageState extends State<GroupPage> {
 class SecondRoute extends StatefulWidget {
   final updateState;
   List<Group> liGroups;
+  String uid;
 
-  SecondRoute(this.liGroups,this.updateState);
+  SecondRoute(this.liGroups,this.uid,this.updateState);
   @override
   _SecondRouteState createState() => _SecondRouteState();
 }
@@ -79,12 +83,15 @@ class _SecondRouteState extends State<SecondRoute> {
             SizedBox(height: MediaQuery.of(context).size.height/50,), //Espacio entre widgets
             ElevatedButton(
               onPressed: () async{
-                this.widget.liGroups.add(
-                  Group(
+                Group group =  Group(
                     groupName: controllerGroupTitleText.text,
-                    uidOwner: "123456"
-                  )
+                    uidOwner: this.widget.uid
                 );
+                this.widget.liGroups.add(
+                  group
+                );
+                Database db = Database(this.widget.uid);
+                db.createGroup(group);
                 this.widget.updateState();
                 Navigator.pop(context);
               },

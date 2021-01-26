@@ -14,14 +14,21 @@ class MainPage extends StatefulWidget{
 }
 
 class _MainPageState extends State<MainPage> {
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Database db = new Database(this.widget.uid);
+    db.getListPersonalReminder(this.widget.litems);
+    print(this.widget.litems.length);
+    updateState();
+  }
   void updateState(){
     setState((){});
   }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    setState((){});
     return Stack(
       children: [
         CardReminderList(this.widget.litems,this.widget.uid),
@@ -36,6 +43,7 @@ class _MainPageState extends State<MainPage> {
                 MaterialPageRoute(builder: (context) => SecondRoute(this.widget.litems,this.widget.uid,updateState)
                   ),
               );
+              setState(() {});
             },
             backgroundColor: Color(0xff686d76),
           ),

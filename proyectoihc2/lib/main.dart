@@ -47,15 +47,21 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class AuthenticationWrapper extends StatelessWidget {
+class AuthenticationWrapper extends StatefulWidget {
+  @override
+  _AuthenticationWrapperState createState() => _AuthenticationWrapperState();
+}
+
+class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
+
   @override
   Widget build(BuildContext context) {
     var firebaseUser = context.watch<User>();
-
     if (firebaseUser != null) {
       uid = firebaseUser.uid;
       Database db = new Database(uid);
       db.getListPersonalReminder(litems);
+      setState(() {});
       return MyHomePage();
     }
     return SignInPage();
@@ -72,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GroupPage(), //MainPage(litems,uid),
+      body: GroupPage(uid), //,MainPage(litems,uid)
       backgroundColor: Color(0xff373a40),
     );
   }

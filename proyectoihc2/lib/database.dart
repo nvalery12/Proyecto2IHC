@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:proyectoihc2/groupModel.dart';
 import 'package:proyectoihc2/reminder.dart';
 
 class Database {
@@ -7,10 +8,7 @@ class Database {
 
   Database(this.uid);
 
-  final CollectionReference newReminder = FirebaseFirestore.instance.collection(
-      'users');
-
-
+  final CollectionReference newReminder = FirebaseFirestore.instance.collection('users');
 
   Future<void> addReminder(Reminder reminder) {
     return newReminder
@@ -26,9 +24,8 @@ class Database {
   }
 
   Future<void> getListPersonalReminder(List<Reminder> litems) async {
-    List<Reminder> lista = List<Reminder>();
     var auth = uid;
-    print(auth);
+    //print(auth);
     await FirebaseFirestore.instance.collection('users')
         .doc(auth)
         .collection('RecordatoriosPersonales') //RecordatoriosPersonales
@@ -51,9 +48,9 @@ class Database {
         reminder.updateDeadline(date, time);
         reminder.id = doc.id;
         litems.add(reminder);
-        print("Este es el titulo: " + titulo + " Este es el subTitulo: " +
+        /*print("Este es el titulo: " + titulo + " Este es el subTitulo: " +
             subtitulo);
-        print("Esta es la fecha: " + date.toString());
+        print("Esta es la fecha: " + date.toString());*/
       })
     });
   }
@@ -67,6 +64,7 @@ class Database {
             return doc.data()["NombreSala"];
         });
   }
+
   Future<void> getGroupOwnerID(String groupID) async {
     await FirebaseFirestore.instance
         .collection('Groups')
@@ -75,5 +73,16 @@ class Database {
         .then((doc){
       return doc.data()["uidPropietaro"];
     });
+  }
+
+  Future<void> createGroup(Group group) async{
+    DocumentReference docRef = FirebaseFirestore.instance.collection('Groups').doc();
+    print(docRef.id);
+    docRef.set(
+      {
+        'ownerUID': group.uidOwner,
+        'groupName': group.groupName,
+      }
+    );
   }
 }
