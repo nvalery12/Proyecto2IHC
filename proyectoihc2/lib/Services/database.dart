@@ -29,7 +29,7 @@ class Database {
   Future<void> getListPersonalReminder(List<Reminder> litems) async {
     var auth = uid;
     print(auth);
-    await FirebaseFirestore.instance.collection('users')
+    await FirebaseFirestore.instance.collection('Users')
         .doc(auth)
         .collection('Personal Reminder') //RecordatoriosPersonales
         .get()
@@ -51,9 +51,10 @@ class Database {
         reminder.updateDeadline(date, time);
         reminder.id = doc.id;
         litems.add(reminder);
-        /*print("Este es el titulo: " + titulo + " Este es el subTitulo: " +
+        print("Este es el titulo: " + titulo + " Este es el subTitulo: " +
             subtitulo);
-        print("Esta es la fecha: " + date.toString());*/
+        print("Esta es la fecha: " + date.toString());
+        print("Que coño");
       })
     });
   }

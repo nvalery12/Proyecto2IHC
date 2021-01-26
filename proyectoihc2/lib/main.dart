@@ -60,7 +60,6 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
       uid = firebaseUser.uid;
       Database db = new Database(uid);
       db.getListPersonalReminder(litems);
-      setState(() {});
       return MyHomePage();
     }
     return SignInPage();

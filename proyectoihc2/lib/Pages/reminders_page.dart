@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:proyectoihc2/Models/groupModel.dart';
 import 'package:proyectoihc2/Models/reminder.dart';
 import 'package:proyectoihc2/Services/authServices.dart';
+import 'package:proyectoihc2/Services/database.dart';
 import 'package:proyectoihc2/Widgets/card_reminder_list.dart';
 import 'inputReminderData.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ class MainPage extends StatefulWidget{
 }
 
 class _MainPageState extends State<MainPage> {
+
   void updateState(){
     setState((){});
   }
@@ -57,6 +59,7 @@ class _MainPageState extends State<MainPage> {
             onPressed: (){
               this.widget.litems.removeRange(0,this.widget.litems.length);
               this.widget.uid = '';
+              this.widget.group = null;
               context.read<AuthenticationService>().signOut();
             },
             backgroundColor: Color(0xff686d76),
