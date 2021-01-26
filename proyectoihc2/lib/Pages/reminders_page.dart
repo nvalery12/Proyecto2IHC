@@ -48,6 +48,7 @@ class _MainPageState extends State<MainPage> {
             backgroundColor: Color(0xff686d76),
           ),
         ),
+
         Align(
           alignment: Alignment.bottomLeft,
           child: new FloatingActionButton(
@@ -55,6 +56,7 @@ class _MainPageState extends State<MainPage> {
             heroTag: "btn1",
             onPressed: (){
               this.widget.litems.removeRange(0,this.widget.litems.length);
+              this.widget.uid = '';
               context.read<AuthenticationService>().signOut();
             },
             backgroundColor: Color(0xff686d76),

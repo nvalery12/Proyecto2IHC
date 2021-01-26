@@ -28,7 +28,7 @@ class Database {
 
   Future<void> getListPersonalReminder(List<Reminder> litems) async {
     var auth = uid;
-    //print(auth);
+    print(auth);
     await FirebaseFirestore.instance.collection('users')
         .doc(auth)
         .collection('Personal Reminder') //RecordatoriosPersonales
