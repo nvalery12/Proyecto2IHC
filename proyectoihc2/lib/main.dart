@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:proyectoihc2/Services/dynamicLinks.dart';
 import 'package:proyectoihc2/pages/groups_page.dart';
 import 'package:proyectoihc2/pages/reminders_page.dart';
 import 'package:proyectoihc2/pages/sing_in_page.dart';
@@ -19,6 +20,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -83,6 +85,15 @@ class _MyHomePageState extends State<MyHomePage> {
       _selectedIndex = index;
     });
   }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    DynamicLinksService dynamicLink = DynamicLinksService();
+    dynamicLink.fetchLinkData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -109,13 +109,12 @@ class Database {
     group.Members.add(uid);
     return newGroupReminder
         .doc(group.id)
-        .set({
-          'ownerUID': group.uidOwner,
-          'groupName': group.groupName,
+        .update({
           'arrayMembers': group.Members,
           }
         )
         .then((value) => print("Group Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
+
 }

@@ -3,6 +3,7 @@ import 'package:proyectoihc2/Models/groupModel.dart';
 import 'package:proyectoihc2/Models/reminder.dart';
 import 'package:proyectoihc2/Services/authServices.dart';
 import 'package:proyectoihc2/Services/database.dart';
+import 'package:proyectoihc2/Services/dynamicLinks.dart';
 import 'package:proyectoihc2/Widgets/card_reminder_list.dart';
 import 'inputReminderData.dart';
 import 'package:provider/provider.dart';
@@ -63,10 +64,18 @@ class _MainPageState extends State<MainPage> {
             child: new Icon(Icons.email),
             heroTag: "btn1",
             onPressed: (){
-              this.widget.litems.removeRange(0,this.widget.litems.length);
-              this.widget.uid = '';
-              this.widget.group = null;
-              context.read<AuthenticationService>().signOut();
+              if (this.widget.group == null) {
+                this.widget.litems.removeRange(0,this.widget.litems.length);
+                this.widget.uid = '';
+                this.widget.group = null;
+                context.read<AuthenticationService>().signOut();
+              }
+              if (this.widget.group != null) {
+                DynamicLinksService dynamicLink = DynamicLinksService();
+                dynamicLink.createDynamicLink(
+                    groupUID: this.widget.group.id
+                );
+              }
             },
             backgroundColor: Color(0xff686d76),
           ),
