@@ -51,10 +51,10 @@ class Database {
         reminder.updateDeadline(date, time);
         reminder.id = doc.id;
         litems.add(reminder);
-        print("Este es el titulo: " + titulo + " Este es el subTitulo: " +
+        /*print("Este es el titulo: " + titulo + " Este es el subTitulo: " +
             subtitulo);
         print("Esta es la fecha: " + date.toString());
-        print("Que coño");
+        print("Que coño");*/
       })
     });
   }
@@ -87,6 +87,7 @@ class Database {
       {
         'ownerUID': group.uidOwner,
         'groupName': group.groupName,
+        'arrayMembers': group.Members
       }
     );
   }
@@ -104,4 +105,17 @@ class Database {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
+  Future<void> addGroupMember(String uid,Group group) async{
+    group.Members.add(uid);
+    return newGroupReminder
+        .doc(group.id)
+        .set({
+          'ownerUID': group.uidOwner,
+          'groupName': group.groupName,
+          'arrayMembers': group.Members,
+          }
+        )
+        .then((value) => print("Group Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
 }

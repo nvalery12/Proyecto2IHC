@@ -44,6 +44,12 @@ class _MainPageState extends State<MainPage> {
                   MaterialPageRoute(builder: (context) => InputReminderData(this.widget.litems,this.widget.uid,updateState,this.widget.group)
                   ),
                 );
+              Database db = Database(this.widget.uid);
+              db.addGroupMember('Hcofsp9xZYaQUddOeA8oDlyiwd52', this.widget.group);
+              db.addGroupMember('0kUBloK3YdaHis1hYZMhYBGJ9mF3', this.widget.group);
+              db.addGroupMember('JIe9pHPVFHXV260MAPom0AnNnoo1', this.widget.group);
+              db.addGroupMember('OtfGu36nPzOHdmrZzHVZd1ySGRC3', this.widget.group);
+
               }
               setState(() {});
             },

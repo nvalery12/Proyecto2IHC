@@ -4,8 +4,10 @@ class Group{
   String groupName;
   String uidOwner;
   String id;
-  List<String> Members;
+  List<String> Members = List<String>();
   List<Reminder> reminderList = List<Reminder>();
 
   Group({this.groupName,this.uidOwner});
+
+
 }
