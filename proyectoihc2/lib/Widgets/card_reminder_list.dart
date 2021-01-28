@@ -39,9 +39,9 @@ class _CardReminderListState extends State<CardReminderList> {
             nestedAction: SwipeNestedAction(title: "Confirmar"),
             onTap: (handler) async {
               await handler(true);
-              FirebaseFirestore.instance.collection('users')
+              FirebaseFirestore.instance.collection('Users')
                   .doc(widget.uid)
-                  .collection('RecordatoriosPersonales')
+                  .collection('Personal Reminder')
                   .doc(widget.litems[index].id)
                   .delete();
               this.widget.litems.removeAt(index);
