@@ -80,6 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
     MainPage(litems, uid),
     GroupPage(uid)
     ];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;

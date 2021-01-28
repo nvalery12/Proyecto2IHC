@@ -46,26 +46,11 @@ class DynamicLinksService {
       ),
     );
     final Uri link = await parameters.buildUrl();
-    final ShortDynamicLink shortenedLink = await DynamicLinkParameters
-        .shortenUrl(
-      link,
-      DynamicLinkParametersOptions(
+    final ShortDynamicLink shortenedLink = await DynamicLinkParameters.shortenUrl(link, DynamicLinkParametersOptions(
           shortDynamicLinkPathLength: ShortDynamicLinkPathLength.unguessable),
     );
     final Uri shortUrl = shortenedLink.shortUrl;
     print(shortUrl.toString());
     return shortUrl;
-    //return shortenedLink.shortUrl;"https://proyectoihc2.page.link" + shortUrl.path;
   }
-  /*
-  final Uri dynamicUrl = await parameters.buildUrl();
-    final ShortDynamicLink shortenedLink =
-        await DynamicLinkParameters.shortenUrl(
-      dynamicUrl,
-      DynamicLinkParametersOptions(
-          shortDynamicLinkPathLength: ShortDynamicLinkPathLength.unguessable),
-    );
-    final Uri shortUrl = shortenedLink.shortUrl;
-    return "https://<your-domain-name>.page.link" + shortUrl.path;
-   */
 }

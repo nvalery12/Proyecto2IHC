@@ -13,7 +13,13 @@ class GroupPage extends StatefulWidget{
 }
 
 class _GroupPageState extends State<GroupPage> {
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Database db = Database(this.widget.uid);
+    db.getListGroup(this.widget.liGroups);
+  }
   void updateState(){
     setState((){});
   }

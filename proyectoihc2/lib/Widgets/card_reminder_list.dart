@@ -15,6 +15,12 @@ class CardReminderList extends StatefulWidget{
 class _CardReminderListState extends State<CardReminderList> {
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState((){});
+  }
+  @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return ListView.builder(
