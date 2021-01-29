@@ -81,6 +81,7 @@ class Database {
   }
 
   Future<void> createGroup(Group group) async {
+    group.Members.add(uid);
     DocumentReference docRef = FirebaseFirestore.instance.collection('Groups')
         .doc();
     group.id = docRef.id;
@@ -108,6 +109,9 @@ class Database {
   }
 
   Future<void> addGroupMember(String uid, Group group) async {
+    if(group.Members.contains(uid)){
+      return;
+    }
     group.Members.add(uid);
     return newGroupReminder
         .doc(group.id)
@@ -136,6 +140,7 @@ class Database {
             .then((DocumentSnapshot doc){
               String groupName = doc.data()['groupName'];
               String ownerUID = doc.data()['ownerUID'];
+              List<String> membersArray = doc.data()['arrayMembers'];
               print("Group name: " + groupName + " ownerUID " + ownerUID);
               litems.add(
                   new Group(
@@ -143,6 +148,7 @@ class Database {
                     uidOwner: ownerUID,
                   )
               );
+              litems.last.Members = membersArray;
               litems.last.id = doc.id;
               print(litems.last.id);
       }).catchError((error) => print("Failed to add user: $error"));
@@ -173,7 +179,6 @@ class Database {
         reminder.updateDeadline(date, time);
         reminder.id = doc.id;
         litems.add(reminder);
-        print("Estoy en el grupo: " + GroupID + " En el recordatorio" + doc.id);
       });
     });
   }

@@ -45,7 +45,7 @@ class DynamicLinksService {
         appStoreId: '',
       ),
     );
-    final Uri link = await parameters.buildUrl();
+    final Uri link = await parameters.link;
     final ShortDynamicLink shortenedLink = await DynamicLinkParameters.shortenUrl(link, DynamicLinkParametersOptions(
           shortDynamicLinkPathLength: ShortDynamicLinkPathLength.unguessable),
     );
