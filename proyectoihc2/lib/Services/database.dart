@@ -66,8 +66,8 @@ class Database {
         .doc(groupID)
         .get()
         .then((doc) {
-      return doc.data()["groupName"];
-    });
+          return doc.data()["groupName"];
+       });
   }
 
   String getGroupOwnerID(String groupID) {
@@ -130,38 +130,52 @@ class Database {
       });
     });
     aux.forEach((element) async{
-      print("Aqui: "+ element);
-      litems.add(
-        new Group(
-          groupName:  getGroupName(element),
-          uidOwner:  getGroupOwnerID(element)
-        )
-      );
-      await newGroupReminder
-          .doc(element)
-          .collection('Reminders') //RecordatoriosPersonales
-          .get()
-          .then((QuerySnapshot querySnapshot) {
-            querySnapshot.docs.forEach((doc) {
-              String titulo, subtitulo;
-              Timestamp aux;
-              DateTime date;
-              titulo = doc.data()["Title"];
-              subtitulo = doc.data()["subTitle"];
-              aux = doc.data()["Date"];
-              date = aux.toDate();
-              TimeOfDay time = TimeOfDay(hour: date.hour, minute: date.minute);
-              var reminder = new Reminder(
-                title: titulo,
-                subTitle: subtitulo
+       newGroupReminder
+            .doc(element)
+            .get()
+            .then((DocumentSnapshot doc){
+              String groupName = doc.data()['groupName'];
+              String ownerUID = doc.data()['ownerUID'];
+              print("Group name: " + groupName + " ownerUID " + ownerUID);
+              litems.add(
+                  new Group(
+                    groupName: groupName,
+                    uidOwner: ownerUID,
+                  )
               );
-              reminder.updateDeadline(date, time);
-              reminder.id = doc.id;
-              litems.last.reminderList.add(reminder);
-              print("litems en la ultima posicion es: " + litems.last.reminderList.last.title);
-        });
-      });
+              litems.last.id = doc.id;
+              print(litems.last.id);
+      }).catchError((error) => print("Failed to add user: $error"));
+            
     });
 
   }
+
+  Future<void> getListGroupReminder(List<Reminder> litems, String GroupID) async{
+    await newGroupReminder
+        .doc(GroupID)
+        .collection('Reminders') //RecordatoriosPersonales
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        String titulo, subtitulo;
+        Timestamp aux;
+        DateTime date;
+        titulo = doc.data()["Title"];
+        subtitulo = doc.data()["subTitle"];
+        aux = doc.data()["Date"];
+        date = aux.toDate();
+        TimeOfDay time = TimeOfDay(hour: date.hour, minute: date.minute);
+        var reminder = new Reminder(
+            title: titulo,
+            subTitle: subtitulo
+        );
+        reminder.updateDeadline(date, time);
+        reminder.id = doc.id;
+        litems.add(reminder);
+        print("Estoy en el grupo: " + GroupID + " En el recordatorio" + doc.id);
+      });
+    });
+  }
+
 }

@@ -19,6 +19,10 @@ class _GroupPageState extends State<GroupPage> {
     super.initState();
     Database db = Database(this.widget.uid);
     db.getListGroup(this.widget.liGroups);
+    this.widget.liGroups.forEach((element) {
+      db.getListGroupReminder(element.reminderList,element.id);
+    });
+
   }
   void updateState(){
     setState((){});
