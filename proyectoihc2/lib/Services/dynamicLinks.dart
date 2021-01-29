@@ -31,26 +31,23 @@ class DynamicLinksService {
 
   Future<Uri> createDynamicLink({@required String groupUID}) async {
     final DynamicLinkParameters parameters = DynamicLinkParameters(
-      // This should match firebase but without the username query param
       uriPrefix: 'https://proyectoihc2.page.link',
-      // This can be whatever you want for the uri, https://yourapp.com/groupinvite?username=$userName
-      link: Uri.parse('https://proyectoihc2.page.link/groupinvite?username=$groupUID'),
+      link: Uri.parse('https://proyectoihc2.page.link/$groupUID'),
       androidParameters: AndroidParameters(
         packageName: 'com.example.proyectoihc2',
-        minimumVersion: 1,
+        minimumVersion: 0,
       ),
-      iosParameters: IosParameters(
-        bundleId: 'com.test.demo',
-        minimumVersion: '1',
-        appStoreId: '',
+      dynamicLinkParametersOptions: DynamicLinkParametersOptions(
+        shortDynamicLinkPathLength: ShortDynamicLinkPathLength.short,
+
       ),
+
     );
-    final Uri link = await parameters.link;
-    final ShortDynamicLink shortenedLink = await DynamicLinkParameters.shortenUrl(link, DynamicLinkParametersOptions(
-          shortDynamicLinkPathLength: ShortDynamicLinkPathLength.unguessable),
-    );
-    final Uri shortUrl = shortenedLink.shortUrl;
-    print(shortUrl.toString());
-    return shortUrl;
+
+    final url = await parameters.buildUrl();
+    //final url2 = await parameters.buildShortLink();
+    print(url.toString());
+    //print(url2.shortUrl.toString());
   }
+
 }

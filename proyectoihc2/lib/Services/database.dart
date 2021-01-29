@@ -140,7 +140,7 @@ class Database {
             .then((DocumentSnapshot doc){
               String groupName = doc.data()['groupName'];
               String ownerUID = doc.data()['ownerUID'];
-              List<String> membersArray = doc.data()['arrayMembers'];
+              List<String> membersArray = List.from(doc.data()['arrayMembers']);
               print("Group name: " + groupName + " ownerUID " + ownerUID);
               litems.add(
                   new Group(
