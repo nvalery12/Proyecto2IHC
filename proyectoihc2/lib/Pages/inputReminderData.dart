@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:proyectoihc2/Models/reminder.dart';
 import 'package:proyectoihc2/Services/database.dart';
 import 'package:proyectoihc2/Models/groupModel.dart';
+
+import '../main.dart';
 
 
 class InputReminderData extends StatefulWidget {
@@ -43,13 +46,40 @@ class _InputReminderData extends State<InputReminderData> {
       });
   }
 
+  void scheduleAlarm(Reminder reminder) async {
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'alarm_notif',
+      'alarm_notif',
+      'Channel for Alarm notification',
+      icon: '@mipmap/ic_launcher',
+      //sound: RawResourceAndroidNotificationSound('a_long_cold_sting'),
+      largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+    );
+
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails(
+        //sound: 'a_long_cold_sting.wav',
+        presentAlert: true,
+        presentBadge: true,
+        presentSound: true);
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.schedule(
+        0,
+        reminder.title,
+        'Estudia cabeza de guevo',
+        DateTime.now().add(Duration(seconds: 10)),
+        platformChannelSpecifics);
+  }
+
+
   final controllerTitleText = TextEditingController();
   final controllerSubTitleText = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Second Route"),
+        title: Text(""),
       ),
       body: Container(
         child:  Column(
@@ -109,6 +139,7 @@ class _InputReminderData extends State<InputReminderData> {
                 if (this.widget.group != null) {
                   db.addGroupReminder(reminder, this.widget.group);
                 }
+                scheduleAlarm(reminder);
                 this.widget.updateState();
                 Navigator.pop(context);
               },
