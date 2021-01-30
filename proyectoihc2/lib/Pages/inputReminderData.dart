@@ -65,11 +65,26 @@ class _InputReminderData extends State<InputReminderData> {
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
 
     await flutterLocalNotificationsPlugin.schedule(
-        0,
+        0, //Tienen numeros distintos para que no se super ponga una con otra, es decir, que se muestren las dos, no solo una de ellas
         reminder.title,
-        'Estudia cabeza de guevo',
-        DateTime.now().add(Duration(seconds: 10)),
-        platformChannelSpecifics);
+        'Queda 1 dia para tu evento',
+        reminder.deadLine.subtract(Duration(days: 1)),
+        platformChannelSpecifics
+    );
+    await flutterLocalNotificationsPlugin.schedule(
+        1,
+        reminder.title,
+        'Queda 1 hora para tu evento',
+        reminder.deadLine.subtract(Duration(hours: 1)),
+        platformChannelSpecifics
+    );
+    await flutterLocalNotificationsPlugin.schedule(
+        2,
+        reminder.title,
+        'Queda 10 minutos para tu evento',
+        reminder.deadLine.subtract(Duration(minutes: 10)),
+        platformChannelSpecifics
+    );
   }
 
 
