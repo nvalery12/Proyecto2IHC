@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
     )
     ],
       child: MaterialApp(
-          title: 'FiTime',
+          title: 'Finals Countdown',
           home: AuthenticationWrapper(),
           theme: ThemeData(
             primaryColor: Color(0xff30475e),
@@ -72,14 +72,17 @@ class AuthenticationWrapper extends StatefulWidget {
 }
 
 class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
-
+  void updateState(){
+    setState(() {});
+  }
   @override
   Widget build(BuildContext context) {
-    var firebaseUser = context.watch<User>();
+    var firebaseUser=context.watch<User>();
+
     if (firebaseUser != null) {
       uid = firebaseUser.uid;
-      Database db = new Database(uid);
-      db.getListPersonalReminder(litems);
+      print("En authWrapper " + litems.length.toString());
+      setState((){});
       return MyHomePage();
     }
     return SignInPage();
@@ -111,6 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     DynamicLinksService dynamicLink = DynamicLinksService();
     dynamicLink.fetchLinkData();
+    print("En init state: " + litems.length.toString());
   }
 
   @override

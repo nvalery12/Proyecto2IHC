@@ -28,7 +28,7 @@ class Database {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  Future<void> getListPersonalReminder(List<Reminder> litems) async {
+  Future<void> getListPersonalReminder(List<Reminder> litems, final updateState) async {
     var auth = uid;
     print(auth);
     await FirebaseFirestore.instance.collection('Users')
@@ -52,12 +52,10 @@ class Database {
         reminder.updateDeadline(date, time);
         reminder.id = doc.id;
         litems.add(reminder);
-        /*print("Este es el titulo: " + titulo + " Este es el subTitulo: " +
-            subtitulo);
-        print("Esta es la fecha: " + date.toString());
-        print("Que coño");*/
       });
-    });
+    })
+        .then((value) => updateState())
+        .catchError((error) => print("Failed to add user: $error"));
   }
 
   String getGroupName(String groupID)  {
@@ -123,7 +121,7 @@ class Database {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  Future<void> getListGroup(List<Group> litems) async {
+  Future<void> getListGroup(List<Group> litems, final updateState) async {
     List<String> aux = List<String>();
     await newGroupReminder
         .where('arrayMembers', arrayContains: this.uid)
@@ -151,7 +149,8 @@ class Database {
               litems.last.Members = membersArray;
               litems.last.id = doc.id;
               print(litems.last.id);
-      }).catchError((error) => print("Failed to add user: $error"));
+      }).then((value) => updateState())
+           .catchError((error) => print("Failed to add user: $error"));
             
     });
 

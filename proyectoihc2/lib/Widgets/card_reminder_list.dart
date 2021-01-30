@@ -18,7 +18,9 @@ class _CardReminderListState extends State<CardReminderList> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print("initState en cardReminderList " + this.widget.litems.length.toString());
     setState((){});
+
   }
   @override
   Widget build(BuildContext context) {

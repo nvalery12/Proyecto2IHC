@@ -13,6 +13,7 @@ class InputReminderData extends StatefulWidget {
   List<Reminder> litems;
   Group group;
   InputReminderData(this.litems,this.uid, this.updateState,[this.group]);
+
   @override
   _InputReminderData createState() => _InputReminderData();
 }
@@ -85,6 +86,13 @@ class _InputReminderData extends State<InputReminderData> {
         reminder.deadLine.subtract(Duration(minutes: 10)),
         platformChannelSpecifics
     );
+    await flutterLocalNotificationsPlugin.schedule(
+        3,
+        reminder.title,
+        '¡Ya empezo!',
+        reminder.deadLine.subtract(Duration(minutes: 10)),
+        platformChannelSpecifics
+    );
   }
 
 
@@ -92,6 +100,7 @@ class _InputReminderData extends State<InputReminderData> {
   final controllerSubTitleText = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    print("Dentro de inputData antes de scaffold: " + this.widget.litems.length.toString());
     return Scaffold(
       appBar: AppBar(
         title: Text(""),

@@ -5,6 +5,7 @@ import 'package:proyectoihc2/Services/authServices.dart';
 import 'package:proyectoihc2/Services/database.dart';
 import 'package:proyectoihc2/Services/dynamicLinks.dart';
 import 'package:proyectoihc2/Widgets/card_reminder_list.dart';
+import 'package:proyectoihc2/main.dart';
 import 'inputReminderData.dart';
 import 'package:provider/provider.dart';
 
@@ -22,8 +23,8 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    setState((){});
-
+    Database db = new Database(uid);
+    db.getListPersonalReminder(litems,updateState);
   }
   void updateState(){
     setState((){});
@@ -42,7 +43,7 @@ class _MainPageState extends State<MainPage> {
             onPressed: (){
               if (this.widget.group == null) {
                 Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => InputReminderData(this.widget.litems,this.widget.uid,updateState)
+                  MaterialPageRoute(builder: (context) => InputReminderData(this.widget.litems, this.widget.uid, updateState)
                   ),
                 );
               }
