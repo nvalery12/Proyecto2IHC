@@ -25,6 +25,8 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     Database db = new Database(uid);
     db.getListPersonalReminder(litems,updateState);
+    DynamicLinksService dynamicLinksService = DynamicLinksService();
+    dynamicLinksService.fetchLinkData();
   }
   void updateState(){
     setState((){});
@@ -64,7 +66,7 @@ class _MainPageState extends State<MainPage> {
           child: new FloatingActionButton(
             child: new Icon(Icons.email),
             heroTag: "btn1",
-            onPressed: (){
+            onPressed:() async {
               if (this.widget.group == null) {
                 this.widget.litems.removeRange(0,this.widget.litems.length);
                 this.widget.uid = '';
@@ -73,9 +75,10 @@ class _MainPageState extends State<MainPage> {
               }
               if (this.widget.group != null) {
                 DynamicLinksService dynamicLink = DynamicLinksService();
-                dynamicLink.createDynamicLink(
+                Uri uri = await dynamicLink.createDynamicLink(
                     groupUID: this.widget.group.id
                 );
+                print(uri.toString());
               }
             },
             backgroundColor: Color(0xff686d76),

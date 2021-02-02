@@ -1,10 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
+import 'package:proyectoihc2/Pages/generateQR_page.dart';
+import 'package:proyectoihc2/Pages/scanQR_page.dart';
 import 'package:proyectoihc2/Services/dynamicLinks.dart';
 import 'package:proyectoihc2/pages/groups_page.dart';
 import 'package:proyectoihc2/pages/reminders_page.dart';
@@ -36,6 +39,8 @@ Future<void> main() async {
           debugPrint('notification payload: ' + payload);
         }
       });
+  DynamicLinksService dynamicLinksService = DynamicLinksService();
+  dynamicLinksService.fetchLinkData();
   runApp(MyApp());
 }
 
@@ -72,9 +77,6 @@ class AuthenticationWrapper extends StatefulWidget {
 }
 
 class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
-  void updateState(){
-    setState(() {});
-  }
   @override
   Widget build(BuildContext context) {
     var firebaseUser=context.watch<User>();
@@ -82,7 +84,6 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
     if (firebaseUser != null) {
       uid = firebaseUser.uid;
       print("En authWrapper " + litems.length.toString());
-      setState((){});
       return MyHomePage();
     }
     return SignInPage();
@@ -98,10 +99,11 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   List<Widget> _widgetOptions = <Widget>[
-    MainPage(litems, uid),
-    GroupPage(uid)
+    GenerateQR(),
+    ScanQR()
     ];
-
+  /*MainPage(litems, uid),
+  GroupPage(uid)*/
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -112,9 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    DynamicLinksService dynamicLink = DynamicLinksService();
-    dynamicLink.fetchLinkData();
-    print("En init state: " + litems.length.toString());
+    DynamicLinksService dynamicLinksService = DynamicLinksService();
+    dynamicLinksService.fetchLinkData();
   }
 
   @override
