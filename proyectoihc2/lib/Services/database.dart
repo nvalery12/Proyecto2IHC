@@ -163,7 +163,7 @@ class Database {
 
   }
 
-  Future<void> getListGroupReminder(List<Reminder> litems, String GroupID) async{
+  Future<void> getListGroupReminder(List<Reminder> litems, String GroupID,final updateState) async{
     await newGroupReminder
         .doc(GroupID)
         .collection('Reminders') //RecordatoriosPersonales
@@ -186,7 +186,9 @@ class Database {
         reminder.id = doc.id;
         litems.add(reminder);
       });
-    });
+    })
+        .then((value) => updateState())
+        .catchError((error) => print("Failed to add user: $error"));
   }
 
 }

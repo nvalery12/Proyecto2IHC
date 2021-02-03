@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:proyectoihc2/Models/groupModel.dart';
 import 'package:proyectoihc2/Models/reminder.dart';
@@ -30,6 +31,9 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     Database db = new Database(uid);
     db.getListPersonalReminder(litems,updateState);
+    if(this.widget.group != null){
+      db.getListGroupReminder(this.widget.group.reminderList,this.widget.group.id,updateState);
+    }
   }
   
   @override
