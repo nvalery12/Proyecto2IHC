@@ -42,6 +42,8 @@ class _MainPageState extends State<MainPage> {
     // TODO: implement build
     if(this.widget.group != null){
       aux = this.widget.group.uidOwner == uid;
+    }else{
+      aux = false;
     }
     return Stack(
       children: [

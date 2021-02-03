@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
+import 'package:proyectoihc2/Pages/configuration_page.dart';
 import 'package:proyectoihc2/Pages/generateQR_page.dart';
+import 'package:proyectoihc2/Pages/reminders_page_wrapper.dart';
 import 'package:proyectoihc2/Pages/scanQR_page.dart';
 import 'package:proyectoihc2/pages/groups_page.dart';
 import 'package:proyectoihc2/pages/reminders_page.dart';
@@ -93,8 +95,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   List<Widget> _widgetOptions = <Widget>[
-      ScanQR(uid),
-      GroupPage(uid)
+      MainPageWrapper(litems, uid),
+      GroupPage(uid),
+      ConfigurationPage(uid)
     ];
 
   void _onItemTapped(int index) {
@@ -118,6 +121,10 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
             label: 'Business',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Configuration',
           ),
         ],
         currentIndex: _selectedIndex,
