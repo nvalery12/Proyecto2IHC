@@ -7,7 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class CardReminderList extends StatefulWidget{
   List<Reminder> litems;
   String uid;
-  CardReminderList(this.litems,this.uid);
+  bool isOwner;
+  CardReminderList(this.litems,this.uid,this.isOwner);
   @override
   _CardReminderListState createState() => _CardReminderListState();
 }
@@ -15,21 +16,17 @@ class CardReminderList extends StatefulWidget{
 class _CardReminderListState extends State<CardReminderList> {
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    print("initState en cardReminderList " + this.widget.litems.length.toString());
-    setState((){});
-
-  }
-  @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return ListView.builder(
       physics: BouncingScrollPhysics(),
       itemCount: this.widget.litems.length,
       itemBuilder: (BuildContext ctxt, int Index) {
-        return _item(Index);
+        if(this.widget.isOwner){
+          return _item(Index);
+        }else{
+          return CardReminder(this.widget.litems[Index]);
+        }
       },
     );
   }

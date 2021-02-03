@@ -35,13 +35,17 @@ class _MainPageState extends State<MainPage> {
       db.getListGroupReminder(this.widget.group.reminderList,this.widget.group.id,updateState);
     }
   }
-  
+
+  bool aux;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    if(this.widget.group != null){
+      aux = this.widget.group.uidOwner == uid;
+    }
     return Stack(
       children: [
-        CardReminderList(this.widget.litems,this.widget.uid),
+        CardReminderList(this.widget.litems,this.widget.uid,aux),
         Align(
           alignment: Alignment.bottomRight,
           child: new FloatingActionButton(
