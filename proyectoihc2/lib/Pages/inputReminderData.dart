@@ -148,24 +148,28 @@ class _InputReminderData extends State<InputReminderData> {
                 await _selectDate(context);
                 await _selectTime(context);
                 Reminder reminder;
-                reminder = Reminder(
-                  title: controllerTitleText.text,
-                  subTitle: controllerSubTitleText.text,
-                );
-                reminder.updateDeadline(selectedDate, selectedTime);
-                this.widget.litems.add(
-                    reminder
-                );
-                Database db = Database(this.widget.uid);
-                if (this.widget.group == null) {
-                  db.addPersonalReminder(reminder);
+                DateTime now = DateTime.now();
+                if( (now.difference(DateTime.utc(
+                    selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.hour, selectedTime.minute)).inDays>0)&&(controllerTitleText!=null)) {
+                  reminder = Reminder(
+                    title: controllerTitleText.text,
+                    subTitle: controllerSubTitleText.text,
+                  );
+                  reminder.updateDeadline(selectedDate, selectedTime);
+                  this.widget.litems.add(
+                      reminder
+                  );
+                  Database db = Database(this.widget.uid);
+                  if (this.widget.group == null) {
+                    db.addPersonalReminder(reminder);
+                  }
+                  if (this.widget.group != null) {
+                    db.addGroupReminder(reminder, this.widget.group);
+                  }
+                  scheduleAlarm(reminder);
+                  this.widget.updateState();
+                  Navigator.pop(context);
                 }
-                if (this.widget.group != null) {
-                  db.addGroupReminder(reminder, this.widget.group);
-                }
-                scheduleAlarm(reminder);
-                this.widget.updateState();
-                Navigator.pop(context);
               },
               child: Text('Next'),
               style: ButtonStyle(

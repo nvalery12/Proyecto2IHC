@@ -30,6 +30,8 @@ class Database {
 
   Future<void> getListPersonalReminder(List<Reminder> litems, final updateState) async {
     var auth = uid;
+    litems.clear();
+    DateTime now= DateTime.now();
     print(auth);
     await FirebaseFirestore.instance.collection('Users')
         .doc(auth)
@@ -54,6 +56,7 @@ class Database {
         litems.add(reminder);
       });
     })
+        .then((value) => litems.sort((A,B) => now.difference(A.deadLine).inDays>=now.difference(B.deadLine).inDays ? 1 : 0))
         .then((value) => updateState())
         .catchError((error) => print("Failed to add user: $error"));
   }
@@ -130,6 +133,7 @@ class Database {
 
   Future<void> getListGroup(List<Group> litems, final updateState) async {
     List<String> aux = List<String>();
+    litems.clear();
     await newGroupReminder
         .where('arrayMembers', arrayContains: this.uid)
         .get()
@@ -156,7 +160,8 @@ class Database {
               litems.last.Members = membersArray;
               litems.last.id = doc.id;
               print(litems.last.id);
-      }).then((value) => updateState())
+      })
+           .then((value) => updateState())
            .catchError((error) => print("Failed to add user: $error"));
             
     });
@@ -164,6 +169,7 @@ class Database {
   }
 
   Future<void> getListGroupReminder(List<Reminder> litems, String GroupID,final updateState) async{
+    litems.clear();
     await newGroupReminder
         .doc(GroupID)
         .collection('Reminders') //RecordatoriosPersonales
@@ -187,6 +193,7 @@ class Database {
         litems.add(reminder);
       });
     })
+        .then((value) => litems.sort((A,B) => now.difference(A.deadLine).inDays>=now.difference(B.deadLine).inDays ? 1 : 0))
         .then((value) => updateState())
         .catchError((error) => print("Failed to add user: $error"));
   }
