@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:proyectoihc2/Models/groupModel.dart';
 import 'package:proyectoihc2/Models/reminder.dart';
+import 'package:proyectoihc2/Pages/generateQR_page.dart';
 import 'package:proyectoihc2/Services/authServices.dart';
 import 'package:proyectoihc2/Services/database.dart';
-import 'package:proyectoihc2/Services/dynamicLinks.dart';
 import 'package:proyectoihc2/Widgets/card_reminder_list.dart';
 import 'package:proyectoihc2/main.dart';
 import 'inputReminderData.dart';
@@ -19,18 +19,19 @@ class MainPage extends StatefulWidget{
 }
 
 class _MainPageState extends State<MainPage> {
+  
+  void updateState(){
+    setState((){});
+  }
+  
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Database db = new Database(uid);
     db.getListPersonalReminder(litems,updateState);
-    DynamicLinksService dynamicLinksService = DynamicLinksService();
-    dynamicLinksService.fetchLinkData();
   }
-  void updateState(){
-    setState((){});
-  }
+  
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -74,11 +75,10 @@ class _MainPageState extends State<MainPage> {
                 context.read<AuthenticationService>().signOut();
               }
               if (this.widget.group != null) {
-                DynamicLinksService dynamicLink = DynamicLinksService();
-                Uri uri = await dynamicLink.createDynamicLink(
-                    groupUID: this.widget.group.id
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => GenerateQR(this.widget.group.id)
+                  ),
                 );
-                print(uri.toString());
               }
             },
             backgroundColor: Color(0xff686d76),

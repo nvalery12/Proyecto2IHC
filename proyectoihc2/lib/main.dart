@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +7,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:proyectoihc2/Pages/generateQR_page.dart';
 import 'package:proyectoihc2/Pages/scanQR_page.dart';
-import 'package:proyectoihc2/Services/dynamicLinks.dart';
 import 'package:proyectoihc2/pages/groups_page.dart';
 import 'package:proyectoihc2/pages/reminders_page.dart';
 import 'package:proyectoihc2/pages/sing_in_page.dart';
@@ -39,8 +37,6 @@ Future<void> main() async {
           debugPrint('notification payload: ' + payload);
         }
       });
-  DynamicLinksService dynamicLinksService = DynamicLinksService();
-  dynamicLinksService.fetchLinkData();
   runApp(MyApp());
 }
 
@@ -80,10 +76,8 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
   @override
   Widget build(BuildContext context) {
     var firebaseUser=context.watch<User>();
-
     if (firebaseUser != null) {
       uid = firebaseUser.uid;
-      print("En authWrapper " + litems.length.toString());
       return MyHomePage();
     }
     return SignInPage();
@@ -99,24 +93,16 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   List<Widget> _widgetOptions = <Widget>[
-    GenerateQR(),
-    ScanQR()
+      ScanQR(),
+      GroupPage(uid)
     ];
-  /*MainPage(litems, uid),
-  GroupPage(uid)*/
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    DynamicLinksService dynamicLinksService = DynamicLinksService();
-    dynamicLinksService.fetchLinkData();
-  }
 
   @override
   Widget build(BuildContext context) {

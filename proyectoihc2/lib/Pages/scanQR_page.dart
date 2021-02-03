@@ -47,7 +47,7 @@ class _ScanQRState extends State<ScanQR> {
                 setState(() {
                   qrCodeResult = codeSanner;
                 });
-                print("CodeSanner " + codeSanner);
+                
               },
               child: Text("Open Scanner",style: TextStyle(color: Colors.indigo[900]),),
               //Button having rounded rectangle border
