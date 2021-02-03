@@ -1,7 +1,10 @@
 import 'package:barcode_scan_fix/barcode_scan.dart';
 import 'package:flutter/material.dart';
+import 'package:proyectoihc2/Services/database.dart';
 
 class ScanQR extends StatefulWidget {
+  String uid;
+  ScanQR(this.uid);
   @override
   _ScanQRState createState() => _ScanQRState();
 }
@@ -47,7 +50,8 @@ class _ScanQRState extends State<ScanQR> {
                 setState(() {
                   qrCodeResult = codeSanner;
                 });
-                
+                Database db = Database(this.widget.uid);
+                db.addGroupMemberWithUID(qrCodeResult);
               },
               child: Text("Open Scanner",style: TextStyle(color: Colors.indigo[900]),),
               //Button having rounded rectangle border

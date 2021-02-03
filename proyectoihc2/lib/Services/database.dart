@@ -58,26 +58,6 @@ class Database {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  String getGroupName(String groupID)  {
-     FirebaseFirestore.instance
-        .collection('Groups')
-        .doc(groupID)
-        .get()
-        .then((doc) {
-          return doc.data()["groupName"];
-       });
-  }
-
-  String getGroupOwnerID(String groupID) {
-     FirebaseFirestore.instance
-        .collection('Groups')
-        .doc(groupID)
-        .get()
-        .then((doc) {
-      return doc.data()["ownerUID"];
-    });
-  }
-
   Future<void> createGroup(Group group) async {
     group.Members.add(uid);
     DocumentReference docRef = FirebaseFirestore.instance.collection('Groups')
@@ -119,6 +99,33 @@ class Database {
     )
         .then((value) => print("Group Added"))
         .catchError((error) => print("Failed to add user: $error"));
+  }
+
+    void addGroupMemberWithUID(String groupUID) async{
+    Group group =  await getUIDGroup(groupUID);
+    addGroupMember(this.uid, group);
+    return;
+  }
+
+  Future<Group> getUIDGroup(String groupID) async{
+    Group group;
+    await newGroupReminder
+        .doc(groupID)
+        .get()
+        .then((DocumentSnapshot doc){
+            String groupName = doc.data()['groupName'];
+            String ownerUID = doc.data()['ownerUID'];
+            List<String> membersArray = List.from(doc.data()['arrayMembers']);
+            print("Group name: " + groupName + " ownerUID " + ownerUID);
+            group = Group(
+              groupName: groupName,
+              uidOwner: ownerUID,
+            );
+            group.id = groupID;
+            group.Members = membersArray;
+
+        });
+    return group;
   }
 
   Future<void> getListGroup(List<Group> litems, final updateState) async {
