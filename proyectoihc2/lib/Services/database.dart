@@ -56,7 +56,7 @@ class Database {
         litems.add(reminder);
       });
     })
-        .then((value) => litems.sort((A,B) => now.difference(A.deadLine).inDays>=now.difference(B.deadLine).inDays ? 1 : 0))
+        .then((value) => litems.sort((A,B) => A.deadLine.difference(now).inDays>=B.deadLine.difference(now).inDays ? 1 : 0))
         .then((value) => updateState())
         .catchError((error) => print("Failed to add user: $error"));
   }
@@ -170,6 +170,7 @@ class Database {
 
   Future<void> getListGroupReminder(List<Reminder> litems, String GroupID,final updateState) async{
     litems.clear();
+    DateTime now= DateTime.now();
     await newGroupReminder
         .doc(GroupID)
         .collection('Reminders') //RecordatoriosPersonales
@@ -193,7 +194,7 @@ class Database {
         litems.add(reminder);
       });
     })
-        .then((value) => litems.sort((A,B) => now.difference(A.deadLine).inDays>=now.difference(B.deadLine).inDays ? 1 : 0))
+        .then((value) => litems.sort((A,B) => A.deadLine.difference(now).inDays>=B.deadLine.difference(now).inDays ? 1 : 0))
         .then((value) => updateState())
         .catchError((error) => print("Failed to add user: $error"));
   }

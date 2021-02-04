@@ -149,8 +149,8 @@ class _InputReminderData extends State<InputReminderData> {
                 await _selectTime(context);
                 Reminder reminder;
                 DateTime now = DateTime.now();
-                if( (now.difference(DateTime.utc(
-                    selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.hour, selectedTime.minute)).inDays>0)&&(controllerTitleText!=null)) {
+                if( (DateTime.utc(
+                    selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.hour, selectedTime.minute).difference(now).inDays>0)&&(controllerTitleText!=null)) {
                   reminder = Reminder(
                     title: controllerTitleText.text,
                     subTitle: controllerSubTitleText.text,
