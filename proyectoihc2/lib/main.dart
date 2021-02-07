@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> _widgetOptions = <Widget>[
       MainPageWrapper(litems, uid),
       GroupPage(uid),
-      ConfigurationPage(uid)
+      ConfigurationPage(uid,litems)
     ];
 
   void _onItemTapped(int index) {

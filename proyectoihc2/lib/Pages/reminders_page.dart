@@ -43,7 +43,7 @@ class _MainPageState extends State<MainPage> {
     if(this.widget.group != null){
       aux = this.widget.group.uidOwner == uid;
     }else{
-      aux = false;
+      aux = true;
     }
     return Stack(
       children: [
