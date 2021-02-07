@@ -115,20 +115,20 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.person),
+            label: 'Personales',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+            icon: Icon(Icons.group),
+            label: 'Grupos',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Configuration',
+            icon: Icon(Icons.settings),
+            label: 'Configuracion',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Color(0xff30475e),
         onTap: _onItemTapped,
       ),
     );

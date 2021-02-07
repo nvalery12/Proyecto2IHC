@@ -38,12 +38,6 @@ class ConfigurationPage extends StatelessWidget{
               },
             )
         ),
-        ListTile(
-          title: Text('Moon'),
-        ),
-        ListTile(
-          title: Text('Star'),
-        ),
       ],
     );
   }
