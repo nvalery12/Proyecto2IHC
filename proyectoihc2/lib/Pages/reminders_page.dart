@@ -54,8 +54,8 @@ class _MainPageState extends State<MainPage> {
       children: [
         if(carga)
           if(this.widget.litems.isNotEmpty) CardReminderList(this.widget.litems,this.widget.uid,aux)
-            else Text("Ingrese recordatorios")
-        else CircularProgressIndicator(),
+            else Center( child: Text("Ingrese recordatorios"))
+        else Center(child: CircularProgressIndicator(),),
         Align(
           alignment: Alignment.bottomRight,
           child: new FloatingActionButton(
