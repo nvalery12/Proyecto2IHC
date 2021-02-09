@@ -9,9 +9,9 @@ import 'package:proyectoihc2/Pages/configuration_page.dart';
 import 'package:proyectoihc2/Pages/generateQR_page.dart';
 import 'package:proyectoihc2/Pages/reminders_page_wrapper.dart';
 import 'package:proyectoihc2/Pages/scanQR_page.dart';
-import 'package:proyectoihc2/pages/groups_page.dart';
-import 'package:proyectoihc2/pages/reminders_page.dart';
-import 'package:proyectoihc2/pages/sing_in_page.dart';
+import 'package:proyectoihc2/Pages/groups_page.dart';
+import 'package:proyectoihc2/Pages/reminders_page.dart';
+import 'package:proyectoihc2/Pages/sing_in_page.dart';
 import 'Models/reminder.dart';
 import 'Services/authServices.dart';
 import 'Services/database.dart';
@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> _widgetOptions = <Widget>[
       MainPageWrapper(litems, uid),
       GroupPage(uid),
-      ConfigurationPage(uid)
+      ConfigurationPage(uid,litems)
     ];
 
   void _onItemTapped(int index) {
@@ -115,20 +115,20 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.person),
+            label: 'Personales',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+            icon: Icon(Icons.group),
+            label: 'Grupos',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Configuration',
+            icon: Icon(Icons.settings),
+            label: 'Configuracion',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Color(0xff30475e),
         onTap: _onItemTapped,
       ),
     );

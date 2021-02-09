@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:proyectoihc2/Models/reminder.dart';
 import 'package:proyectoihc2/Pages/scanQR_page.dart';
+import 'package:proyectoihc2/Services/authServices.dart';
+import 'package:provider/provider.dart';
 
 class ConfigurationPage extends StatelessWidget{
   String uid;
-  ConfigurationPage(this.uid);
+  List<Reminder> litems;
+  ConfigurationPage(this.uid,this.litems);
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +27,16 @@ class ConfigurationPage extends StatelessWidget{
               },
             )
         ),
-        ListTile(
-          title: Text('Moon'),
-        ),
-        ListTile(
-          title: Text('Star'),
+        Card(
+            child:
+            ListTile(
+              title: Text('Cerrar sesion'),
+              onTap: () async{
+                litems.removeRange(0,litems.length);
+                uid = '';
+                context.read<AuthenticationService>().signOut();
+              },
+            )
         ),
       ],
     );

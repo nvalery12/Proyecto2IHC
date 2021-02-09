@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:proyectoihc2/Models/reminder.dart';
@@ -22,29 +23,62 @@ class _InputReminderData extends State<InputReminderData> {
   DateTime selectedDate;
   TimeOfDay selectedTime;
 
-  Future<Null> _selectDate(BuildContext context) async {
+  Future<int> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
-        initialDate: DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day),
+        initialDate: DateTime(DateTime
+            .now()
+            .year, DateTime
+            .now()
+            .month, DateTime
+            .now()
+            .day),
         initialDatePickerMode: DatePickerMode.day,
         firstDate: DateTime(2015),
         lastDate: DateTime(2101)
     );
-    if (picked != null)
-      setState(() {
-        selectedDate = picked;
-      });
+    if (picked != null) {
+      var dateTimeNow = DateTime( DateTime.now().year, DateTime.now().month,DateTime.now().day);
+      if (picked.isBefore(dateTimeNow)) {
+        final snackBar = SnackBar(
+          content: Text('Ingrese una fecha posterior a la actual'),
+        );
+        Scaffold.of(context).showSnackBar(snackBar);
+        return 0;
+      } else if (picked.isAfter(dateTimeNow)) {
+        setState(() {
+          selectedDate = picked;
+        });
+        return 1;
+      }else if(picked.isAtSameMomentAs(dateTimeNow)){
+        return 2;
+      }
+    }
   }
 
-  Future<Null> _selectTime(BuildContext context) async {
+  Future<bool> _selectTime(BuildContext context, int selectedTimeOp) async {
     final TimeOfDay picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
     );
-    if (picked != null)
-      setState(() {
-        selectedTime = picked;
-      });
+    if (picked != null) {
+      var dateTimeNow = DateTime( 0, 0, 0,DateTime.now().hour,DateTime.now().minute);
+      var timeDay = DateTime( 0, 0, 0,picked.hour,picked.minute);
+      if((selectedTimeOp == 2) & (timeDay.isBefore(dateTimeNow))){
+        final snackBar = SnackBar(
+          content: Text('Ingrese una fecha posterior a la actual'),
+        );
+        Scaffold.of(context).showSnackBar(snackBar);
+        return false;
+      }else{
+        setState(() {
+          selectedTime = picked;
+        });
+        return true;
+      }
+
+    }
+
   }
 
   void scheduleAlarm(Reminder reminder) async {
@@ -95,86 +129,93 @@ class _InputReminderData extends State<InputReminderData> {
     );
   }
 
-
   final controllerTitleText = TextEditingController();
   final controllerSubTitleText = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    print("Dentro de inputData antes de scaffold: " + this.widget.litems.length.toString());
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
       ),
-      body: Container(
-        child:  Column(
-          children: [
-            SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio top y primer widget
-            TextField(
-              //maxLength: 12,
-              cursorColor: Colors.white,            //Color del cursor
-              style: TextStyle(color: Colors.white),//Color de texto
-              decoration: InputDecoration(
-                border: new OutlineInputBorder(         //Bordes redondos
-                  borderRadius: const BorderRadius.all(
-                    const Radius.circular(25.0),
+      body: Builder(
+        builder: (BuildContext context) {
+          return Container(
+            child:  Column(
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio top y primer widget
+                TextField(
+                  //maxLength: 12,
+                  cursorColor: Colors.white,            //Color del cursor
+                  style: TextStyle(color: Colors.white),//Color de texto
+                  decoration: InputDecoration(
+                    border: new OutlineInputBorder(         //Bordes redondos
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(25.0),
+                      ),
+                    ),
+                    fillColor: Color(0xff686d76),       //Color de relleno
+                    filled: true,                       //Relleno activado
+                    labelText: 'Titulo',
+                  ),
+                  controller: controllerTitleText,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height/50,), //Espacio entre widgets
+                TextField(
+                  //maxLength: 20,
+                  cursorColor: Colors.white,            //Color del cursor
+                  style: TextStyle(color: Colors.white),//Color de texto
+                  decoration: InputDecoration(
+                    border: new OutlineInputBorder(     //Bordes redondos
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(25.0),
+                      ),
+                    ),
+                    fillColor: Color(0xff686d76),       //Color de relleno
+                    filled: true,                       //Relleno activado
+                    labelText: 'Descripción',
+                  ),
+                  controller: controllerSubTitleText,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio entre segundo widget y boton
+                ElevatedButton(
+                  onPressed: () async{
+                    int selectedDateOp;
+                    bool selectedTimeOp;
+                    selectedDateOp= await _selectDate(context);
+                    if(selectedDateOp>0){
+                      selectedTimeOp = await _selectTime(context,selectedDateOp);
+                      if(selectedTimeOp){
+                        Reminder reminder;
+                        reminder = Reminder(
+                          title: controllerTitleText.text,
+                          subTitle: controllerSubTitleText.text,
+                        );
+                        reminder.updateDeadline(selectedDate, selectedTime);
+                        this.widget.litems.add(
+                            reminder
+                        );
+                        Database db = Database(this.widget.uid);
+                        if (this.widget.group == null) {
+                          db.addPersonalReminder(reminder);
+                        }
+                        if (this.widget.group != null) {
+                          db.addGroupReminder(reminder, this.widget.group);
+                        }
+                        scheduleAlarm(reminder);
+                        this.widget.updateState();
+                        Navigator.pop(context);
+                      }
+                    }
+                  },
+                  child: Text('Next'),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Color(0xff30475e)), //Color de boton
                   ),
                 ),
-                fillColor: Color(0xff686d76),       //Color de relleno
-                filled: true,                       //Relleno activado
-                labelText: 'Titulo',
-              ),
-              controller: controllerTitleText,
+              ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height/50,), //Espacio entre widgets
-            TextField(
-              //maxLength: 20,
-              cursorColor: Colors.white,            //Color del cursor
-              style: TextStyle(color: Colors.white),//Color de texto
-              decoration: InputDecoration(
-                border: new OutlineInputBorder(     //Bordes redondos
-                  borderRadius: const BorderRadius.all(
-                    const Radius.circular(25.0),
-                  ),
-                ),
-                fillColor: Color(0xff686d76),       //Color de relleno
-                filled: true,                       //Relleno activado
-                labelText: 'Descripción',
-              ),
-              controller: controllerSubTitleText,
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio entre segundo widget y boton
-            ElevatedButton(
-              onPressed: () async{
-                await _selectDate(context);
-                await _selectTime(context);
-                Reminder reminder;
-                reminder = Reminder(
-                  title: controllerTitleText.text,
-                  subTitle: controllerSubTitleText.text,
-                );
-                reminder.updateDeadline(selectedDate, selectedTime);
-                this.widget.litems.add(
-                    reminder
-                );
-                Database db = Database(this.widget.uid);
-                if (this.widget.group == null) {
-                  db.addPersonalReminder(reminder);
-                }
-                if (this.widget.group != null) {
-                  db.addGroupReminder(reminder, this.widget.group);
-                }
-                scheduleAlarm(reminder);
-                this.widget.updateState();
-                Navigator.pop(context);
-              },
-              child: Text('Next'),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Color(0xff30475e)), //Color de boton
-              ),
-            ),
-          ],
-
-        ),
+          );
+        },
       ),
       backgroundColor: Color(0xff373a40), //color de fondo
     );
