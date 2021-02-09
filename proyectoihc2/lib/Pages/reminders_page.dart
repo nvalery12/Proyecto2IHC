@@ -25,15 +25,19 @@ class _MainPageState extends State<MainPage> {
   void updateState(){
     setState((){});
   }
+
+  void done(){
+    carga=true;
+  }
   
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     db = new Database(uid);
-    db.getListPersonalReminder(litems,updateState,carga);
+    db.getListPersonalReminder(litems,updateState,done);
     if(this.widget.group != null){
-      db.getListGroupReminder(this.widget.group.reminderList,this.widget.group.id,updateState,carga);
+      db.getListGroupReminder(this.widget.group.reminderList,this.widget.group.id,updateState,done);
     }
   }
 

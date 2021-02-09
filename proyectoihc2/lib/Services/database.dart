@@ -28,7 +28,7 @@ class Database {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  Future<void> getListPersonalReminder(List<Reminder> litems, final updateState,bool carga) async {
+  Future<void> getListPersonalReminder(List<Reminder> litems, final updateState,final done) async {
     var auth = uid;
     litems.clear();
     DateTime now= DateTime.now();
@@ -57,7 +57,7 @@ class Database {
       });
     })
         .then((value) => litems.sort((A,B) => A.deadLine.difference(DateTime.now()).inDays>=B.deadLine.difference(DateTime.now()).inDays ? 1 : 0))
-        .then((value) => carga=true)
+        .then((value) => done())
         .then((value) => updateState())
         .catchError((error) => print("Failed to add user: $error"));
   }
@@ -169,7 +169,7 @@ class Database {
 
   }
 
-  Future<void> getListGroupReminder(List<Reminder> litems, String GroupID,final updateState,bool carga) async{
+  Future<void> getListGroupReminder(List<Reminder> litems, String GroupID,final updateState,final done) async{
     litems.clear();
     DateTime now= DateTime.now();
     await newGroupReminder
@@ -196,7 +196,7 @@ class Database {
       });
     })
         .then((value) => litems.sort((A,B) => A.deadLine.difference(DateTime.now()).inDays>=B.deadLine.difference(DateTime.now()).inDays ? 1 : 0))
-        .then((value) => carga=true)
+        .then((value) => done())
         .then((value) => updateState())
         .catchError((error) => print("Failed to add user: $error"));
   }
