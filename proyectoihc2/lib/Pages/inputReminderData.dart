@@ -40,10 +40,14 @@ class _InputReminderData extends State<InputReminderData> {
     if (picked != null) {
       var dateTimeNow = DateTime( DateTime.now().year, DateTime.now().month,DateTime.now().day);
       if (picked.isBefore(dateTimeNow)) {
-        print("Es antes de hoy");
+        final scaffold = Scaffold.of(context);
+        scaffold.showSnackBar(
+          SnackBar(
+            content: const Text('Eliga una fecha posterior a hoy!'),
+          ),
+        );
         return 0;
       } else if (picked.isAfter(dateTimeNow)) {
-        print("Es despues de hoy");
         setState(() {
           selectedDate = picked;
         });
@@ -63,7 +67,12 @@ class _InputReminderData extends State<InputReminderData> {
       var dateTimeNow = DateTime( 0, 0, 0,DateTime.now().hour,DateTime.now().minute);
       var timeDay = DateTime( 0, 0, 0,picked.hour,picked.minute);
       if((selectedTimeOp == 2) & (timeDay.isBefore(dateTimeNow))){
-        print("Fecha invalida");
+        final scaffold = Scaffold.of(context);
+        scaffold.showSnackBar(
+          SnackBar(
+            content: const Text('Eliga una fecha posterior a hoy!'),
+          ),
+        );
         return false;
       }else{
         setState(() {
@@ -179,7 +188,6 @@ class _InputReminderData extends State<InputReminderData> {
                   selectedTimeOp = await _selectTime(context,selectedDateOp);
                   if(selectedTimeOp){
                     Reminder reminder;
-                    DateTime now = DateTime.now();
                     reminder = Reminder(
                       title: controllerTitleText.text,
                       subTitle: controllerSubTitleText.text,
