@@ -20,7 +20,8 @@ class MainPage extends StatefulWidget{
 }
 
 class _MainPageState extends State<MainPage> {
-  
+  Database db;
+  bool carga=false;
   void updateState(){
     setState((){});
   }
@@ -29,10 +30,10 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Database db = new Database(uid);
-    db.getListPersonalReminder(litems,updateState);
+    db = new Database(uid);
+    db.getListPersonalReminder(litems,updateState,carga);
     if(this.widget.group != null){
-      db.getListGroupReminder(this.widget.group.reminderList,this.widget.group.id,updateState);
+      db.getListGroupReminder(this.widget.group.reminderList,this.widget.group.id,updateState,carga);
     }
   }
 
@@ -47,7 +48,10 @@ class _MainPageState extends State<MainPage> {
     }
     return Stack(
       children: [
-        CardReminderList(this.widget.litems,this.widget.uid,aux),
+        if(carga)
+          if(this.widget.litems.isNotEmpty) CardReminderList(this.widget.litems,this.widget.uid,aux)
+            else Text("Ingrese recordatorios")
+        else CircularProgressIndicator(),
         Align(
           alignment: Alignment.bottomRight,
           child: new FloatingActionButton(
