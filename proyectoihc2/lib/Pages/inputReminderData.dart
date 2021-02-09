@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:proyectoihc2/Models/reminder.dart';
@@ -22,29 +23,57 @@ class _InputReminderData extends State<InputReminderData> {
   DateTime selectedDate;
   TimeOfDay selectedTime;
 
-  Future<Null> _selectDate(BuildContext context) async {
+  Future<int> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
-        initialDate: DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day),
+        initialDate: DateTime(DateTime
+            .now()
+            .year, DateTime
+            .now()
+            .month, DateTime
+            .now()
+            .day),
         initialDatePickerMode: DatePickerMode.day,
         firstDate: DateTime(2015),
         lastDate: DateTime(2101)
     );
-    if (picked != null)
-      setState(() {
-        selectedDate = picked;
-      });
+    if (picked != null) {
+      var dateTimeNow = DateTime( DateTime.now().year, DateTime.now().month,DateTime.now().day);
+      if (picked.isBefore(dateTimeNow)) {
+        print("Es antes de hoy");
+        return 0;
+      } else if (picked.isAfter(dateTimeNow)) {
+        print("Es despues de hoy");
+        setState(() {
+          selectedDate = picked;
+        });
+        return 1;
+      }else if(picked.isAtSameMomentAs(dateTimeNow)){
+        return 2;
+      }
+    }
   }
 
-  Future<Null> _selectTime(BuildContext context) async {
+  Future<bool> _selectTime(BuildContext context, int selectedTimeOp) async {
     final TimeOfDay picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
     );
-    if (picked != null)
-      setState(() {
-        selectedTime = picked;
-      });
+    if (picked != null) {
+      var dateTimeNow = DateTime( 0, 0, 0,DateTime.now().hour,DateTime.now().minute);
+      var timeDay = DateTime( 0, 0, 0,picked.hour,picked.minute);
+      if((selectedTimeOp == 2) & (timeDay.isBefore(dateTimeNow))){
+        print("Fecha invalida");
+        return false;
+      }else{
+        setState(() {
+          selectedTime = picked;
+        });
+        return true;
+      }
+
+    }
+
   }
 
   void scheduleAlarm(Reminder reminder) async {
@@ -95,12 +124,10 @@ class _InputReminderData extends State<InputReminderData> {
     );
   }
 
-
   final controllerTitleText = TextEditingController();
   final controllerSubTitleText = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    print("Dentro de inputData antes de scaffold: " + this.widget.litems.length.toString());
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
@@ -145,31 +172,36 @@ class _InputReminderData extends State<InputReminderData> {
             SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio entre segundo widget y boton
             ElevatedButton(
               onPressed: () async{
-                await _selectDate(context);
-                await _selectTime(context);
-                Reminder reminder;
-                DateTime now = DateTime.now();
-                if( (DateTime.utc(
-                    selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.hour, selectedTime.minute).difference(now).inDays>0)&&(controllerTitleText!=null)) {
-                  reminder = Reminder(
-                    title: controllerTitleText.text,
-                    subTitle: controllerSubTitleText.text,
-                  );
-                  reminder.updateDeadline(selectedDate, selectedTime);
-                  this.widget.litems.add(
-                      reminder
-                  );
-                  Database db = Database(this.widget.uid);
-                  if (this.widget.group == null) {
-                    db.addPersonalReminder(reminder);
+                int selectedDateOp;
+                bool selectedTimeOp;
+                selectedDateOp= await _selectDate(context);
+                if(selectedDateOp>0){
+                  selectedTimeOp = await _selectTime(context,selectedDateOp);
+                  if(selectedTimeOp){
+                    Reminder reminder;
+                    DateTime now = DateTime.now();
+                    reminder = Reminder(
+                      title: controllerTitleText.text,
+                      subTitle: controllerSubTitleText.text,
+                    );
+                    reminder.updateDeadline(selectedDate, selectedTime);
+                    this.widget.litems.add(
+                        reminder
+                    );
+                    Database db = Database(this.widget.uid);
+                    if (this.widget.group == null) {
+                      db.addPersonalReminder(reminder);
+                    }
+                    if (this.widget.group != null) {
+                      db.addGroupReminder(reminder, this.widget.group);
+                    }
+                    scheduleAlarm(reminder);
+                    this.widget.updateState();
+                    Navigator.pop(context);
                   }
-                  if (this.widget.group != null) {
-                    db.addGroupReminder(reminder, this.widget.group);
-                  }
-                  scheduleAlarm(reminder);
-                  this.widget.updateState();
-                  Navigator.pop(context);
+
                 }
+
               },
               child: Text('Next'),
               style: ButtonStyle(
