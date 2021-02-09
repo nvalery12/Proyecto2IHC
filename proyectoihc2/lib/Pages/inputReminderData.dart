@@ -40,12 +40,10 @@ class _InputReminderData extends State<InputReminderData> {
     if (picked != null) {
       var dateTimeNow = DateTime( DateTime.now().year, DateTime.now().month,DateTime.now().day);
       if (picked.isBefore(dateTimeNow)) {
-        final scaffold = Scaffold.of(context);
-        scaffold.showSnackBar(
-          SnackBar(
-            content: const Text('Eliga una fecha posterior a hoy!'),
-          ),
+        final snackBar = SnackBar(
+          content: Text('Ingrese una fecha posterior a la actual'),
         );
+        Scaffold.of(context).showSnackBar(snackBar);
         return 0;
       } else if (picked.isAfter(dateTimeNow)) {
         setState(() {
@@ -67,12 +65,10 @@ class _InputReminderData extends State<InputReminderData> {
       var dateTimeNow = DateTime( 0, 0, 0,DateTime.now().hour,DateTime.now().minute);
       var timeDay = DateTime( 0, 0, 0,picked.hour,picked.minute);
       if((selectedTimeOp == 2) & (timeDay.isBefore(dateTimeNow))){
-        final scaffold = Scaffold.of(context);
-        scaffold.showSnackBar(
-          SnackBar(
-            content: const Text('Eliga una fecha posterior a hoy!'),
-          ),
+        final snackBar = SnackBar(
+          content: Text('Ingrese una fecha posterior a la actual'),
         );
+        Scaffold.of(context).showSnackBar(snackBar);
         return false;
       }else{
         setState(() {
@@ -141,84 +137,85 @@ class _InputReminderData extends State<InputReminderData> {
       appBar: AppBar(
         title: Text(""),
       ),
-      body: Container(
-        child:  Column(
-          children: [
-            SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio top y primer widget
-            TextField(
-              //maxLength: 12,
-              cursorColor: Colors.white,            //Color del cursor
-              style: TextStyle(color: Colors.white),//Color de texto
-              decoration: InputDecoration(
-                border: new OutlineInputBorder(         //Bordes redondos
-                  borderRadius: const BorderRadius.all(
-                    const Radius.circular(25.0),
+      body: Builder(
+        builder: (BuildContext context) {
+          return Container(
+            child:  Column(
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio top y primer widget
+                TextField(
+                  //maxLength: 12,
+                  cursorColor: Colors.white,            //Color del cursor
+                  style: TextStyle(color: Colors.white),//Color de texto
+                  decoration: InputDecoration(
+                    border: new OutlineInputBorder(         //Bordes redondos
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(25.0),
+                      ),
+                    ),
+                    fillColor: Color(0xff686d76),       //Color de relleno
+                    filled: true,                       //Relleno activado
+                    labelText: 'Titulo',
+                  ),
+                  controller: controllerTitleText,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height/50,), //Espacio entre widgets
+                TextField(
+                  //maxLength: 20,
+                  cursorColor: Colors.white,            //Color del cursor
+                  style: TextStyle(color: Colors.white),//Color de texto
+                  decoration: InputDecoration(
+                    border: new OutlineInputBorder(     //Bordes redondos
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(25.0),
+                      ),
+                    ),
+                    fillColor: Color(0xff686d76),       //Color de relleno
+                    filled: true,                       //Relleno activado
+                    labelText: 'Descripción',
+                  ),
+                  controller: controllerSubTitleText,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio entre segundo widget y boton
+                ElevatedButton(
+                  onPressed: () async{
+                    int selectedDateOp;
+                    bool selectedTimeOp;
+                    selectedDateOp= await _selectDate(context);
+                    if(selectedDateOp>0){
+                      selectedTimeOp = await _selectTime(context,selectedDateOp);
+                      if(selectedTimeOp){
+                        Reminder reminder;
+                        reminder = Reminder(
+                          title: controllerTitleText.text,
+                          subTitle: controllerSubTitleText.text,
+                        );
+                        reminder.updateDeadline(selectedDate, selectedTime);
+                        this.widget.litems.add(
+                            reminder
+                        );
+                        Database db = Database(this.widget.uid);
+                        if (this.widget.group == null) {
+                          db.addPersonalReminder(reminder);
+                        }
+                        if (this.widget.group != null) {
+                          db.addGroupReminder(reminder, this.widget.group);
+                        }
+                        scheduleAlarm(reminder);
+                        this.widget.updateState();
+                        Navigator.pop(context);
+                      }
+                    }
+                  },
+                  child: Text('Next'),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Color(0xff30475e)), //Color de boton
                   ),
                 ),
-                fillColor: Color(0xff686d76),       //Color de relleno
-                filled: true,                       //Relleno activado
-                labelText: 'Titulo',
-              ),
-              controller: controllerTitleText,
+              ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height/50,), //Espacio entre widgets
-            TextField(
-              //maxLength: 20,
-              cursorColor: Colors.white,            //Color del cursor
-              style: TextStyle(color: Colors.white),//Color de texto
-              decoration: InputDecoration(
-                border: new OutlineInputBorder(     //Bordes redondos
-                  borderRadius: const BorderRadius.all(
-                    const Radius.circular(25.0),
-                  ),
-                ),
-                fillColor: Color(0xff686d76),       //Color de relleno
-                filled: true,                       //Relleno activado
-                labelText: 'Descripción',
-              ),
-              controller: controllerSubTitleText,
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio entre segundo widget y boton
-            ElevatedButton(
-              onPressed: () async{
-                int selectedDateOp;
-                bool selectedTimeOp;
-                selectedDateOp= await _selectDate(context);
-                if(selectedDateOp>0){
-                  selectedTimeOp = await _selectTime(context,selectedDateOp);
-                  if(selectedTimeOp){
-                    Reminder reminder;
-                    reminder = Reminder(
-                      title: controllerTitleText.text,
-                      subTitle: controllerSubTitleText.text,
-                    );
-                    reminder.updateDeadline(selectedDate, selectedTime);
-                    this.widget.litems.add(
-                        reminder
-                    );
-                    Database db = Database(this.widget.uid);
-                    if (this.widget.group == null) {
-                      db.addPersonalReminder(reminder);
-                    }
-                    if (this.widget.group != null) {
-                      db.addGroupReminder(reminder, this.widget.group);
-                    }
-                    scheduleAlarm(reminder);
-                    this.widget.updateState();
-                    Navigator.pop(context);
-                  }
-
-                }
-
-              },
-              child: Text('Next'),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Color(0xff30475e)), //Color de boton
-              ),
-            ),
-          ],
-
-        ),
+          );
+        },
       ),
       backgroundColor: Color(0xff373a40), //color de fondo
     );
