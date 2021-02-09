@@ -57,9 +57,9 @@ class Database {
       });
     })
         .then((value) => litems.sort((A,B) => A.deadLine.difference(DateTime.now()).inDays>=B.deadLine.difference(DateTime.now()).inDays ? 1 : 0))
+        .then((value) => carga=true)
         .then((value) => updateState())
         .catchError((error) => print("Failed to add user: $error"));
-    carga=true;
   }
 
   Future<void> createGroup(Group group) async {
@@ -196,9 +196,9 @@ class Database {
       });
     })
         .then((value) => litems.sort((A,B) => A.deadLine.difference(DateTime.now()).inDays>=B.deadLine.difference(DateTime.now()).inDays ? 1 : 0))
+        .then((value) => carga=true)
         .then((value) => updateState())
         .catchError((error) => print("Failed to add user: $error"));
-    carga=true;
   }
 
 }
