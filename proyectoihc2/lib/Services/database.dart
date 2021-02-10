@@ -56,7 +56,7 @@ class Database {
         litems.add(reminder);
       });
     })
-        .then((value) => litems.sort((A,B) => A.deadLine.isBefore(B.deadLine) ? 1 : 0))
+        .then((value) => litems.sort((A,B) => A.deadLine.isBefore(B.deadLine) ? 0 : 1))
         .then((value) => done())
         .then((value) => updateState())
         .catchError((error) => print("Failed to add user: $error"));
@@ -196,7 +196,7 @@ class Database {
         litems.add(reminder);
       });
     })
-        .then((value) => litems.sort((A,B) => A.deadLine.isBefore(B.deadLine) ? 1 : 0))
+        .then((value) => litems.sort((A,B) => A.deadLine.isBefore(B.deadLine) ? 0 : 1))
         .then((value) => done())
         .then((value) => updateState())
         .catchError((error) => print("Failed to add user: $error"));

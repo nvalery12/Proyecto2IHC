@@ -39,7 +39,7 @@ class _CardReminderListState extends State<CardReminderList> {
       trailingActions: [ //Opciones de derecha a izquierda
         SwipeAction(
             icon: Icon(
-                Icons.watch_later
+                Icons.delete
             ),
             nestedAction: SwipeNestedAction(title: "Confirmar"),
             onTap: (handler) async {
