@@ -40,7 +40,7 @@ class _GroupPageState extends State<GroupPage> {
         if(dones)
           if(this.widget.liGroups.isNotEmpty) CardGroupList(this.widget.liGroups)
           else Center(child: Text("Agrege nuevos grupos."),)
-        else CircularProgressIndicator(), //CardGroupList
+        else Center(child: CircularProgressIndicator()), //CardGroupList
         Align(
           alignment: Alignment.bottomRight,
           child: new FloatingActionButton(
