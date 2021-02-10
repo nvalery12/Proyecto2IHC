@@ -56,7 +56,7 @@ class Database {
         litems.add(reminder);
       });
     })
-        .then((value) => litems.sort((A,B) => A.deadLine.difference(DateTime.now()).inDays>=B.deadLine.difference(DateTime.now()).inDays ? 1 : 0))
+        .then((value) => litems.sort((A,B) => A.deadLine.isBefore(B.deadLine) ? 1 : 0))
         .then((value) => done())
         .then((value) => updateState())
         .catchError((error) => print("Failed to add user: $error"));
@@ -132,7 +132,7 @@ class Database {
     return group;
   }
 
-  Future<void> getListGroup(List<Group> litems, final updateState) async {
+  Future<void> getListGroup(List<Group> litems, final updateState, final done) async {
     List<String> aux = List<String>();
     litems.clear();
     await newGroupReminder
@@ -162,6 +162,7 @@ class Database {
               litems.last.id = doc.id;
               print(litems.last.id);
       })
+           .then((value) => done())
            .then((value) => updateState())
            .catchError((error) => print("Failed to add user: $error"));
             
@@ -195,7 +196,7 @@ class Database {
         litems.add(reminder);
       });
     })
-        .then((value) => litems.sort((A,B) => A.deadLine.difference(DateTime.now()).inDays>=B.deadLine.difference(DateTime.now()).inDays ? 1 : 0))
+        .then((value) => litems.sort((A,B) => A.deadLine.isBefore(B.deadLine) ? 1 : 0))
         .then((value) => done())
         .then((value) => updateState())
         .catchError((error) => print("Failed to add user: $error"));

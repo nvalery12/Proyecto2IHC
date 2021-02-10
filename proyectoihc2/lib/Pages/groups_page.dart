@@ -13,12 +13,17 @@ class GroupPage extends StatefulWidget{
 }
 
 class _GroupPageState extends State<GroupPage> {
+  bool dones=false;
+
+  void done(){
+    dones=true;
+  }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Database db = Database(this.widget.uid);
-    db.getListGroup(this.widget.liGroups,updateState);
+    db.getListGroup(this.widget.liGroups,updateState,done);
     /*this.widget.liGroups.forEach((element) {
       db.getListGroupReminder(element.reminderList,element.id,updateState);
     });*/
@@ -32,7 +37,10 @@ class _GroupPageState extends State<GroupPage> {
     // TODO: implement build
     return Stack(
       children: [
-        CardGroupList(this.widget.liGroups), //CardGroupList
+        if(dones)
+          if(this.widget.liGroups.isNotEmpty) CardGroupList(this.widget.liGroups)
+          else Center(child: Text("Agrege nuevos grupos."),)
+        else CircularProgressIndicator(), //CardGroupList
         Align(
           alignment: Alignment.bottomRight,
           child: new FloatingActionButton(

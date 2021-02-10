@@ -17,8 +17,12 @@ class Reminder {
   String remainigTime() {
     Duration difference = deadLine.difference(DateTime.now());
     var day = difference.inDays;
-    if (day == 0)
+    if((deadLine.day==DateTime.now().day)&&(day == 0)){
       return "Hoy";
+    }
+    if((deadLine.day!=DateTime.now().day)&&(day == 0)){
+      day=day+1;
+    }
     return "$day";
   }
 

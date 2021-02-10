@@ -63,7 +63,7 @@ class _InputReminderData extends State<InputReminderData> {
     );
     if (picked != null) {
       var dateTimeNow = DateTime( 0, 0, 0,DateTime.now().hour,DateTime.now().minute);
-      var timeDay = DateTime( 0, 0, 0,picked.hour,picked.minute);
+      var timeDay = DateTime( 0, 0, 0,(picked.hour+4),picked.minute);
       if((selectedTimeOp == 2) & (timeDay.isBefore(dateTimeNow))){
         final snackBar = SnackBar(
           content: Text('Ingrese una fecha posterior a la actual'),
