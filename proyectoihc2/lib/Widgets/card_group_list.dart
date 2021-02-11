@@ -53,19 +53,21 @@ class _CardGroupListState extends State<CardGroupList> {
 
     void _delete(int index) async{
       if(this.widget.uid==this.widget.liGroups[index].uidOwner){
-        FirebaseFirestore.instance.collection('Groups')..doc(this.widget.liGroups[index].id).delete();
+        FirebaseFirestore.instance.collection('Groups').doc(this.widget.liGroups[index].id).delete();
       }else{
         List<String> membersArray;
+        membersArray.clear();
         await FirebaseFirestore.instance.collection('Groups').doc(this.widget.liGroups[index].id).get()
-            .then((DocumentSnapshot doc) => membersArray = List.from(doc.data()['arrayMembers']));
-            membersArray.remove(this.widget.uid);
-            print(membersArray.length.toString());
-        await FirebaseFirestore.instance.collection('Groups').doc(this.widget.liGroups[index].id)
+            .then((DocumentSnapshot doc) => membersArray = List.from(doc.data()['arrayMembers']))
+            .then((value) => membersArray.remove(this.widget.uid))
+            .then((value) => print(membersArray.length.toString()))
+            .then((value) => FirebaseFirestore.instance.collection('Groups')
+            .doc(this.widget.liGroups[index].id)
             .update({
-              'arrayMembers': membersArray
-            })
-            .then((value) => print("User Updated"))
-            .catchError((error) => print("Failed to update user: $error"));
-      }
+          'arrayMembers': membersArray,
+        }
+        ).then((value) => print("User Updated"))
+            .catchError((error) => print("Failed to update user: $error")));
+        
     }
 }
