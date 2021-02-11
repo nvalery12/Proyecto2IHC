@@ -140,34 +140,24 @@ class Database {
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
-        aux.add(doc.id);
+        String groupName = doc.data()['groupName'];
+        String ownerUID = doc.data()['ownerUID'];
+        List<String> membersArray = List.from(doc.data()['arrayMembers']);
+        print("Group name: " + groupName + " ownerUID " + ownerUID);
+        litems.add(
+            new Group(
+              groupName: groupName,
+              uidOwner: ownerUID,
+            )
+        );
+        litems.last.Members = membersArray;
+        litems.last.id = doc.id;
+        print(litems.last.id);
       });
-    });
-    aux.forEach((element) async{
-       newGroupReminder
-            .doc(element)
-            .get()
-            .then((DocumentSnapshot doc){
-              String groupName = doc.data()['groupName'];
-              String ownerUID = doc.data()['ownerUID'];
-              List<String> membersArray = List.from(doc.data()['arrayMembers']);
-              print("Group name: " + groupName + " ownerUID " + ownerUID);
-              litems.add(
-                  new Group(
-                    groupName: groupName,
-                    uidOwner: ownerUID,
-                  )
-              );
-              litems.last.Members = membersArray;
-              litems.last.id = doc.id;
-              print(litems.last.id);
-      })
-           .then((value) => done())
-           .then((value) => updateState())
-           .catchError((error) => print("Failed to add user: $error"));
-            
-    });
-
+    })
+        .then((value) => done())
+        .then((value) => updateState())
+        .catchError((error) => print("Failed to add user: $error"));
   }
 
   Future<void> getListGroupReminder(List<Reminder> litems, String GroupID,final updateState,final done) async{
