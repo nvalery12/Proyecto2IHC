@@ -1,10 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:proyectoihc2/Pages/register_page.dart';
 import 'package:proyectoihc2/Services/authServices.dart';
 
-class SignInPage extends StatelessWidget {
+class RegisterPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -12,7 +11,7 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Inicio de Sesion"),
+        title: Text("Registro"),
       ),
       body: Column(
         children: [
@@ -60,28 +59,10 @@ class SignInPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: RaisedButton(
                   onPressed: () {
-                    context.read<AuthenticationService>().signIn(
+                    context.read<AuthenticationService>().signUp(
                       email: emailController.text.trim(),
                       password: passwordController.text.trim(),
                     );
-                  },
-                  child: Text("Sign in"),
-                  color: Color(0xff30475e), //Color de boton
-                  textColor: Colors.white,  //Color de letra
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RegisterPage(),
-                      ),
-                    );
-                    /*context.read<AuthenticationService>().signUp(
-                      email: emailController.text.trim(),
-                      password: passwordController.text.trim(),
-                    );*/
                   },
                   child: Text("Sign up"),
                   color: Color(0xff30475e),
