@@ -51,6 +51,9 @@ class _InputReminderData extends State<InputReminderData> {
         });
         return 1;
       }else if(picked.isAtSameMomentAs(dateTimeNow)){
+        setState(() {
+          selectedDate = picked;
+        });
         return 2;
       }
     }
@@ -63,9 +66,7 @@ class _InputReminderData extends State<InputReminderData> {
     );
     if (picked != null) {
       var dateTimeNow = DateTime( 0, 0, 0,DateTime.now().hour,DateTime.now().minute);
-      int hora=picked.hour+4;
-      if(hora>24) hora-24;
-      var timeDay = DateTime( 0, 0, 0,hora,picked.minute);
+      var timeDay = DateTime( 0, 0, 0,picked.hour,picked.minute);
       if((selectedTimeOp == 2) & (timeDay.isBefore(dateTimeNow))){
         final snackBar = SnackBar(
           content: Text('Ingrese una fecha posterior a la actual'),
