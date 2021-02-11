@@ -196,24 +196,32 @@ class _InputReminderData extends State<InputReminderData> {
                         selectedTimeOp = await _selectTime(context,selectedDateOp);
                         if(selectedTimeOp){
                           Reminder reminder;
-                          reminder = Reminder(
-                            title: controllerTitleText.text,
-                            subTitle: controllerSubTitleText.text,
-                          );
-                          reminder.updateDeadline(selectedDate, selectedTime);
-                          this.widget.litems.add(
-                              reminder
-                          );
-                          Database db = Database(this.widget.uid);
-                          if (this.widget.group == null) {
-                            db.addPersonalReminder(reminder);
+                          String title= controllerTitleText.text.trim();
+                          if(title!=null){
+                            reminder = Reminder(
+                              title: controllerTitleText.text,
+                              subTitle: controllerSubTitleText.text,
+                            );
+                            reminder.updateDeadline(selectedDate, selectedTime);
+                            this.widget.litems.add(
+                                reminder
+                            );
+                            Database db = Database(this.widget.uid);
+                            if (this.widget.group == null) {
+                              db.addPersonalReminder(reminder);
+                            }
+                            if (this.widget.group != null) {
+                              db.addGroupReminder(reminder, this.widget.group);
+                            }
+                            scheduleAlarm(reminder);
+                            this.widget.updateState();
+                            Navigator.pop(context);
+                          }else{
+                            final snackBar = SnackBar(
+                              content: Text('Ingrese un titulo para el recordatorio'),
+                            );
+                            Scaffold.of(context).showSnackBar(snackBar);
                           }
-                          if (this.widget.group != null) {
-                            db.addGroupReminder(reminder, this.widget.group);
-                          }
-                          scheduleAlarm(reminder);
-                          this.widget.updateState();
-                          Navigator.pop(context);
                         }
                       }
                     },
