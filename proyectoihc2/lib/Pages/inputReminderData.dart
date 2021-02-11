@@ -197,7 +197,7 @@ class _InputReminderData extends State<InputReminderData> {
                         if(selectedTimeOp){
                           Reminder reminder;
                           String title= controllerTitleText.text.trim();
-                          if(title!=null){
+                          if(title.isNotEmpty){
                             reminder = Reminder(
                               title: controllerTitleText.text,
                               subTitle: controllerSubTitleText.text,

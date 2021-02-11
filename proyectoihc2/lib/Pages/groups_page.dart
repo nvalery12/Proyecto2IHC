@@ -106,7 +106,7 @@ class _SecondRouteState extends State<SecondRoute> {
               child: ElevatedButton(
                 onPressed: () async{
                   String title= controllerGroupTitleText.text.trim();
-                  if(title!=null){
+                  if(title.isNotEmpty){
                     Group group =  Group(
                         groupName: controllerGroupTitleText.text,
                         uidOwner: this.widget.uid
