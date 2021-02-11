@@ -144,74 +144,82 @@ class _InputReminderData extends State<InputReminderData> {
           return Container(
             child:  Column(
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio top y primer widget
-                TextField(
-                  //maxLength: 12,
-                  cursorColor: Colors.white,            //Color del cursor
-                  style: TextStyle(color: Colors.white),//Color de texto
-                  decoration: InputDecoration(
-                    border: new OutlineInputBorder(         //Bordes redondos
-                      borderRadius: const BorderRadius.all(
-                        const Radius.circular(25.0),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0, top: 40.0),
+                  child: TextField(
+                    maxLength: 17,
+                    maxLengthEnforced: true,
+                    cursorColor: Colors.white,            //Color del cursor
+                    style: TextStyle(color: Colors.white),//Color de texto
+                    decoration: InputDecoration(
+                      border: new OutlineInputBorder(         //Bordes redondos
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(25.0),
+                        ),
                       ),
+                      fillColor: Color(0xff686d76),       //Color de relleno
+                      filled: true,                       //Relleno activado
+                      labelText: 'Titulo',
                     ),
-                    fillColor: Color(0xff686d76),       //Color de relleno
-                    filled: true,                       //Relleno activado
-                    labelText: 'Titulo',
+                    controller: controllerTitleText,
                   ),
-                  controller: controllerTitleText,
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height/50,), //Espacio entre widgets
-                TextField(
-                  //maxLength: 20,
-                  cursorColor: Colors.white,            //Color del cursor
-                  style: TextStyle(color: Colors.white),//Color de texto
-                  decoration: InputDecoration(
-                    border: new OutlineInputBorder(     //Bordes redondos
-                      borderRadius: const BorderRadius.all(
-                        const Radius.circular(25.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    maxLength: 20,
+                    maxLengthEnforced: true,
+                    cursorColor: Colors.white,            //Color del cursor
+                    style: TextStyle(color: Colors.white),//Color de texto
+                    decoration: InputDecoration(
+                      border: new OutlineInputBorder(     //Bordes redondos
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(25.0),
+                        ),
                       ),
+                      fillColor: Color(0xff686d76),       //Color de relleno
+                      filled: true,                       //Relleno activado
+                      labelText: 'Descripción',
                     ),
-                    fillColor: Color(0xff686d76),       //Color de relleno
-                    filled: true,                       //Relleno activado
-                    labelText: 'Descripción',
+                    controller: controllerSubTitleText,
                   ),
-                  controller: controllerSubTitleText,
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio entre segundo widget y boton
-                ElevatedButton(
-                  onPressed: () async{
-                    int selectedDateOp;
-                    bool selectedTimeOp;
-                    selectedDateOp= await _selectDate(context);
-                    if(selectedDateOp>0){
-                      selectedTimeOp = await _selectTime(context,selectedDateOp);
-                      if(selectedTimeOp){
-                        Reminder reminder;
-                        reminder = Reminder(
-                          title: controllerTitleText.text,
-                          subTitle: controllerSubTitleText.text,
-                        );
-                        reminder.updateDeadline(selectedDate, selectedTime);
-                        this.widget.litems.add(
-                            reminder
-                        );
-                        Database db = Database(this.widget.uid);
-                        if (this.widget.group == null) {
-                          db.addPersonalReminder(reminder);
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () async{
+                      int selectedDateOp;
+                      bool selectedTimeOp;
+                      selectedDateOp= await _selectDate(context);
+                      if(selectedDateOp>0){
+                        selectedTimeOp = await _selectTime(context,selectedDateOp);
+                        if(selectedTimeOp){
+                          Reminder reminder;
+                          reminder = Reminder(
+                            title: controllerTitleText.text,
+                            subTitle: controllerSubTitleText.text,
+                          );
+                          reminder.updateDeadline(selectedDate, selectedTime);
+                          this.widget.litems.add(
+                              reminder
+                          );
+                          Database db = Database(this.widget.uid);
+                          if (this.widget.group == null) {
+                            db.addPersonalReminder(reminder);
+                          }
+                          if (this.widget.group != null) {
+                            db.addGroupReminder(reminder, this.widget.group);
+                          }
+                          scheduleAlarm(reminder);
+                          this.widget.updateState();
+                          Navigator.pop(context);
                         }
-                        if (this.widget.group != null) {
-                          db.addGroupReminder(reminder, this.widget.group);
-                        }
-                        scheduleAlarm(reminder);
-                        this.widget.updateState();
-                        Navigator.pop(context);
                       }
-                    }
-                  },
-                  child: Text('Next'),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(Color(0xff30475e)), //Color de boton
+                    },
+                    child: Text('Next'),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Color(0xff30475e)), //Color de boton
+                    ),
                   ),
                 ),
               ],

@@ -76,46 +76,51 @@ class _SecondRouteState extends State<SecondRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Second Route"),
+        title: Text("Titulo de grupo"),
       ),
       body: Container(
         child:  Column(
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height/10,), //Espacio top y primer widget
-            TextField(
-              //maxLength: 12,
-              cursorColor: Colors.white,            //Color del cursor
-              style: TextStyle(color: Colors.white),//Color de texto
-              decoration: InputDecoration(
-                border: new OutlineInputBorder(         //Bordes redondos
-                  borderRadius: const BorderRadius.all(
-                    const Radius.circular(25.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0, top: 40.0),
+              child: TextField(
+                maxLength: 15,
+                maxLengthEnforced: true,
+                cursorColor: Colors.white,            //Color del cursor
+                style: TextStyle(color: Colors.white),//Color de texto
+                decoration: InputDecoration(
+                  border: new OutlineInputBorder(         //Bordes redondos
+                    borderRadius: const BorderRadius.all(
+                      const Radius.circular(25.0),
+                    ),
                   ),
+                  fillColor: Color(0xff686d76),       //Color de relleno
+                  filled: true,                       //Relleno activado
+                  labelText: 'Titulo',
                 ),
-                fillColor: Color(0xff686d76),       //Color de relleno
-                filled: true,                       //Relleno activado
-                labelText: 'Titulo',
+                controller: controllerGroupTitleText,
               ),
-              controller: controllerGroupTitleText,
             ),
-            SizedBox(height: MediaQuery.of(context).size.height/50,), //Espacio entre widgets
-            ElevatedButton(
-              onPressed: () async{
-                Group group =  Group(
-                    groupName: controllerGroupTitleText.text,
-                    uidOwner: this.widget.uid
-                );
-                this.widget.liGroups.add(
-                  group
-                );
-                Database db = Database(this.widget.uid);
-                db.createGroup(group);
-                this.widget.updateState();
-                Navigator.pop(context);
-              },
-              child: Text('Next'),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Color(0xff30475e)), //Color de boton
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () async{
+                  Group group =  Group(
+                      groupName: controllerGroupTitleText.text,
+                      uidOwner: this.widget.uid
+                  );
+                  this.widget.liGroups.add(
+                    group
+                  );
+                  Database db = Database(this.widget.uid);
+                  db.createGroup(group);
+                  this.widget.updateState();
+                  Navigator.pop(context);
+                },
+                child: Text('Next'),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Color(0xff30475e)), //Color de boton
+                ),
               ),
             ),
           ],

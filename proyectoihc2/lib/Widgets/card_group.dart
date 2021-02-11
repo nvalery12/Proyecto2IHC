@@ -18,7 +18,7 @@ class CardGroup extends StatelessWidget{
         },
         child: Container(
           height: (MediaQuery.of(context).size.height)/7,
-          color: Color(0xff686d76),
+          color: Color(0xff30475e),
           child: Row(
               children: <Widget>[
                 Container(

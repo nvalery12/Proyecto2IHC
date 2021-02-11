@@ -23,7 +23,7 @@ class CardReminder extends StatelessWidget {
                     children: [
                       Text(reminder.title,
                             style: TextStyle(
-                              fontSize: 40,
+                              fontSize: 30,
                               color: Colors.white,
                             )
                         ),

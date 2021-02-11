@@ -17,25 +17,35 @@ class ConfigurationPage extends StatelessWidget{
       children: [
         Card(
             child:
-            ListTile(
-              title: Text('Escanear QR'),
-              onTap: (){
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ScanQR(uid)
-                  ),
-                );
-              },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                leading: Icon(Icons.qr_code),
+                tileColor: Color(0xff686d76),
+                title: Text('Escanear QR'),
+                onTap: (){
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ScanQR(uid)
+                    ),
+                  );
+                },
+              ),
             )
         ),
         Card(
             child:
-            ListTile(
-              title: Text('Cerrar sesion'),
-              onTap: () async{
-                litems.removeRange(0,litems.length);
-                uid = '';
-                context.read<AuthenticationService>().signOut();
-              },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                leading: Icon(Icons.email),
+                tileColor: Color(0xff686d76),
+                title: Text('Cerrar sesion'),
+                onTap: () async{
+                  litems.removeRange(0,litems.length);
+                  uid = '';
+                  context.read<AuthenticationService>().signOut();
+                },
+              ),
             )
         ),
       ],
