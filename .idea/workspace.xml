@@ -19,6 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="7ab1080e-91c2-490b-9f83-89f46841ce11" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/proyectoihc2/lib/Pages/sign_up_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
@@ -31,6 +32,9 @@
       <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/Widgets/card_group.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/Widgets/card_group.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/Widgets/card_reminder.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/Widgets/card_reminder.dart" afterDir="false" />
     </list>
+=======
+    <list default="true" id="7ab1080e-91c2-490b-9f83-89f46841ce11" name="Default Changelist" comment="" />
+>>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
