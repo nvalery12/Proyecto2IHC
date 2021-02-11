@@ -51,6 +51,9 @@ class _InputReminderData extends State<InputReminderData> {
         });
         return 1;
       }else if(picked.isAtSameMomentAs(dateTimeNow)){
+        setState(() {
+          selectedDate = picked;
+        });
         return 2;
       }
     }
