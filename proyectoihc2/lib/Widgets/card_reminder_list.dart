@@ -19,6 +19,13 @@ class CardReminderList extends StatefulWidget{
 
 class _CardReminderListState extends State<CardReminderList> {
 
+  updateState2(){
+    this.widget.updateState();
+    setState(() {
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -71,12 +78,12 @@ class _CardReminderListState extends State<CardReminderList> {
               if(this.widget.grupo==null){
                 Navigator.push(context,
                   MaterialPageRoute(builder: (context) =>
-                      InputReminderData(this.widget.litems, this.widget.uid, this.widget.updateState,recordatorio: this.widget.litems[index])),
+                      InputReminderData(this.widget.litems, this.widget.uid, updateState2,recordatorio: this.widget.litems[index])),
                 );
               }else{
                 Navigator.push(context,
                   MaterialPageRoute(builder: (context) =>
-                      InputReminderData(this.widget.litems, this.widget.uid, this.widget.updateState,recordatorio: this.widget.litems[index],group: this.widget.grupo,)),
+                      InputReminderData(this.widget.litems, this.widget.uid, updateState2,recordatorio: this.widget.litems[index],group: this.widget.grupo,)),
                 );
               }
               setState(() {});
