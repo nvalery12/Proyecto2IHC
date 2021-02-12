@@ -53,7 +53,9 @@ class _MainPageState extends State<MainPage> {
     return Stack(
       children: [
         if(carga)
-          if(this.widget.litems.isNotEmpty) CardReminderList(this.widget.litems,this.widget.uid,aux)
+          if(this.widget.litems.isNotEmpty)
+            if(this.widget.group!=null) CardReminderList(this.widget.litems,this.widget.uid,aux,updateState)
+              else CardReminderList(this.widget.litems, this.widget.uid, aux, updateState,grupo: this.widget.group,)
             else Center( child: Text("Ingrese recordatorios"))
         else Center(child: CircularProgressIndicator(),),
         Align(
@@ -70,7 +72,7 @@ class _MainPageState extends State<MainPage> {
               }
               if (this.widget.group != null) {
                 Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => InputReminderData(this.widget.litems,this.widget.uid,updateState,this.widget.group)
+                  MaterialPageRoute(builder: (context) => InputReminderData(this.widget.litems,this.widget.uid,updateState,group: this.widget.group)
                   ),
                 );
               }

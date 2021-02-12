@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -12,8 +13,10 @@ class InputReminderData extends StatefulWidget {
   final updateState;
   String uid;
   List<Reminder> litems;
+  Reminder recordatorio;
   Group group;
-  InputReminderData(this.litems,this.uid, this.updateState,[this.group]);
+  int index;
+  InputReminderData(this.litems,this.uid, this.updateState,{this.group,this.recordatorio});
 
   @override
   _InputReminderData createState() => _InputReminderData();
@@ -22,17 +25,14 @@ class InputReminderData extends StatefulWidget {
 class _InputReminderData extends State<InputReminderData> {
   DateTime selectedDate;
   TimeOfDay selectedTime;
+  DateTime ahora;
+  String titulo;
+  String des;
 
   Future<int> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
-        initialDate: DateTime(DateTime
-            .now()
-            .year, DateTime
-            .now()
-            .month, DateTime
-            .now()
-            .day),
+        initialDate: DateTime(ahora.year, ahora.month, ahora.day),
         initialDatePickerMode: DatePickerMode.day,
         firstDate: DateTime(2015),
         lastDate: DateTime(2101)
@@ -60,12 +60,13 @@ class _InputReminderData extends State<InputReminderData> {
   }
 
   Future<bool> _selectTime(BuildContext context, int selectedTimeOp) async {
+    TimeOfDay este= TimeOfDay(hour: ahora.hour, minute: ahora.minute);
     final TimeOfDay picked = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay.now(),
+      initialTime: este,
     );
     if (picked != null) {
-      var dateTimeNow = DateTime( 0, 0, 0,DateTime.now().hour,DateTime.now().minute);
+      var dateTimeNow = DateTime( 0, 0, 0,ahora.hour,ahora.minute);
       var timeDay = DateTime( 0, 0, 0,picked.hour,picked.minute);
       if((selectedTimeOp == 2) & (timeDay.isBefore(dateTimeNow))){
         final snackBar = SnackBar(
@@ -136,6 +137,15 @@ class _InputReminderData extends State<InputReminderData> {
   final controllerSubTitleText = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    if(this.widget.recordatorio!=null){
+      titulo=this.widget.recordatorio.title;
+      des=this.widget.recordatorio.subTitle;
+      ahora=this.widget.recordatorio.deadLine;
+    }else{
+      titulo='Titulo';
+      des='Descripcion';
+      ahora=DateTime.now();
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
@@ -160,7 +170,7 @@ class _InputReminderData extends State<InputReminderData> {
                       ),
                       fillColor: Color(0xff686d76),       //Color de relleno
                       filled: true,                       //Relleno activado
-                      labelText: 'Titulo',
+                      labelText: titulo,
                     ),
                     controller: controllerTitleText,
                   ),
@@ -180,7 +190,7 @@ class _InputReminderData extends State<InputReminderData> {
                       ),
                       fillColor: Color(0xff686d76),       //Color de relleno
                       filled: true,                       //Relleno activado
-                      labelText: 'Descripción',
+                      labelText: des,
                     ),
                     controller: controllerSubTitleText,
                   ),
@@ -203,19 +213,43 @@ class _InputReminderData extends State<InputReminderData> {
                               subTitle: controllerSubTitleText.text,
                             );
                             reminder.updateDeadline(selectedDate, selectedTime);
-                            this.widget.litems.add(
-                                reminder
-                            );
-                            Database db = Database(this.widget.uid);
-                            if (this.widget.group == null) {
-                              db.addPersonalReminder(reminder);
+                            if(this.widget.recordatorio==null){
+                              this.widget.litems.add(
+                                  reminder
+                              );
+                              Database db = Database(this.widget.uid);
+                              if (this.widget.group == null) {
+                                db.addPersonalReminder(reminder);
+                              }
+                              if (this.widget.group != null) {
+                                db.addGroupReminder(reminder, this.widget.group);
+                              }
+                              scheduleAlarm(reminder);
+                              this.widget.updateState();
+                              Navigator.pop(context);
+                            }else{
+                              if(this.widget.group==null){
+                                FirebaseFirestore.instance.collection('Users')
+                                    .doc(this.widget.uid).set({
+                                  'Title': reminder.title,
+                                  'subTitle': reminder.subTitle,
+                                  'Date': reminder.deadLine,
+                                })
+                                    .then((value) => print("Reminder Updated"))
+                                    .catchError((error) => print("Failed to update reminder: $error"));
+                              }else{
+                                FirebaseFirestore.instance.collection('Groups')
+                                    .doc(this.widget.group.id).collection('Reminders')
+                                    .doc(this.widget.recordatorio.id).set({
+                                  'Title': reminder.title,
+                                  'subTitle': reminder.subTitle,
+                                  'Date': reminder.deadLine,
+                                }).then((value) => print("Reminder Updated"))
+                                    .catchError((error) => print("Failed to update reminder: $error"));
+                              }
+                              this.widget.updateState();
+                              Navigator.pop(context);
                             }
-                            if (this.widget.group != null) {
-                              db.addGroupReminder(reminder, this.widget.group);
-                            }
-                            scheduleAlarm(reminder);
-                            this.widget.updateState();
-                            Navigator.pop(context);
                           }else{
                             final snackBar = SnackBar(
                               content: Text('Ingrese un titulo para el recordatorio'),
