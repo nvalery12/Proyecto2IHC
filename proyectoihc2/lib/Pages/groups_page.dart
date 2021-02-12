@@ -136,11 +136,14 @@ class _SecondRouteState extends State<SecondRoute> {
                       Scaffold.of(context).showSnackBar(snackBar);
                     }
                   }else{
-                      this.widget.grupo.groupName=controllerGroupTitleText.text;
+                    String newTitle=controllerGroupTitleText.text.trim();
+                    if(newTitle.isNotEmpty){
                       await FirebaseFirestore.instance.collection('Groups').doc(this.widget.grupo.id).update(
                           {'groupName':controllerGroupTitleText.text})
                           .then((value) => print('Grupo actualizado'))
                           .catchError((error) => print('Error: $error'));
+                      this.widget.grupo.groupName=controllerGroupTitleText.text;
+                    }
                       this.widget.updateState();
                       Navigator.pop(context);
                   }

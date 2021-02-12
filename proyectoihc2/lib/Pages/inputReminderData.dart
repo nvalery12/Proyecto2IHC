@@ -27,7 +27,7 @@ class _InputReminderData extends State<InputReminderData> {
   TimeOfDay selectedTime;
   DateTime ahora;
   String titulo;
-  String des;
+  String description;
 
   Future<int> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -139,11 +139,11 @@ class _InputReminderData extends State<InputReminderData> {
   Widget build(BuildContext context) {
     if(this.widget.recordatorio!=null){
       titulo=this.widget.recordatorio.title;
-      des=this.widget.recordatorio.subTitle;
+      description=this.widget.recordatorio.subTitle;
       ahora=this.widget.recordatorio.deadLine;
     }else{
       titulo='Titulo';
-      des='Descripcion';
+      description='Descripcion';
       ahora=DateTime.now();
     }
     return Scaffold(
@@ -190,7 +190,7 @@ class _InputReminderData extends State<InputReminderData> {
                       ),
                       fillColor: Color(0xff686d76),       //Color de relleno
                       filled: true,                       //Relleno activado
-                      labelText: des,
+                      labelText: description,
                     ),
                     controller: controllerSubTitleText,
                   ),
@@ -206,7 +206,11 @@ class _InputReminderData extends State<InputReminderData> {
                         selectedTimeOp = await _selectTime(context,selectedDateOp);
                         if(selectedTimeOp){
                           Reminder reminder;
-                          String title= controllerTitleText.text.trim();
+                          String title;
+                          title= controllerTitleText.text.trim();
+                          if((this.widget.recordatorio!=null)&&(title.isEmpty)){
+                            title=this.widget.recordatorio.title;
+                          }
                           if(title.isNotEmpty){
                             reminder = Reminder(
                               title: controllerTitleText.text,
@@ -247,6 +251,9 @@ class _InputReminderData extends State<InputReminderData> {
                                 }).then((value) => print("Reminder Updated"))
                                     .catchError((error) => print("Failed to update reminder: $error"));
                               }
+                              this.widget.recordatorio.title=reminder.title;
+                              this.widget.recordatorio.subTitle=reminder.subTitle;
+                              this.widget.recordatorio.deadLine=reminder.deadLine;
                               this.widget.updateState();
                               Navigator.pop(context);
                             }

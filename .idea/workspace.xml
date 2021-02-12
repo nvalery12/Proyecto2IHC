@@ -21,9 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7ab1080e-91c2-490b-9f83-89f46841ce11" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/Pages/groups_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/Pages/groups_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/Pages/inputReminderData.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/Pages/inputReminderData.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/Pages/reminders_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/Pages/reminders_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proyectoihc2/lib/Widgets/card_reminder_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/proyectoihc2/lib/Widgets/card_reminder_list.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
