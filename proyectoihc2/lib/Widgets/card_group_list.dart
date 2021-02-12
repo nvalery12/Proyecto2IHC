@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 import 'package:proyectoihc2/Models/groupModel.dart';
+import 'package:proyectoihc2/Pages/groups_page.dart';
 import 'package:proyectoihc2/main.dart';
 
 import 'card_group.dart';
@@ -10,7 +11,8 @@ import 'card_group.dart';
 class CardGroupList extends StatefulWidget {
   List<Group> liGroups = List<Group>();
   String uid;
-  CardGroupList(this.liGroups,this.uid);
+  final updateState;
+  CardGroupList(this.liGroups,this.uid,this.updateState);
 
   @override
   _CardGroupListState createState() => _CardGroupListState();
@@ -44,6 +46,27 @@ class _CardGroupListState extends State<CardGroupList> {
                 await handler(true);
                 _delete(index);
                 this.widget.liGroups.removeAt(index);
+                setState(() {});
+              }),
+        ],
+        leadingActions: [
+          SwipeAction(
+              title: "Editar",
+              color: Colors.green,
+              onTap: (handler) async {
+                await handler(true);
+                if(this.widget.uid==this.widget.liGroups[index].uidOwner){
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context) =>
+                        SecondRoute(this.widget.liGroups, this.widget.uid, this.widget.updateState,grupo: this.widget.liGroups[index],)
+                    ),
+                  );
+                }else{
+                  final snackBar = SnackBar(
+                    content: Text('Solo el dueño del grupo puede modificarlo'),
+                  );
+                  Scaffold.of(context).showSnackBar(snackBar);
+                }
                 setState(() {});
               }),
         ],

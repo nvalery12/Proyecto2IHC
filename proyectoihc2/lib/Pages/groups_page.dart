@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:proyectoihc2/Widgets/card_group_list.dart';
 import 'package:proyectoihc2/Services/database.dart';
@@ -38,7 +39,7 @@ class _GroupPageState extends State<GroupPage> {
     return Stack(
       children: [
         if(dones)
-          if(this.widget.liGroups.isNotEmpty) CardGroupList(this.widget.liGroups,this.widget.uid)
+          if(this.widget.liGroups.isNotEmpty) CardGroupList(this.widget.liGroups,this.widget.uid,updateState)
           else Center(child: Text("Agrege nuevos grupos."),)
         else Center(child: CircularProgressIndicator()), //CardGroupList
         Align(
@@ -62,13 +63,22 @@ class SecondRoute extends StatefulWidget {
   final updateState;
   List<Group> liGroups;
   String uid;
+  Group grupo;
 
-  SecondRoute(this.liGroups,this.uid,this.updateState);
+  SecondRoute(this.liGroups,this.uid,this.updateState,{this.grupo});
   @override
   _SecondRouteState createState() => _SecondRouteState();
 }
 
 class _SecondRouteState extends State<SecondRoute> {
+  String titlee='Titulo';
+  @override
+  void initState() {
+    if(this.widget.grupo!=null){
+      titlee=this.widget.grupo.groupName;
+    }
+    super.initState();
+  }
 
   final controllerGroupTitleText = TextEditingController();
 
@@ -96,7 +106,7 @@ class _SecondRouteState extends State<SecondRoute> {
                   ),
                   fillColor: Color(0xff686d76),       //Color de relleno
                   filled: true,                       //Relleno activado
-                  labelText: 'Titulo',
+                  labelText: titlee,
                 ),
                 controller: controllerGroupTitleText,
               ),
@@ -105,24 +115,34 @@ class _SecondRouteState extends State<SecondRoute> {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () async{
-                  String title= controllerGroupTitleText.text.trim();
-                  if(title.isNotEmpty){
-                    Group group =  Group(
-                        groupName: controllerGroupTitleText.text,
-                        uidOwner: this.widget.uid
-                    );
-                    this.widget.liGroups.add(
-                        group
-                    );
-                    Database db = Database(this.widget.uid);
-                    db.createGroup(group);
-                    this.widget.updateState();
-                    Navigator.pop(context);
+                  if(this.widget.grupo==null){
+                    String title= controllerGroupTitleText.text.trim();
+                    if(title.isNotEmpty){
+                      Group group =  Group(
+                          groupName: controllerGroupTitleText.text,
+                          uidOwner: this.widget.uid
+                      );
+                      this.widget.liGroups.add(
+                          group
+                      );
+                      Database db = Database(this.widget.uid);
+                      db.createGroup(group);
+                      this.widget.updateState();
+                      Navigator.pop(context);
+                    }else{
+                      final snackBar = SnackBar(
+                        content: Text('Ingrese un titulo para el grupo'),
+                      );
+                      Scaffold.of(context).showSnackBar(snackBar);
+                    }
                   }else{
-                    final snackBar = SnackBar(
-                      content: Text('Ingrese un titulo para el grupo'),
-                    );
-                    Scaffold.of(context).showSnackBar(snackBar);
+                      this.widget.grupo.groupName=controllerGroupTitleText.text;
+                      await FirebaseFirestore.instance.collection('Groups').doc(this.widget.grupo.id).update(
+                          {'groupName':controllerGroupTitleText.text})
+                          .then((value) => print('Grupo actualizado'))
+                          .catchError((error) => print('Error: $error'));
+                      this.widget.updateState();
+                      Navigator.pop(context);
                   }
                 },
                 child: Text('Next'),
