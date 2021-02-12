@@ -232,11 +232,17 @@ class _InputReminderData extends State<InputReminderData> {
                               this.widget.updateState();
                               Navigator.pop(context);
                             }else{
+                              String subtitle;
+                              if(controllerSubTitleText.text.isNotEmpty){
+                                subtitle=controllerSubTitleText.text;
+                              }else{
+                                subtitle=this.widget.recordatorio.subTitle;
+                              }
                               if(this.widget.group==null){
                                 FirebaseFirestore.instance.collection('Users')
                                     .doc(this.widget.uid).set({
                                   'Title': reminder.title,
-                                  'subTitle': reminder.subTitle,
+                                  'subTitle': subtitle,
                                   'Date': reminder.deadLine,
                                 })
                                     .then((value) => print("Reminder Updated"))
@@ -246,7 +252,7 @@ class _InputReminderData extends State<InputReminderData> {
                                     .doc(this.widget.group.id).collection('Reminders')
                                     .doc(this.widget.recordatorio.id).set({
                                   'Title': reminder.title,
-                                  'subTitle': reminder.subTitle,
+                                  'subTitle': subtitle,
                                   'Date': reminder.deadLine,
                                 }).then((value) => print("Reminder Updated"))
                                     .catchError((error) => print("Failed to update reminder: $error"));
