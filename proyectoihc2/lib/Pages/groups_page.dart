@@ -105,17 +105,25 @@ class _SecondRouteState extends State<SecondRoute> {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () async{
-                  Group group =  Group(
-                      groupName: controllerGroupTitleText.text,
-                      uidOwner: this.widget.uid
-                  );
-                  this.widget.liGroups.add(
-                    group
-                  );
-                  Database db = Database(this.widget.uid);
-                  db.createGroup(group);
-                  this.widget.updateState();
-                  Navigator.pop(context);
+                  String title= controllerGroupTitleText.text.trim();
+                  if(title.isNotEmpty){
+                    Group group =  Group(
+                        groupName: controllerGroupTitleText.text,
+                        uidOwner: this.widget.uid
+                    );
+                    this.widget.liGroups.add(
+                        group
+                    );
+                    Database db = Database(this.widget.uid);
+                    db.createGroup(group);
+                    this.widget.updateState();
+                    Navigator.pop(context);
+                  }else{
+                    final snackBar = SnackBar(
+                      content: Text('Ingrese un titulo para el grupo'),
+                    );
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  }
                 },
                 child: Text('Next'),
                 style: ButtonStyle(
