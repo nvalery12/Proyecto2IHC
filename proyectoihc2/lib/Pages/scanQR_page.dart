@@ -1,5 +1,6 @@
 import 'package:barcode_scan_fix/barcode_scan.dart';
 import 'package:flutter/material.dart';
+import 'package:proyectoihc2/Models/groupModel.dart';
 import 'package:proyectoihc2/Services/database.dart';
 
 class ScanQR extends StatefulWidget {
@@ -11,13 +12,13 @@ class ScanQR extends StatefulWidget {
 
 class _ScanQRState extends State<ScanQR> {
 
-  String qrCodeResult = "Not Yet Scanned";
+  String qrCodeResult = "No se ha escaneado nada aun";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Scan QR Code"),
+        title: Text("Escanea tu codigo QR"),
       ),
       body: Container(
         padding: EdgeInsets.all(20),
@@ -25,12 +26,6 @@ class _ScanQRState extends State<ScanQR> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            //Message displayed over here
-            Text(
-              "Result",
-              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
             Text(
               qrCodeResult,
               style: TextStyle(
@@ -47,13 +42,14 @@ class _ScanQRState extends State<ScanQR> {
               padding: EdgeInsets.all(15),
               onPressed: () async {
                 String codeSanner = await BarcodeScanner.scan(); //barcode scnner
-                setState(() {
-                  qrCodeResult = codeSanner;
-                });
                 Database db = Database(this.widget.uid);
-                db.addGroupMemberWithUID(qrCodeResult);
+                Group group = await db.getUIDGroup(codeSanner);
+                setState(() {
+                  qrCodeResult = 'Has ingresado exitosamente al grupo: ' + group.groupName;
+                });
+                db.addGroupMemberWithUID(codeSanner);
               },
-              child: Text("Open Scanner",style: TextStyle(color: Colors.indigo[900]),),
+              child: Text("Abrir escaner",style: TextStyle(color: Colors.indigo[900]),),
               //Button having rounded rectangle border
               shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.indigo[900]),
