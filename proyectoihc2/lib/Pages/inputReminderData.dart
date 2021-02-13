@@ -206,6 +206,7 @@ class _InputReminderData extends State<InputReminderData> {
                             this.widget.litems.add(
                                 reminder
                             );
+                            this.widget.litems.sort((A,B) => A.deadLine.isBefore(B.deadLine) ? 0 : 1);
                             Database db = Database(this.widget.uid);
                             if (this.widget.group == null) {
                               db.addPersonalReminder(reminder);

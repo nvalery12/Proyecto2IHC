@@ -16,7 +16,7 @@ class _GenerateQRState extends State<GenerateQR> {
     return Scaffold(
       //Appbar having title
       appBar: AppBar(
-        title: Center(child: Text("Generate QR Code")),
+        title: Center(child: Text("Escanear codigo QR")),
       ),
       body: Container(
         padding: EdgeInsets.all(20),
@@ -29,7 +29,7 @@ class _GenerateQRState extends State<GenerateQR> {
             children: [
               QrImage(data: this.widget.qrData),
               SizedBox(height: 20),
-              Text("Generate QR Code",style: TextStyle(fontSize: 20),),
+              Text("Escanee este codigo en cofiguración!",style: TextStyle(fontSize: 20),),
             ],
           ),
         ),
