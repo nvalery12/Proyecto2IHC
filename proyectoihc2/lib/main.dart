@@ -6,15 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:proyectoihc2/Pages/configuration_page.dart';
-import 'package:proyectoihc2/Pages/generateQR_page.dart';
 import 'package:proyectoihc2/Pages/reminders_page_wrapper.dart';
-import 'package:proyectoihc2/Pages/scanQR_page.dart';
 import 'package:proyectoihc2/Pages/groups_page.dart';
-import 'package:proyectoihc2/Pages/reminders_page.dart';
 import 'package:proyectoihc2/Pages/sing_in_page.dart';
 import 'Models/reminder.dart';
 import 'Services/authServices.dart';
-import 'Services/database.dart';
 
 List<Reminder> litems = List<Reminder>();
 String uid = "";
@@ -62,7 +58,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Color(0xff30475e),
             accentColor:  Color(0xff30475e),
-            cardColor:  Color(0xff30475e)
+            cardColor:  Color(0xff30475e),
       ),
       ),
     );

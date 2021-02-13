@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:proyectoihc2/Models/groupModel.dart';
 import 'package:proyectoihc2/Models/reminder.dart';
@@ -54,7 +53,7 @@ class _MainPageState extends State<MainPage> {
       children: [
         if(carga)
           if(this.widget.litems.isNotEmpty) CardReminderList(this.widget.litems,this.widget.uid,aux)
-            else Center( child: Text("Ingrese recordatorios"))
+            else Center( child: Text("Ingrese recordatorios",style: TextStyle( color: Colors.white, fontSize: 30),))
         else Center(child: CircularProgressIndicator(),),
         Align(
           alignment: Alignment.bottomRight,

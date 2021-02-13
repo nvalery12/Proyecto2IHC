@@ -59,12 +59,13 @@ class SignUpPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: RaisedButton(
                   onPressed: () {
-                    context.read<AuthenticationService>().signUp(
+                    /*print(context.read<AuthenticationService>().signUp(
                       email: emailController.text.trim(),
                       password: passwordController.text.trim(),
-                    );
+                    ));
+                    Navigator.of(context).pop();*/
                   },
-                  child: Text("Sign up"),
+                  child: Text("Registrarse"),
                   color: Color(0xff30475e),
                   textColor: Colors.white,
                 ),

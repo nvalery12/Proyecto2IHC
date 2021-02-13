@@ -39,7 +39,7 @@ class _GroupPageState extends State<GroupPage> {
       children: [
         if(dones)
           if(this.widget.liGroups.isNotEmpty) CardGroupList(this.widget.liGroups,this.widget.uid)
-          else Center(child: Text("Agrege nuevos grupos."),)
+          else Center(child: Text("Agrege nuevos grupos.",style: TextStyle( color: Colors.white, fontSize: 30),),)
         else Center(child: CircularProgressIndicator()), //CardGroupList
         Align(
           alignment: Alignment.bottomRight,

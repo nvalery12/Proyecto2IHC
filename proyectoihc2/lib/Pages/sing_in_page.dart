@@ -65,7 +65,7 @@ class SignInPage extends StatelessWidget {
                       password: passwordController.text.trim(),
                     );
                   },
-                  child: Text("Sign in"),
+                  child: Text("Ingresar"),
                   color: Color(0xff30475e), //Color de boton
                   textColor: Colors.white,  //Color de letra
                 ),
@@ -78,12 +78,8 @@ class SignInPage extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => RegisterPage(),
                       ),
                     );
-                    /*context.read<AuthenticationService>().signUp(
-                      email: emailController.text.trim(),
-                      password: passwordController.text.trim(),
-                    );*/
                   },
-                  child: Text("Sign up"),
+                  child: Text("Registrarse"),
                   color: Color(0xff30475e),
                   textColor: Colors.white,
                 ),

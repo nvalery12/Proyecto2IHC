@@ -53,16 +53,6 @@ class _CardReminderListState extends State<CardReminderList> {
               setState(() {});
             }),
       ],
-      leadingActions: [ //Opciones de izquierda a derecha
-        SwipeAction(
-            title: "Editar",
-            color: Colors.green,
-            onTap: (handler) async {
-              await handler(true);
-              this.widget.litems.removeAt(index);
-              setState(() {});
-            }),
-      ],
       child: CardReminder(this.widget.litems[index]),
     );
   }
