@@ -79,29 +79,30 @@ class _MainPageState extends State<MainPage> {
             backgroundColor: Color(0xff686d76),
           ),
         ),
-
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: new FloatingActionButton(
-            child: new Icon(Icons.email),
-            heroTag: "btn1",
-            onPressed:() async {
-              if (this.widget.group == null) {
-                this.widget.litems.removeRange(0,this.widget.litems.length);
-                this.widget.uid = '';
-                this.widget.group = null;
-                context.read<AuthenticationService>().signOut();
-              }
-              if (this.widget.group != null) {
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => GenerateQR(this.widget.group.id)
-                  ),
-                );
-              }
-            },
-            backgroundColor: Color(0xff686d76),
+        if(this.widget.group != null)
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: new FloatingActionButton(
+              child: new Icon(Icons.qr_code),
+              heroTag: "btn1",
+              onPressed: () async {
+                if (this.widget.group == null) {
+                  this.widget.litems.removeRange(0, this.widget.litems.length);
+                  this.widget.uid = '';
+                  this.widget.group = null;
+                  context.read<AuthenticationService>().signOut();
+                }
+                if (this.widget.group != null) {
+                  Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (context) => GenerateQR(this.widget.group.id)
+                    ),
+                  );
+                }
+              },
+              backgroundColor: Color(0xff686d76),
+            ),
           ),
-        ),
       ],
     );
   }
